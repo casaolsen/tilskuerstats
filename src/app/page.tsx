@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { getCountriesOverview } from "@/lib/queries";
 
+// Data changes as scrapers run — render fresh per request instead of baking
+// it in at build time.
+export const dynamic = "force-dynamic";
+
 const SERIES_COLOR: Record<string, string> = {
   DK: "var(--series-dk)",
   SE: "var(--series-se)",

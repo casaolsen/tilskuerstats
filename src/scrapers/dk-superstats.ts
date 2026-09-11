@@ -18,7 +18,9 @@
  */
 import "dotenv/config";
 import * as cheerio from "cheerio";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import ws from "ws";
 import { PrismaClient } from "../generated/prisma/client";
 import { LEAGUES } from "../../prisma/seed-data";
 import { resolveSlug, type ScrapedMatch, type TeamNameMap } from "./types";
@@ -85,7 +87,8 @@ async function fetchRound(round: number, season: string): Promise<ScrapedMatch[]
 }
 
 async function upsertMatches(matches: ScrapedMatch[], seasonLabel: string) {
-  const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL ?? "file:./dev.db" });
+  neonConfig.webSocketConstructor = ws;
+  const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL });
   const prisma = new PrismaClient({ adapter });
 
   const season = await prisma.season.findFirst({

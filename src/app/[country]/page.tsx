@@ -5,9 +5,9 @@ import { AttendanceBarChart } from "@/components/AttendanceBarChart";
 
 const VALID_CODES = ["dk", "se", "no"];
 
-export function generateStaticParams() {
-  return VALID_CODES.map((country) => ({ country }));
-}
+// Data changes as scrapers run — render fresh per request instead of baking
+// it in at build time.
+export const dynamic = "force-dynamic";
 
 export default async function CountryPage({ params }: { params: Promise<{ country: string }> }) {
   const { country } = await params;

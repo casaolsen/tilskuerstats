@@ -7,21 +7,52 @@ prognosemodel for tilskuertal baseret på historik, vejr og holdenes performance
 ## Stack
 
 - **Next.js 16** (App Router) + TypeScript + Tailwind CSS
-- **Prisma 7** + SQLite (dev) — datamodellen er database-agnostisk og kan
-  flyttes til Postgres for produktion ved at ændre `datasource` i
-  `prisma/schema.prisma` og skifte driver adapter i `src/lib/db.ts`
+- **Prisma 7** + **Postgres** via Neon's serverless driver
+  (`@prisma/adapter-neon`) — valgt fordi den fungerer godt med Vercels
+  serverless-funktioner (ingen persistente forbindelser at holde styr på)
 - **Recharts** til grafer
 
-## Kom i gang
+Alle sider under `/`, `/[country]` og `/[country]/[team]` er markeret
+`export const dynamic = "force-dynamic"`, så de altid henter friske tal fra
+databasen ved hvert kald — vigtigt for et site hvor data opdateres af
+scrapere uden en ny deploy.
+
+## Kom i gang (lokal udvikling)
+
+Du skal bruge en Postgres-database, også lokalt — nemmest er en gratis
+database på [neon.tech](https://neon.tech) (ingen lokal installation
+nødvendig):
+
+1. Opret en konto på neon.tech og et projekt
+2. Kopiér den **poolede** connection string (indeholder typisk `-pooler`)
+3. Sæt den i `.env` som `DATABASE_URL`
 
 ```bash
 npm install
-npx prisma migrate dev   # opretter dev.db og skemaet
-npm run db:seed          # fylder databasen med data (se "Data" nedenfor)
+npx prisma migrate dev --name init   # opretter skemaet i din Postgres-database
+npm run db:seed                      # fylder databasen med data (se "Data" nedenfor)
 npm run dev
 ```
 
 Åbn http://localhost:3000.
+
+## Deploy til Vercel
+
+1. Push branchen til GitHub (gjort) og merge evt. til `main`
+2. Opret en gratis konto på [vercel.com](https://vercel.com), log ind med
+   GitHub, og **Import** `casaolsen/tilskuerstats`
+3. Under projektets **Storage**-fane: opret en Postgres-database (kører på
+   Neon) — Vercel sætter automatisk `DATABASE_URL` som environment variable
+4. **Deploy**
+5. Kør skema + seed mod produktionsdatabasen én gang (fra din lokale maskine,
+   med `DATABASE_URL` sat til produktions-connection-stringen):
+   ```bash
+   npx prisma migrate deploy
+   npm run db:seed
+   ```
+
+Herefter er sitet live og henter data direkte fra Postgres-databasen ved
+hvert kald.
 
 ## Datamodel
 

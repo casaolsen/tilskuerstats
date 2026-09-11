@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { getTeamDetail } from "@/lib/queries";
 import { AttendanceLineChart } from "@/components/AttendanceLineChart";
 
+// Data changes as scrapers run — render fresh per request instead of baking
+// it in at build time.
+export const dynamic = "force-dynamic";
+
 export default async function TeamPage({
   params,
 }: {
