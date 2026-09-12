@@ -16,13 +16,21 @@ export type SeedTeam = {
   avgAttendance: number;
 };
 
+export type SeedSeason = {
+  label: string;
+  seasonStart: string; // ISO date
+  // Multiplier applied to each team's avgAttendance below for this season.
+  // 1.0 = the researched current-season figures; earlier seasons use a
+  // plausible synthetic multiplier since we don't have real historical data.
+  attendanceFactor: number;
+};
+
 export type SeedLeague = {
   countryCode: "DK" | "SE" | "NO";
   countryName: string;
   leagueName: string;
   leagueSlug: string;
-  seasonLabel: string;
-  seasonStart: string; // ISO date
+  seasons: SeedSeason[]; // ordered oldest -> newest
   teams: SeedTeam[];
 };
 
@@ -32,8 +40,10 @@ export const LEAGUES: SeedLeague[] = [
     countryName: "Danmark",
     leagueName: "Superliga",
     leagueSlug: "superliga",
-    seasonLabel: "2025/2026",
-    seasonStart: "2025-07-18",
+    seasons: [
+      { label: "2024/2025", seasonStart: "2024-07-19", attendanceFactor: 0.93 },
+      { label: "2025/2026", seasonStart: "2025-07-18", attendanceFactor: 1.0 },
+    ],
     teams: [
       { name: "FC København", shortName: "FCK", slug: "fc-kobenhavn", city: "København", venue: "Parken", capacity: 38065, avgAttendance: 17200 },
       { name: "Brøndby IF", shortName: "BIF", slug: "brondby-if", city: "Brøndby", venue: "Brøndby Stadion", capacity: 28000, avgAttendance: 15000 },
@@ -54,8 +64,10 @@ export const LEAGUES: SeedLeague[] = [
     countryName: "Sverige",
     leagueName: "Allsvenskan",
     leagueSlug: "allsvenskan",
-    seasonLabel: "2025",
-    seasonStart: "2025-03-29",
+    seasons: [
+      { label: "2024", seasonStart: "2024-03-30", attendanceFactor: 0.9 },
+      { label: "2025", seasonStart: "2025-03-29", attendanceFactor: 1.0 },
+    ],
     teams: [
       { name: "AIK", shortName: "AIK", slug: "aik", city: "Solna", venue: "Strawberry Arena", capacity: 50000, avgAttendance: 30024 },
       { name: "Hammarby IF", shortName: "HIF", slug: "hammarby-if", city: "Stockholm", venue: "Tele2 Arena", capacity: 30000, avgAttendance: 24297 },
@@ -80,8 +92,10 @@ export const LEAGUES: SeedLeague[] = [
     countryName: "Norge",
     leagueName: "Eliteserien",
     leagueSlug: "eliteserien",
-    seasonLabel: "2025",
-    seasonStart: "2025-04-06",
+    seasons: [
+      { label: "2024", seasonStart: "2024-04-07", attendanceFactor: 0.92 },
+      { label: "2025", seasonStart: "2025-04-06", attendanceFactor: 1.0 },
+    ],
     teams: [
       { name: "Rosenborg BK", shortName: "RBK", slug: "rosenborg-bk", city: "Trondheim", venue: "Lerkendal Stadion", capacity: 21421, avgAttendance: 15200 },
       { name: "SK Brann", shortName: "BRANN", slug: "sk-brann", city: "Bergen", venue: "Brann Stadion", capacity: 16800, avgAttendance: 12100 },

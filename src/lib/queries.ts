@@ -37,16 +37,15 @@ export async function getCountriesOverview() {
   });
 }
 
-export async function getLeagueByCountryCode(code: string) {
+// seasonParam: undefined -> latest season (default); "all" -> aggregate across
+// every season on record; otherwise the exact Season.label to filter to.
+export async function getLeagueByCountryCode(code: string, seasonParam?: string) {
   const country = await prisma.country.findUnique({
     where: { code: code.toUpperCase() },
     include: {
       leagues: {
         include: {
-          seasons: {
-            orderBy: { startDate: "desc" },
-            take: 1,
-          },
+          seasons: { orderBy: { startDate: "desc" } },
         },
       },
     },
@@ -54,15 +53,19 @@ export async function getLeagueByCountryCode(code: string) {
   if (!country || country.leagues.length === 0) return null;
 
   const league = country.leagues[0];
-  const season = league.seasons[0];
-  if (!season) return null;
+  const seasons = league.seasons;
+  if (seasons.length === 0) return null;
+
+  const latestSeason = seasons[0];
+  const isAllSeasons = seasonParam === "all";
+  const selectedSeason = isAllSeasons ? null : (seasons.find((s) => s.label === seasonParam) ?? latestSeason);
 
   const teams = await prisma.team.findMany({
     where: { countryId: country.id },
     include: {
       homeVenue: true,
       homeMatches: {
-        where: { seasonId: season.id },
+        where: isAllSeasons ? { season: { leagueId: league.id } } : { seasonId: selectedSeason!.id },
         select: { attendance: true },
       },
     },
@@ -93,25 +96,40 @@ export async function getLeagueByCountryCode(code: string) {
   return {
     country: { code: country.code, name: country.name },
     league: { name: league.name, slug: league.slug },
-    season: { label: season.label },
+    seasons: seasons.map((s) => s.label), // newest first
+    selectedSeasonLabel: isAllSeasons ? "all" : selectedSeason!.label,
+    isAllSeasons,
     teams: teamStats,
   };
 }
 
-export async function getTeamDetail(slug: string) {
+// seasonParam: undefined -> latest season (default); "all" -> full history;
+// otherwise the exact Season.label to filter to.
+export async function getTeamDetail(slug: string, seasonParam?: string) {
   const team = await prisma.team.findUnique({
     where: { slug },
-    include: {
-      country: true,
-      homeVenue: true,
-    },
+    include: { country: true, homeVenue: true },
   });
   if (!team) return null;
 
+  const league = await prisma.league.findFirst({
+    where: { countryId: team.countryId },
+    include: { seasons: { orderBy: { startDate: "desc" } } },
+  });
+  if (!league || league.seasons.length === 0) return null;
+
+  const seasons = league.seasons;
+  const latestSeason = seasons[0];
+  const isAllSeasons = seasonParam === "all";
+  const selectedSeason = isAllSeasons ? null : (seasons.find((s) => s.label === seasonParam) ?? latestSeason);
+
   const matches = await prisma.match.findMany({
-    where: { OR: [{ homeTeamId: team.id }, { awayTeamId: team.id }] },
-    include: { homeTeam: true, awayTeam: true, season: { include: { league: true } } },
-    orderBy: { kickoff: "asc" },
+    where: {
+      OR: [{ homeTeamId: team.id }, { awayTeamId: team.id }],
+      ...(isAllSeasons ? { season: { leagueId: league.id } } : { seasonId: selectedSeason!.id }),
+    },
+    include: { homeTeam: true, awayTeam: true, season: true },
+    orderBy: [{ season: { startDate: "asc" } }, { kickoff: "asc" }],
   });
 
   const homeMatches = matches.filter((m) => m.homeTeamId === team.id);
@@ -130,10 +148,15 @@ export async function getTeamDetail(slug: string) {
       city: team.homeVenue?.city ?? null,
       capacity: team.homeVenue?.capacity ?? null,
     },
-    leagueName: matches[0]?.season.league.name ?? null,
+    leagueName: league.name,
+    seasons: seasons.map((s) => s.label), // newest first
+    selectedSeasonLabel: isAllSeasons ? "all" : selectedSeason!.label,
+    isAllSeasons,
     avgAttendance,
-    chartData: homeMatches.map((m) => ({
-      round: m.round ?? 0,
+    chartData: homeMatches.map((m, i) => ({
+      x: isAllSeasons ? i + 1 : (m.round ?? i + 1),
+      round: m.round,
+      seasonLabel: m.season.label,
       opponent: m.awayTeam.name,
       attendance: m.attendance,
       date: m.kickoff.toISOString().slice(0, 10),
@@ -141,6 +164,7 @@ export async function getTeamDetail(slug: string) {
     matches: matches.map((m) => ({
       id: m.id,
       round: m.round,
+      seasonLabel: m.season.label,
       date: m.kickoff.toISOString().slice(0, 10),
       home: m.homeTeam.name,
       away: m.awayTeam.name,

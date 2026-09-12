@@ -144,7 +144,8 @@ async function main() {
   const dryRun = args.includes("--dry-run");
   const roundArg = args.find((a) => a.startsWith("--round"));
   const round = roundArg ? parseInt(roundArg.split("=")[1] ?? args[args.indexOf(roundArg) + 1], 10) : 1;
-  const season = LEAGUES.find((l) => l.leagueSlug === "superliga")!.seasonLabel;
+  const dkSeasons = LEAGUES.find((l) => l.leagueSlug === "superliga")!.seasons;
+  const season = dkSeasons[dkSeasons.length - 1].label; // most recent
 
   console.log(`Fetching round ${round} of Superliga ${season} from ${BASE_URL} ...`);
   const matches = await fetchRound(round, season);

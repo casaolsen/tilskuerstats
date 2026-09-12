@@ -14,8 +14,8 @@ runSeed(prisma)
     for (const s of summary) {
       console.log(
         s.skipped
-          ? `Skipped ${s.league} (already seeded).`
-          : `Seeded ${s.league}: ${s.teams} teams, ${s.matches} matches.`
+          ? `Skipped ${s.league} ${s.season} (already seeded).`
+          : `Seeded ${s.league} ${s.season}: ${s.teams} teams, ${s.matches} matches.`
       );
     }
   })

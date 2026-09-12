@@ -2,7 +2,14 @@
 
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-type Row = { round: number; opponent: string; attendance: number | null; date: string };
+type Row = {
+  x: number;
+  round: number | null;
+  seasonLabel: string;
+  opponent: string;
+  attendance: number | null;
+  date: string;
+};
 
 function CustomTooltip({ active, payload }: { active?: boolean; payload?: { payload: Row }[] }) {
   if (!active || !payload?.length) return null;
@@ -13,7 +20,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: { payl
       style={{ background: "var(--surface-1)", borderColor: "var(--border)", color: "var(--text-primary)" }}
     >
       <div className="font-medium">
-        Runde {row.round} vs. {row.opponent}
+        {row.seasonLabel} · {row.round != null ? `Runde ${row.round}` : "Kamp"} vs. {row.opponent}
       </div>
       <div style={{ color: "var(--text-secondary)" }}>{row.date}</div>
       <div className="mt-1 font-medium tabular-nums">
@@ -23,18 +30,18 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: { payl
   );
 }
 
-export function AttendanceLineChart({ data }: { data: Row[] }) {
+export function AttendanceLineChart({ data, xAxisLabel = "Runde" }: { data: Row[]; xAxisLabel?: string }) {
   return (
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <LineChart data={data} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
           <CartesianGrid vertical={false} stroke="var(--gridline)" />
           <XAxis
-            dataKey="round"
+            dataKey="x"
             tick={{ fill: "var(--text-muted)", fontSize: 12 }}
             axisLine={{ stroke: "var(--baseline)" }}
             tickLine={false}
-            label={{ value: "Runde", position: "insideBottom", offset: -4, fill: "var(--text-muted)", fontSize: 12 }}
+            label={{ value: xAxisLabel, position: "insideBottom", offset: -4, fill: "var(--text-muted)", fontSize: 12 }}
           />
           <YAxis
             tick={{ fill: "var(--text-muted)", fontSize: 12 }}

@@ -36,7 +36,13 @@ function roundRobinPairs(n: number): [number, number][][] {
   return rounds;
 }
 
-export type SeedSummary = { league: string; teams: number; matches: number; skipped: boolean }[];
+export type SeedSummary = {
+  league: string;
+  season: string;
+  teams: number;
+  matches: number;
+  skipped: boolean;
+}[];
 
 // Shared by prisma/seed.ts (CLI) and src/app/api/setup/route.ts (one-click
 // browser bootstrap) so the two never drift apart.
@@ -63,16 +69,8 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
       },
     });
 
-    const season = await prisma.season.upsert({
-      where: { leagueId_label: { leagueId: leagueRow.id, label: league.seasonLabel } },
-      update: {},
-      create: {
-        leagueId: leagueRow.id,
-        label: league.seasonLabel,
-        startDate: new Date(league.seasonStart),
-      },
-    });
-
+    // Teams/venues don't change between seasons in this demo dataset, so
+    // they're upserted once per league, outside the season loop below.
     const teamRows = [];
     for (const t of league.teams) {
       const venue = await prisma.venue.upsert({
@@ -105,45 +103,70 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
       teamRows.push({ ...t, id: team.id, venueId: venue.id });
     }
 
-    // Skip if matches already seeded for this season.
-    const existingMatches = await prisma.match.count({ where: { seasonId: season.id } });
-    if (existingMatches > 0) {
-      summary.push({ league: league.leagueName, teams: teamRows.length, matches: 0, skipped: true });
-      continue;
-    }
+    for (const seasonDef of league.seasons) {
+      const season = await prisma.season.upsert({
+        where: { leagueId_label: { leagueId: leagueRow.id, label: seasonDef.label } },
+        update: {},
+        create: {
+          leagueId: leagueRow.id,
+          label: seasonDef.label,
+          startDate: new Date(seasonDef.seasonStart),
+        },
+      });
 
-    const rounds = roundRobinPairs(teamRows.length);
-    const kickoffBase = new Date(league.seasonStart);
-    let matchCount = 0;
-
-    for (let r = 0; r < rounds.length; r++) {
-      const kickoff = new Date(kickoffBase);
-      kickoff.setDate(kickoff.getDate() + r * 7);
-
-      for (const [homeIdx, awayIdx] of rounds[r]) {
-        const home = teamRows[homeIdx];
-        const away = teamRows[awayIdx];
-        const variance = 0.8 + rand() * 0.45; // +/- ~20% around the team's known average
-        const attendance = Math.min(home.capacity, Math.max(200, Math.round(home.avgAttendance * variance)));
-
-        await prisma.match.create({
-          data: {
-            seasonId: season.id,
-            round: r + 1,
-            kickoff,
-            homeTeamId: home.id,
-            awayTeamId: away.id,
-            venueId: home.venueId,
-            attendance,
-            homeScore: randInt(0, 4),
-            awayScore: randInt(0, 4),
-            source: "seed-demo-data",
-          },
+      // Skip if matches already seeded for this season.
+      const existingMatches = await prisma.match.count({ where: { seasonId: season.id } });
+      if (existingMatches > 0) {
+        summary.push({
+          league: league.leagueName,
+          season: seasonDef.label,
+          teams: teamRows.length,
+          matches: 0,
+          skipped: true,
         });
-        matchCount++;
+        continue;
       }
+
+      const rounds = roundRobinPairs(teamRows.length);
+      const kickoffBase = new Date(seasonDef.seasonStart);
+      let matchCount = 0;
+
+      for (let r = 0; r < rounds.length; r++) {
+        const kickoff = new Date(kickoffBase);
+        kickoff.setDate(kickoff.getDate() + r * 7);
+
+        for (const [homeIdx, awayIdx] of rounds[r]) {
+          const home = teamRows[homeIdx];
+          const away = teamRows[awayIdx];
+          const variance = 0.8 + rand() * 0.45; // +/- ~20% around the team's known average
+          const baseAvg = home.avgAttendance * seasonDef.attendanceFactor;
+          const attendance = Math.min(home.capacity, Math.max(200, Math.round(baseAvg * variance)));
+
+          await prisma.match.create({
+            data: {
+              seasonId: season.id,
+              round: r + 1,
+              kickoff,
+              homeTeamId: home.id,
+              awayTeamId: away.id,
+              venueId: home.venueId,
+              attendance,
+              homeScore: randInt(0, 4),
+              awayScore: randInt(0, 4),
+              source: "seed-demo-data",
+            },
+          });
+          matchCount++;
+        }
+      }
+      summary.push({
+        league: league.leagueName,
+        season: seasonDef.label,
+        teams: teamRows.length,
+        matches: matchCount,
+        skipped: false,
+      });
     }
-    summary.push({ league: league.leagueName, teams: teamRows.length, matches: matchCount, skipped: false });
   }
 
   return summary;

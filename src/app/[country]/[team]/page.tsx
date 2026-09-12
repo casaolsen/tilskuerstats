@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTeamDetail } from "@/lib/queries";
 import { AttendanceLineChart } from "@/components/AttendanceLineChart";
+import { SeasonSelector } from "@/components/SeasonSelector";
 
 // Data changes as scrapers run — render fresh per request instead of baking
 // it in at build time.
@@ -9,11 +10,14 @@ export const dynamic = "force-dynamic";
 
 export default async function TeamPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ country: string; team: string }>;
+  searchParams: Promise<{ season?: string }>;
 }) {
   const { country, team } = await params;
-  const data = await getTeamDetail(team);
+  const { season } = await searchParams;
+  const data = await getTeamDetail(team, season);
   if (!data) notFound();
 
   return (
@@ -30,9 +34,13 @@ export default async function TeamPage({
         </div>
       </div>
 
+      <SeasonSelector basePath={`/${country}/${team}`} seasons={data.seasons} selected={data.selectedSeasonLabel} />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border p-5" style={{ borderColor: "var(--border)", background: "var(--surface-1)" }}>
-          <div className="text-xs" style={{ color: "var(--text-muted)" }}>Gns. tilskuere/hjemmekamp</div>
+          <div className="text-xs" style={{ color: "var(--text-muted)" }}>
+            Gns. tilskuere/hjemmekamp{data.isAllSeasons ? " (alle sæsoner)" : ""}
+          </div>
           <div className="mt-1 text-2xl font-semibold tabular-nums">
             {data.avgAttendance?.toLocaleString("da-DK") ?? "–"}
           </div>
@@ -49,9 +57,9 @@ export default async function TeamPage({
 
       <section>
         <h2 className="mb-3 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
-          Tilskuertal pr. runde (hjemmekampe)
+          Tilskuertal pr. {data.isAllSeasons ? "kamp (alle sæsoner)" : "runde"} (hjemmekampe)
         </h2>
-        <AttendanceLineChart data={data.chartData} />
+        <AttendanceLineChart data={data.chartData} xAxisLabel={data.isAllSeasons ? "Kamp #" : "Runde"} />
       </section>
 
       <section>
@@ -62,6 +70,9 @@ export default async function TeamPage({
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b text-left" style={{ borderColor: "var(--border)" }}>
+                {data.isAllSeasons && (
+                  <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Sæson</th>
+                )}
                 <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Runde</th>
                 <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Dato</th>
                 <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Kamp</th>
@@ -72,6 +83,9 @@ export default async function TeamPage({
             <tbody>
               {data.matches.map((m) => (
                 <tr key={m.id} className="border-b last:border-0" style={{ borderColor: "var(--border)" }}>
+                  {data.isAllSeasons && (
+                    <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>{m.seasonLabel}</td>
+                  )}
                   <td className="px-3 py-2 tabular-nums" style={{ color: "var(--text-muted)" }}>{m.round}</td>
                   <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>{m.date}</td>
                   <td className="px-3 py-2">
