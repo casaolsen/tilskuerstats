@@ -49,9 +49,17 @@ npm run dev
    GitHub, og **Import** `casaolsen/tilskuerstats`
 3. Under projektets **Storage**-fane: opret en Postgres-database (kører på
    Neon) — Vercel sætter automatisk `DATABASE_URL` som environment variable
-4. **Deploy**
-5. Kør skema + seed mod produktionsdatabasen én gang (fra din lokale maskine,
-   med `DATABASE_URL` sat til produktions-connection-stringen):
+4. Sæt endnu en environment variable: `SETUP_SECRET` = en selvvalgt hemmelig
+   streng (bruges kun til at beskytte trin 6)
+5. **Deploy**
+6. Opret skema + seed-data ved at besøge (i browseren, én gang):
+   `https://<dit-projekt>.vercel.app/api/setup?key=<din SETUP_SECRET>`
+   — det opretter tabellerne og fylder dem med data. Siden svarer med en
+   lille JSON-status. Kan roligt besøges flere gange (den springer over det
+   der allerede findes).
+
+   Har du i stedet Node.js lokalt og kan nå databasen direkte, kan du bruge
+   den "rigtige" vej i stedet for `/api/setup`:
    ```bash
    npx prisma migrate deploy
    npm run db:seed
