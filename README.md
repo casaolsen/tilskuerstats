@@ -38,7 +38,13 @@ npm run dev
 
 ## Deploy til Vercel
 
-1. Push branchen til GitHub (gjort) og merge evt. til `main`
+> **OBS:** Dette repo har (endnu) ingen `main`-branch — kun feature-branches
+> under `claude/...`. Vercel vælger som udgangspunkt en af dem som
+> "default", hvilket kan være den forkerte. Tjek/sæt derfor **Project →
+> Settings → Git → Production Branch** til `claude/nordic-viewer-stats-site-rkudtt`
+> (den med selve Next.js-appen) — ellers bygger Vercel en tom/forkert branch.
+
+1. Push branchen til GitHub (gjort) og merge evt. senere til en rigtig `main`
 2. Opret en gratis konto på [vercel.com](https://vercel.com), log ind med
    GitHub, og **Import** `casaolsen/tilskuerstats`
 3. Under projektets **Storage**-fane: opret en Postgres-database (kører på
