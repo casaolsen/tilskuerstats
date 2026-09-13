@@ -11,12 +11,17 @@
 // hand if you change the schema before that's set up.
 //
 // All statements are IF NOT EXISTS / idempotent so hitting the route more
-// than once is harmless.
+// than once is harmless — including running it against the already-live
+// database after a schema change: CREATE TABLE IF NOT EXISTS includes the
+// current full column set for anyone starting fresh, and the ALTER TABLE ...
+// ADD COLUMN IF NOT EXISTS block below adds any new columns to a database
+// that already has these tables from an earlier version of this file.
 export const SETUP_DDL: string[] = [
   `CREATE TABLE IF NOT EXISTS "Country" (
     "id" TEXT PRIMARY KEY,
     "code" TEXT NOT NULL UNIQUE,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "website" TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS "League" (
     "id" TEXT PRIMARY KEY,
@@ -24,6 +29,8 @@ export const SETUP_DDL: string[] = [
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL UNIQUE,
     "tier" INTEGER NOT NULL DEFAULT 1,
+    "website" TEXT,
+    "logoUrl" TEXT,
     UNIQUE ("countryId", "name")
   )`,
   `CREATE TABLE IF NOT EXISTS "Season" (
@@ -39,7 +46,9 @@ export const SETUP_DDL: string[] = [
     "countryId" TEXT NOT NULL REFERENCES "Country"("id"),
     "name" TEXT NOT NULL,
     "city" TEXT NOT NULL,
-    "capacity" INTEGER
+    "address" TEXT,
+    "capacity" INTEGER,
+    "imageUrl" TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS "Team" (
     "id" TEXT PRIMARY KEY,
@@ -47,7 +56,15 @@ export const SETUP_DDL: string[] = [
     "name" TEXT NOT NULL,
     "shortName" TEXT,
     "slug" TEXT NOT NULL UNIQUE,
+    "website" TEXT,
+    "logoUrl" TEXT,
     "homeVenueId" TEXT REFERENCES "Venue"("id")
+  )`,
+  `CREATE TABLE IF NOT EXISTS "SeasonTeam" (
+    "id" TEXT PRIMARY KEY,
+    "seasonId" TEXT NOT NULL REFERENCES "Season"("id"),
+    "teamId" TEXT NOT NULL REFERENCES "Team"("id"),
+    UNIQUE ("seasonId", "teamId")
   )`,
   `CREATE TABLE IF NOT EXISTS "Match" (
     "id" TEXT PRIMARY KEY,
@@ -72,4 +89,14 @@ export const SETUP_DDL: string[] = [
   `CREATE INDEX IF NOT EXISTS "Match_homeTeamId_idx" ON "Match"("homeTeamId")`,
   `CREATE INDEX IF NOT EXISTS "Match_awayTeamId_idx" ON "Match"("awayTeamId")`,
   `CREATE INDEX IF NOT EXISTS "Match_kickoff_idx" ON "Match"("kickoff")`,
+
+  // Additive upgrade path for databases that already had these tables from
+  // an earlier version of this file (no-op on a fresh CREATE TABLE above).
+  `ALTER TABLE "Country" ADD COLUMN IF NOT EXISTS "website" TEXT`,
+  `ALTER TABLE "League" ADD COLUMN IF NOT EXISTS "website" TEXT`,
+  `ALTER TABLE "League" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "address" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "imageUrl" TEXT`,
+  `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "website" TEXT`,
+  `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
 ];

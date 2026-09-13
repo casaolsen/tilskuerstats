@@ -114,6 +114,16 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
         },
       });
 
+      // Roster: this synthetic dataset has every team play every season, but
+      // in general this is where promotion/relegation would differ per season.
+      for (const t of teamRows) {
+        await prisma.seasonTeam.upsert({
+          where: { seasonId_teamId: { seasonId: season.id, teamId: t.id } },
+          update: {},
+          create: { seasonId: season.id, teamId: t.id },
+        });
+      }
+
       // Skip if matches already seeded for this season.
       const existingMatches = await prisma.match.count({ where: { seasonId: season.id } });
       if (existingMatches > 0) {

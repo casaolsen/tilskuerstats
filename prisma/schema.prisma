@@ -16,31 +16,38 @@ model Country {
   id      String   @id @default(cuid())
   code    String   @unique // DK, SE, NO
   name    String
+  website String?
   leagues League[]
   teams   Team[]
   venues  Venue[]
 }
 
 model League {
-  id        String   @id @default(cuid())
+  id       String   @id @default(cuid())
   countryId String
   country   Country  @relation(fields: [countryId], references: [id])
   name      String // e.g. "Superliga", "Allsvenskan", "Eliteserien"
   slug      String   @unique
-  tier      Int      @default(1)
+  tier      Int      @default(1) // 1 = top flight, 2 = second tier, ...
+  website   String?
+  logoUrl   String?
   seasons   Season[]
 
   @@unique([countryId, name])
 }
 
 model Season {
-  id        String    @id @default(cuid())
-  leagueId  String
-  league    League    @relation(fields: [leagueId], references: [id])
-  label     String // "2025/2026" (DK) or "2025" (SE/NO)
-  startDate DateTime?
-  endDate   DateTime?
-  matches   Match[]
+  id          String       @id @default(cuid())
+  leagueId    String
+  league      League       @relation(fields: [leagueId], references: [id])
+  label       String // "2025/2026" (DK) or "2025" (SE/NO)
+  startDate   DateTime?
+  endDate     DateTime?
+  matches     Match[]
+  // Which teams play in this league during this season — the source of
+  // truth for promotion/relegation (a team can be in SeasonTeam for
+  // Superliga one year and 1. Division the next without becoming a new Team).
+  seasonTeams SeasonTeam[]
 
   @@unique([leagueId, label])
 }
@@ -51,22 +58,40 @@ model Venue {
   country   Country  @relation(fields: [countryId], references: [id])
   name      String
   city      String
+  address   String? // for a future map embed
   capacity  Int?
+  imageUrl  String?
   teams     Team[]   @relation("HomeVenue")
   matches   Match[]
 }
 
 model Team {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   countryId   String
-  country     Country  @relation(fields: [countryId], references: [id])
+  country     Country      @relation(fields: [countryId], references: [id])
   name        String
   shortName   String?
-  slug        String   @unique
+  slug        String       @unique
+  website     String?
+  logoUrl     String?
   homeVenueId String?
-  homeVenue   Venue?   @relation("HomeVenue", fields: [homeVenueId], references: [id])
-  homeMatches Match[]  @relation("HomeTeam")
-  awayMatches Match[]  @relation("AwayTeam")
+  homeVenue   Venue?       @relation("HomeVenue", fields: [homeVenueId], references: [id])
+  homeMatches Match[]      @relation("HomeTeam")
+  awayMatches Match[]      @relation("AwayTeam")
+  seasons     SeasonTeam[]
+}
+
+// Join table: which teams are registered in which league-season. Lets a team
+// move between leagues (promotion/relegation) across seasons while staying
+// the same Team record and keeping its full history.
+model SeasonTeam {
+  id       String @id @default(cuid())
+  seasonId String
+  season   Season @relation(fields: [seasonId], references: [id])
+  teamId   String
+  team     Team   @relation(fields: [teamId], references: [id])
+
+  @@unique([seasonId, teamId])
 }
 
 model Match {

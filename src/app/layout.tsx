@@ -47,6 +47,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   {c.label}
                 </Link>
               ))}
+              <Link href="/admin" className="hover:underline" style={{ color: "var(--text-muted)" }}>
+                Admin
+              </Link>
             </nav>
           </div>
         </header>
