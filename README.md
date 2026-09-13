@@ -44,15 +44,17 @@ npm run dev
 > Settings → Git → Production Branch** til `claude/nordic-viewer-stats-site-rkudtt`
 > (den med selve Next.js-appen) — ellers bygger Vercel en tom/forkert branch.
 
-1. Push branchen til GitHub (gjort) og merge evt. senere til en rigtig `main`
+1. Push branchen til GitHub (gjort) og merge evt. til `main`
 2. Opret en gratis konto på [vercel.com](https://vercel.com), log ind med
    GitHub, og **Import** `casaolsen/tilskuerstats`
 3. Under projektets **Storage**-fane: opret en Postgres-database (kører på
    Neon) — Vercel sætter automatisk `DATABASE_URL` som environment variable
-4. Sæt endnu en environment variable: `SETUP_SECRET` = en selvvalgt hemmelig
-   streng (bruges kun til at beskytte trin 6)
+4. Sæt to environment variables mere:
+   - `SETUP_SECRET` = en selvvalgt hemmelig streng (bruges kun til at
+     beskytte trin 6)
+   - `ADMIN_PASSWORD` = kodeordet til `/admin` (se "Admin" nedenfor)
 5. **Deploy**
-6. Opret skema + seed-data ved at besøge (i browseren, én gang):
+6. Opret/opdatér skema + seed-data ved at besøge (i browseren):
    `https://<dit-projekt>.vercel.app/api/setup?key=<din SETUP_SECRET>`
    — det opretter tabellerne og fylder dem med data. Siden svarer med en
    lille JSON-status. Kan roligt besøges flere gange (den springer over det
@@ -67,6 +69,27 @@ npm run dev
 
 Herefter er sitet live og henter data direkte fra Postgres-databasen ved
 hvert kald.
+
+## Admin
+
+`/admin` er en kodeords-beskyttet sektion til at redigere indhold uden at
+røre ved kode:
+
+- **Lande, Ligaer, Hold, Stadions** — rediger navne, website, logo/billede-URL;
+  flere ligaer pr. land understøttes (fx både Superliga og 1. Division for
+  Danmark)
+- **Sæsoner** — opret nye sæsoner, og administrér hvilke hold der spiller i
+  hvilken liga-sæson ("Hold i sæson") — det er mekanismen der håndterer
+  op-/nedrykning: et hold flyttes til en anden liga næste sæson uden at blive
+  et nyt hold i systemet
+- **Kampe** — redigér tilskuertal/resultat/dato pr. kamp, opret enkeltkampe,
+  eller bulk-importér via en CSV-fil (kolonner:
+  `dato,hjemmehold,udehold,tilskuere,hjemmemaal,udemaal,runde`)
+
+Login kræver `ADMIN_PASSWORD` sat som environment variable — étt fælles
+kodeord, ingen brugerstyring/roller (passer til én person der administrerer
+sitet). Logo/billede-felter er rene URL-felter indtil videre (indsæt et link
+til et billede et andet sted fra), ikke fil-upload.
 
 ## Datamodel
 
