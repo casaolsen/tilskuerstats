@@ -1,0 +1,241 @@
+dato,runde,hjemmehold,udehold,hjemmemaal,udemaal,tilskuere,stadion
+2025-03-29,1,Strømsgodset,Rosenborg,1,2,8332,Marienlyst stadion
+2025-03-29,1,Fredrikstad,Brann,3,0,10788,Fredrikstad stadion
+2025-03-30,1,Vålerenga,Viking,3,1,14859,Intility Arena
+2025-03-30,1,HamKam,Kristiansund,2,1,3316,Briskeby
+2025-03-30,1,KFUM,Sandefjord Fotball,3,1,1806,KFUM-Arena
+2025-03-30,1,Molde,Sarpsborg 08,0,2,5829,Aker stadion
+2025-03-30,1,Tromsø,Haugesund,1,0,4324,Romssa Arena
+2025-03-30,1,Bryne,Bodø/Glimt,0,1,5151,Bryne stadion
+2025-04-05,2,Bodø/Glimt,HamKam,3,0,6005,Aspmyra stadion
+2025-04-05,2,Rosenborg,Fredrikstad,1,0,16325,Lerkendal stadion
+2025-04-06,2,Brann,Tromsø,3,1,16557,Brann stadion
+2025-04-06,2,Haugesund,Strømsgodset,0,5,6066,Haugesund Sparebank Arena
+2025-04-06,2,Kristiansund,Bryne,2,1,2917,Nordmøre stadion
+2025-04-06,2,Sandefjord Fotball,Molde,3,0,4640,Jotun Arena
+2025-04-06,2,Sarpsborg 08,Vålerenga,1,1,7233,Sarpsborg st KG
+2025-04-06,2,Viking,KFUM,3,1,12612,Lyse Arena
+2025-04-09,17,Fredrikstad,Vålerenga,2,0,10010,Fredrikstad stadion
+2025-04-10,16,Viking,Kristiansund,3,1,9644,Lyse Arena
+2025-04-10,17,Brann,Strømsgodset,2,1,14606,Brann stadion
+2025-04-20,3,Tromsø,Kristiansund,2,3,3632,Romssa Arena
+2025-04-21,3,Vålerenga,Rosenborg,0,2,16556,Intility Arena
+2025-04-21,3,Bryne,Haugesund,3,1,3643,Bryne stadion
+2025-04-21,3,Fredrikstad,Sandefjord Fotball,3,1,8880,Fredrikstad stadion
+2025-04-21,3,HamKam,Viking,2,5,3917,Briskeby
+2025-04-21,3,KFUM,Sarpsborg 08,1,3,1898,KFUM-Arena
+2025-04-21,3,Strømsgodset,Brann,1,2,6507,Marienlyst stadion
+2025-04-21,3,Molde,Bodø/Glimt,2,2,6940,Aker stadion
+2025-04-27,4,Rosenborg,Molde,0,0,21263,Lerkendal stadion
+2025-04-27,4,Bodø/Glimt,KFUM,3,0,5910,Aspmyra stadion
+2025-04-27,4,Brann,Bryne,3,2,15707,Brann stadion
+2025-04-27,4,Haugesund,Fredrikstad,0,0,3058,Haugesund Sparebank Arena
+2025-04-27,4,Kristiansund,Vålerenga,0,2,3181,Nordmøre stadion
+2025-04-27,4,Sandefjord Fotball,HamKam,2,0,3408,Jotun Arena
+2025-04-27,4,Sarpsborg 08,Strømsgodset,2,3,4435,Sarpsborg st KG
+2025-04-27,4,Viking,Tromsø,4,4,10151,Lyse Arena
+2025-04-30,18,Viking,Haugesund,5,1,12158,Lyse Arena
+2025-05-01,17,Rosenborg,Kristiansund,1,1,14122,Lerkendal stadion
+2025-05-02,5,HamKam,KFUM,0,0,2828,Briskeby
+2025-05-03,5,Vålerenga,Brann,2,4,16556,Intility Arena
+2025-05-04,5,Molde,Haugesund,2,1,5286,Aker stadion
+2025-05-04,5,Strømsgodset,Kristiansund,1,2,4308,Marienlyst stadion
+2025-05-04,5,Tromsø,Sandefjord Fotball,0,1,4060,Romssa Arena
+2025-05-04,5,Viking,Sarpsborg 08,0,0,10572,Lyse Arena
+2025-05-04,5,Rosenborg,Bryne,3,0,,Lerkendal stadion
+2025-05-11,6,Brann,Rosenborg,0,0,17500,Brann stadion
+2025-05-11,6,Bryne,Molde,0,3,2893,Bryne stadion
+2025-05-11,6,KFUM,Tromsø,1,3,2157,KFUM-Arena
+2025-05-11,6,Kristiansund,Fredrikstad,0,1,3007,Nordmøre stadion
+2025-05-11,6,Sandefjord Fotball,Vålerenga,2,1,6011,Jotun Arena
+2025-05-11,6,Sarpsborg 08,HamKam,4,0,4503,Sarpsborg st KG
+2025-05-11,6,Haugesund,Viking,1,4,5716,Haugesund Sparebank Arena
+2025-05-16,7,Brann,Sarpsborg 08,2,2,17500,Brann stadion
+2025-05-16,7,Fredrikstad,KFUM,1,0,11578,Fredrikstad stadion
+2025-05-16,7,Molde,Kristiansund,0,1,9293,Aker stadion
+2025-05-16,7,Rosenborg,Haugesund,1,0,21243,Lerkendal stadion
+2025-05-16,7,Strømsgodset,Bryne,0,2,5116,Marienlyst stadion
+2025-05-16,7,Tromsø,Bodø/Glimt,2,1,6691,Romssa Arena
+2025-05-16,7,Viking,Sandefjord Fotball,3,1,15900,Lyse Arena
+2025-05-16,7,Vålerenga,HamKam,1,1,13300,Intility Arena
+2025-05-24,8,Bryne,Fredrikstad,4,3,2329,Bryne stadion
+2025-05-24,8,Bodø/Glimt,Rosenborg,4,0,8107,Aspmyra stadion
+2025-05-25,8,HamKam,Molde,2,1,3088,Briskeby
+2025-05-25,8,Kristiansund,Viking,0,1,3480,Nordmøre stadion
+2025-05-25,8,Sandefjord Fotball,Strømsgodset,3,2,3478,Jotun Arena
+2025-05-25,8,Sarpsborg 08,Tromsø,0,1,4330,Sarpsborg st KG
+2025-05-25,8,Haugesund,Brann,0,2,5404,Haugesund Sparebank Arena
+2025-05-26,8,KFUM,Vålerenga,0,1,3501,KFUM-Arena
+2025-05-28,18,Fredrikstad,Rosenborg,0,2,9528,Fredrikstad stadion
+2025-05-28,19,Bodø/Glimt,Viking,2,4,6869,Aspmyra stadion
+2025-05-29,15,Brann,Molde,0,3,17002,Brann stadion
+2025-05-31,9,Strømsgodset,HamKam,0,3,4360,Marienlyst stadion
+2025-05-31,9,Tromsø,Vålerenga,2,1,5291,Romssa Arena
+2025-06-01,9,Fredrikstad,Sarpsborg 08,1,1,12565,Fredrikstad stadion
+2025-06-01,9,Brann,Kristiansund,4,2,14957,Brann stadion
+2025-06-01,9,Bryne,Sandefjord Fotball,3,2,2440,Bryne stadion
+2025-06-01,9,Haugesund,Bodø/Glimt,0,4,4335,Haugesund Sparebank Arena
+2025-06-01,9,Rosenborg,KFUM,1,1,12311,Lerkendal stadion
+2025-06-01,9,Molde,Viking,0,1,5429,Aker stadion
+2025-06-21,10,Bodø/Glimt,Brann,3,0,7325,Aspmyra stadion
+2025-06-22,10,Vålerenga,Molde,2,3,13592,Intility Arena
+2025-06-22,10,HamKam,Tromsø,1,3,3555,Briskeby
+2025-06-22,10,KFUM,Strømsgodset,5,0,1927,KFUM-Arena
+2025-06-22,10,Kristiansund,Rosenborg,4,1,4364,Nordmøre stadion
+2025-06-22,10,Sandefjord Fotball,Haugesund,4,0,3803,Jotun Arena
+2025-06-22,10,Sarpsborg 08,Bryne,1,1,4483,Sarpsborg st KG
+2025-06-22,10,Viking,Fredrikstad,3,0,13566,Lyse Arena
+2025-06-28,11,Rosenborg,Viking,1,1,13663,Lerkendal stadion
+2025-06-29,11,Haugesund,Kristiansund,0,0,3565,Haugesund Sparebank Arena
+2025-06-29,11,Bodø/Glimt,Sarpsborg 08,1,2,6440,Aspmyra stadion
+2025-06-29,11,Bryne,HamKam,1,1,2398,Bryne stadion
+2025-06-29,11,Fredrikstad,Tromsø,0,1,7500,Fredrikstad stadion
+2025-06-29,11,Molde,KFUM,2,3,5544,Aker stadion
+2025-06-29,11,Strømsgodset,Vålerenga,0,2,6521,Marienlyst stadion
+2025-06-30,11,Brann,Sandefjord Fotball,1,0,15849,Brann stadion
+2025-07-05,12,HamKam,Brann,1,1,5213,Briskeby
+2025-07-05,12,Viking,Strømsgodset,1,0,13363,Lyse Arena
+2025-07-05,12,Vålerenga,Fredrikstad,1,1,10563,Intility Arena
+2025-07-05,12,Kristiansund,Bodø/Glimt,1,1,,Nordmøre stadion
+2025-07-05,12,Tromsø,Molde,1,0,6122,Romssa Arena
+2025-07-06,12,KFUM,Bryne,1,1,1423,KFUM-Arena
+2025-07-06,12,Sandefjord Fotball,Rosenborg,2,0,6598,Jotun Arena
+2025-07-06,12,Sarpsborg 08,Haugesund,3,1,4347,Sarpsborg st KG
+2025-07-12,13,Bodø/Glimt,Sandefjord Fotball,2,0,6939,Aspmyra stadion
+2025-07-12,13,Fredrikstad,Molde,4,2,8384,Fredrikstad stadion
+2025-07-13,13,Bryne,Vålerenga,1,0,2598,Bryne stadion
+2025-07-13,13,Haugesund,KFUM,0,2,3178,Haugesund Sparebank Arena
+2025-07-13,13,Kristiansund,Sarpsborg 08,0,0,3074,Nordmøre stadion
+2025-07-13,13,Rosenborg,HamKam,2,0,12210,Lerkendal stadion
+2025-07-13,13,Strømsgodset,Tromsø,2,3,4945,Marienlyst stadion
+2025-07-13,13,Brann,Viking,3,1,17500,Brann stadion
+2025-07-16,5,Fredrikstad,Bodø/Glimt,0,1,10025,Fredrikstad stadion
+2025-07-18,14,Sarpsborg 08,Rosenborg,2,2,6005,Sarpsborg st KG
+2025-07-19,14,KFUM,Brann,2,0,3017,KFUM-Arena
+2025-07-19,14,Molde,Strømsgodset,4,1,7266,Aker stadion
+2025-07-19,14,Viking,Bodø/Glimt,2,4,15311,Lyse Arena
+2025-07-20,14,Vålerenga,Haugesund,3,0,8619,Intility Arena
+2025-07-20,14,Sandefjord Fotball,Kristiansund,6,0,3948,Jotun Arena
+2025-07-20,14,Tromsø,Bryne,3,1,5546,Romssa Arena
+2025-07-20,14,HamKam,Fredrikstad,1,1,4018,Briskeby
+2025-07-25,15,Fredrikstad,Strømsgodset,3,2,8545,Fredrikstad stadion
+2025-07-26,15,Haugesund,HamKam,0,3,3060,Haugesund Sparebank Arena
+2025-07-26,15,Kristiansund,KFUM,0,5,3107,Nordmøre stadion
+2025-07-26,15,Sandefjord Fotball,Sarpsborg 08,3,2,4722,Jotun Arena
+2025-07-26,15,Bodø/Glimt,Vålerenga,7,2,7677,Aspmyra stadion
+2025-07-27,15,Bryne,Viking,1,3,5500,Bryne stadion
+2025-07-27,15,Rosenborg,Tromsø,4,1,14422,Lerkendal stadion
+2025-07-30,6,Bodø/Glimt,Strømsgodset,1,0,7340,Aspmyra stadion
+2025-08-02,16,Tromsø,Fredrikstad,0,0,5017,Romssa Arena
+2025-08-02,16,Sarpsborg 08,Brann,1,4,5339,Sarpsborg st KG
+2025-08-03,16,HamKam,Bodø/Glimt,1,3,6118,Briskeby
+2025-08-03,16,KFUM,Rosenborg,4,1,3003,KFUM-Arena
+2025-08-03,16,Molde,Bryne,2,0,5775,Aker stadion
+2025-08-03,16,Strømsgodset,Haugesund,2,0,5325,Marienlyst stadion
+2025-08-03,16,Vålerenga,Sandefjord Fotball,2,1,10398,Intility Arena
+2025-08-09,17,Molde,HamKam,1,0,6084,Aker stadion
+2025-08-09,17,Bodø/Glimt,Tromsø,1,1,8173,Aspmyra stadion
+2025-08-10,17,Bryne,KFUM,0,0,2866,Bryne stadion
+2025-08-10,17,Haugesund,Sarpsborg 08,3,2,3073,Haugesund Sparebank Arena
+2025-08-10,17,Sandefjord Fotball,Viking,1,2,6284,Jotun Arena
+2025-08-15,18,Strømsgodset,Bodø/Glimt,0,5,6302,Marienlyst stadion
+2025-08-17,18,Tromsø,Brann,1,2,6477,Romssa Arena
+2025-08-17,18,HamKam,Bryne,1,0,3349,Briskeby
+2025-08-17,18,KFUM,Molde,0,0,2123,KFUM-Arena
+2025-08-17,18,Kristiansund,Sandefjord Fotball,2,2,2893,Nordmøre stadion
+2025-08-17,18,Vålerenga,Sarpsborg 08,4,0,9638,Intility Arena
+2025-08-22,19,KFUM,HamKam,2,2,,KFUM-Arena
+2025-08-24,19,Haugesund,Vålerenga,2,3,3626,Haugesund Sparebank Arena
+2025-08-24,19,Bryne,Strømsgodset,2,2,2666,Bryne stadion
+2025-08-24,19,Molde,Tromsø,2,0,5919,Aker stadion
+2025-08-25,19,Sarpsborg 08,Kristiansund,0,1,3849,Sarpsborg st KG
+2025-08-30,20,Vålerenga,Bryne,3,2,,Intility Arena
+2025-08-31,20,Kristiansund,Brann,2,2,3256,Nordmøre stadion
+2025-08-31,20,Fredrikstad,Haugesund,2,2,7149,Fredrikstad stadion
+2025-08-31,20,HamKam,Sarpsborg 08,1,3,3483,Briskeby
+2025-08-31,20,Sandefjord Fotball,Bodø/Glimt,1,2,6598,Jotun Arena
+2025-08-31,20,Tromsø,KFUM,2,0,4356,Romssa Arena
+2025-08-31,20,Viking,Rosenborg,2,1,14859,Lyse Arena
+2025-08-31,20,Strømsgodset,Molde,3,1,4243,Marienlyst stadion
+2025-09-12,21,Bodø/Glimt,Kristiansund,7,1,6822,Aspmyra stadion
+2025-09-13,21,Molde,Fredrikstad,1,2,5798,Aker stadion
+2025-09-13,21,Brann,Vålerenga,3,2,17176,Brann stadion
+2025-09-14,21,Bryne,Tromsø,0,2,3224,Bryne stadion
+2025-09-14,21,HamKam,Strømsgodset,1,2,4611,Briskeby
+2025-09-14,21,KFUM,Viking,2,2,2323,KFUM-Arena
+2025-09-14,21,Sarpsborg 08,Sandefjord Fotball,2,1,4519,Sarpsborg st KG
+2025-09-14,21,Haugesund,Rosenborg,0,3,3410,Haugesund Sparebank Arena
+2025-09-20,22,Fredrikstad,Bryne,1,1,7074,Fredrikstad stadion
+2025-09-20,22,Sandefjord Fotball,Brann,0,3,5101,Jotun Arena
+2025-09-20,22,Vålerenga,KFUM,1,1,13479,Intility Arena
+2025-09-21,22,Rosenborg,Bodø/Glimt,1,1,21078,Lerkendal stadion
+2025-09-21,22,Kristiansund,Haugesund,2,0,2950,Nordmøre stadion
+2025-09-21,22,Strømsgodset,Sarpsborg 08,2,1,4876,Marienlyst stadion
+2025-09-21,22,Tromsø,HamKam,1,0,4319,Romssa Arena
+2025-09-21,22,Viking,Molde,1,0,14567,Lyse Arena
+2025-09-27,23,Sarpsborg 08,Viking,3,3,4230,Sarpsborg st KG
+2025-09-28,19,Brann,Fredrikstad,1,0,15932,Brann stadion
+2025-09-28,23,Bryne,Kristiansund,2,0,2003,Bryne stadion
+2025-09-28,23,HamKam,Rosenborg,4,0,5114,Briskeby
+2025-09-28,23,Tromsø,Strømsgodset,3,1,4068,Romssa Arena
+2025-09-28,23,Molde,Vålerenga,4,1,5763,Aker stadion
+2025-09-29,23,Haugesund,Sandefjord Fotball,2,3,2731,Haugesund Sparebank Arena
+2025-10-01,23,KFUM,Fredrikstad,2,1,1539,KFUM-Arena
+2025-10-04,24,Vålerenga,Tromsø,1,0,8423,Intility Arena
+2025-10-04,24,Sandefjord Fotball,Bryne,1,0,,Jotun Arena
+2025-10-04,24,Kristiansund,Molde,2,1,4003,Nordmøre stadion
+2025-10-05,24,Viking,Brann,3,0,15900,Lyse Arena
+2025-10-05,24,Bodø/Glimt,Haugesund,2,0,6020,Aspmyra stadion
+2025-10-05,24,Fredrikstad,HamKam,1,1,8018,Fredrikstad stadion
+2025-10-05,24,Strømsgodset,KFUM,1,1,3852,Marienlyst stadion
+2025-10-05,24,Rosenborg,Sarpsborg 08,2,3,11373,Lerkendal stadion
+2025-10-18,25,Sarpsborg 08,Bodø/Glimt,2,5,5632,Sarpsborg st KG
+2025-10-18,25,Bryne,Rosenborg,2,2,2360,Bryne stadion
+2025-10-18,25,Brann,Haugesund,4,1,15342,Brann stadion
+2025-10-19,25,Tromsø,Viking,1,3,5021,Romssa Arena
+2025-10-19,25,HamKam,Vålerenga,2,1,5313,Briskeby
+2025-10-19,25,KFUM,Kristiansund,1,1,1435,KFUM-Arena
+2025-10-19,25,Molde,Sandefjord Fotball,1,3,5057,Aker stadion
+2025-10-19,25,Strømsgodset,Fredrikstad,0,3,4389,Marienlyst stadion
+2025-10-25,26,Viking,Bryne,5,1,15900,Lyse Arena
+2025-10-25,26,Sarpsborg 08,KFUM,2,1,3886,Sarpsborg st KG
+2025-10-26,26,Rosenborg,Brann,2,3,15701,Lerkendal stadion
+2025-10-26,26,Bodø/Glimt,Molde,4,1,6385,Aspmyra stadion
+2025-10-26,26,Haugesund,Tromsø,2,3,2783,Haugesund Sparebank Arena
+2025-10-26,26,Kristiansund,HamKam,1,3,3066,Nordmøre stadion
+2025-10-26,26,Sandefjord Fotball,Fredrikstad,0,0,5935,Jotun Arena
+2025-10-26,26,Vålerenga,Strømsgodset,2,1,8076,Intility Arena
+2025-10-29,19,Rosenborg,Sandefjord Fotball,1,1,9218,Lerkendal stadion
+2025-10-29,23,Brann,Bodø/Glimt,1,2,17026,Brann stadion
+2025-11-01,27,Vålerenga,Bodø/Glimt,3,1,14221,Intility Arena
+2025-11-01,27,Molde,Rosenborg,4,2,8215,Aker stadion
+2025-11-02,27,Strømsgodset,Viking,1,2,6052,Marienlyst stadion
+2025-11-02,27,Bryne,Brann,2,1,3304,Bryne stadion
+2025-11-02,27,Fredrikstad,Kristiansund,3,1,6760,Fredrikstad stadion
+2025-11-02,27,HamKam,Sandefjord Fotball,3,1,2851,Briskeby
+2025-11-02,27,KFUM,Haugesund,1,4,1327,KFUM-Arena
+2025-11-02,27,Tromsø,Sarpsborg 08,4,0,3738,Romssa Arena
+2025-11-08,28,Sarpsborg 08,Fredrikstad,0,2,8022,Sarpsborg st KG
+2025-11-08,28,Viking,HamKam,3,0,15559,Lyse Arena
+2025-11-09,28,Rosenborg,Vålerenga,1,0,12121,Lerkendal stadion
+2025-11-09,28,Bodø/Glimt,Bryne,5,0,6036,Aspmyra stadion
+2025-11-09,28,Brann,KFUM,1,1,14560,Brann stadion
+2025-11-09,28,Kristiansund,Strømsgodset,2,1,3476,Nordmøre stadion
+2025-11-09,28,Sandefjord Fotball,Tromsø,1,0,3740,Jotun Arena
+2025-11-09,28,Haugesund,Molde,0,2,2809,Haugesund Sparebank Arena
+2025-11-21,29,KFUM,Bodø/Glimt,1,2,2869,KFUM-Arena
+2025-11-22,29,Tromsø,Rosenborg,1,0,5707,Romssa Arena
+2025-11-22,29,Vålerenga,Kristiansund,3,0,8215,Intility Arena
+2025-11-22,29,Molde,Brann,4,0,5820,Aker stadion
+2025-11-22,29,Strømsgodset,Sandefjord Fotball,2,6,3909,Marienlyst stadion
+2025-11-23,29,Bryne,Sarpsborg 08,0,3,2327,Bryne stadion
+2025-11-23,29,HamKam,Haugesund,5,0,2940,Briskeby
+2025-11-23,29,Fredrikstad,Viking,0,1,10689,Fredrikstad stadion
+2025-11-30,30,Bodø/Glimt,Fredrikstad,5,0,6596,Aspmyra stadion
+2025-11-30,30,Brann,HamKam,3,1,14081,Brann stadion
+2025-11-30,30,Haugesund,Bryne,1,4,3461,Haugesund Sparebank Arena
+2025-11-30,30,Kristiansund,Tromsø,1,3,2948,Nordmøre stadion
+2025-11-30,30,Rosenborg,Strømsgodset,6,0,10434,Lerkendal stadion
+2025-11-30,30,Sandefjord Fotball,KFUM,2,0,5013,Jotun Arena
+2025-11-30,30,Sarpsborg 08,Molde,1,0,5339,Sarpsborg st KG
+2025-11-30,30,Viking,Vålerenga,5,1,15900,Lyse Arena
