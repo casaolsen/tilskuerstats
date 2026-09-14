@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Scraper til tilskuertal for Superligaen sæson 2024/25 fra superstats.dk.
 
-Henter kampprogrammet (dato, hold, tilskuertal) og besøger hver enkelt
-kampside for at hente stadionnavn. Output: CSV med kolonnerne
-dato, hjemmehold, udehold, tilskuere, stadion.
+Henter kampprogrammet (dato, runde, hold, resultat, tilskuertal) og
+besøger hver enkelt kampside for at hente stadionnavn. Output: CSV med
+kolonnerne dato, runde, hjemmehold, udehold, hjemmemål, udemål,
+tilskuere, stadion.
 """
 
 import csv
@@ -57,9 +58,17 @@ def fetch(url: str) -> BeautifulSoup:
 
 
 def parse_program(soup: BeautifulSoup):
-    """Udtræk (match_id, dato, hjemme_kode, ude_kode, tilskuere) for hver kamp."""
+    """Udtræk (match_id, dato, runde, hjemme_kode, ude_kode, mål, tilskuere) for hver kamp."""
     matches = []
+    current_round = None
     for row in soup.find_all("tr"):
+        header = row.find("th", colspan="2")
+        if header:
+            round_match = re.search(r"Runde\s+(\d+)", header.get_text(strip=True))
+            if round_match:
+                current_round = int(round_match.group(1))
+            continue
+
         cells = row.find_all("td", recursive=False)
         if len(cells) < 5:
             continue
@@ -86,6 +95,11 @@ def parse_program(soup: BeautifulSoup):
             continue
         match_id = link["href"].rstrip("/").split("/")[-1]
 
+        score_match = re.search(r"(\d+)\s*-\s*(\d+)", link.get_text(strip=True))
+        home_goals, away_goals = (
+            (int(score_match.group(1)), int(score_match.group(2))) if score_match else (None, None)
+        )
+
         attendance_text = cells[4].get_text(strip=True).replace(".", "")
         if not attendance_text.isdigit():
             continue
@@ -95,8 +109,11 @@ def parse_program(soup: BeautifulSoup):
             {
                 "match_id": match_id,
                 "dato": iso_date,
+                "runde": current_round,
                 "hjemme_kode": home_code,
                 "ude_kode": away_code,
+                "hjemmemaal": home_goals,
+                "udemaal": away_goals,
                 "tilskuere": attendance,
             }
         )
@@ -127,20 +144,24 @@ def main():
         rows.append(
             {
                 "dato": m["dato"],
+                "runde": m["runde"],
                 "hjemmehold": team_name(m["hjemme_kode"]),
                 "udehold": team_name(m["ude_kode"]),
+                "hjemmemaal": m["hjemmemaal"],
+                "udemaal": m["udemaal"],
                 "tilskuere": m["tilskuere"],
                 "stadion": stadion,
             }
         )
-        print(f"[{i}/{len(matches)}] {m['dato']} {m['hjemme_kode']}-{m['ude_kode']} -> {stadion}", file=sys.stderr)
+        print(f"[{i}/{len(matches)}] runde {m['runde']} {m['dato']} {m['hjemme_kode']}-{m['ude_kode']} -> {stadion}", file=sys.stderr)
         time.sleep(REQUEST_DELAY)
 
     rows.sort(key=lambda r: r["dato"])
 
     out_path = "tilskuertal_superligaen_2024_25.csv"
+    fieldnames = ["dato", "runde", "hjemmehold", "udehold", "hjemmemaal", "udemaal", "tilskuere", "stadion"]
     with open(out_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["dato", "hjemmehold", "udehold", "tilskuere", "stadion"])
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
