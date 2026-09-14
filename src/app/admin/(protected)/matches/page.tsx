@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { buttonClass, buttonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
+import { buttonClass, buttonStyle, dangerButtonClass, dangerButtonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +23,26 @@ async function updateMatch(formData: FormData) {
     },
   });
   revalidatePath(`/admin/matches`);
+}
+
+async function deleteMatch(formData: FormData) {
+  "use server";
+  const id = String(formData.get("id"));
+  await prisma.match.delete({ where: { id } });
+  revalidatePath("/admin/matches");
+}
+
+async function clearSeason(formData: FormData) {
+  "use server";
+  const seasonId = String(formData.get("seasonId"));
+  const confirmLabel = String(formData.get("confirmLabel") ?? "").trim();
+  const season = await prisma.season.findUnique({ where: { id: seasonId } });
+  if (!season || confirmLabel !== season.label) {
+    redirect(`/admin/matches?season=${seasonId}&clearError=1`);
+  }
+  await prisma.match.deleteMany({ where: { seasonId } });
+  revalidatePath("/admin/matches");
+  redirect(`/admin/matches?season=${seasonId}&cleared=1`);
 }
 
 async function createMatch(formData: FormData) {
@@ -80,12 +100,19 @@ async function importCsv(formData: FormData) {
   let created = 0;
   let updated = 0;
   let skipped = 0;
+  const missingTeams = new Set<string>();
 
   for (const row of dataRows) {
-    const home = iHome >= 0 ? byName.get(row[iHome]?.toLowerCase()) : undefined;
-    const away = iAway >= 0 ? byName.get(row[iAway]?.toLowerCase()) : undefined;
+    const homeName = iHome >= 0 ? row[iHome] : undefined;
+    const awayName = iAway >= 0 ? row[iAway] : undefined;
+    const home = homeName ? byName.get(homeName.toLowerCase()) : undefined;
+    const away = awayName ? byName.get(awayName.toLowerCase()) : undefined;
     const dateStr = iDate >= 0 ? row[iDate] : undefined;
     const kickoff = dateStr ? new Date(dateStr) : null;
+
+    if (!home && homeName) missingTeams.add(homeName);
+    if (!away && awayName) missingTeams.add(awayName);
+
     if (!home || !away || !kickoff || Number.isNaN(kickoff.getTime())) {
       skipped++;
       continue;
@@ -126,15 +153,24 @@ async function importCsv(formData: FormData) {
   }
 
   revalidatePath("/admin/matches");
-  redirect(`/admin/matches?season=${seasonId}&imported=${created}&updated=${updated}&skipped=${skipped}`);
+  const missingParam = missingTeams.size ? `&missing=${encodeURIComponent([...missingTeams].join(","))}` : "";
+  redirect(`/admin/matches?season=${seasonId}&imported=${created}&updated=${updated}&skipped=${skipped}${missingParam}`);
 }
 
 export default async function MatchesAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ season?: string; imported?: string; updated?: string; skipped?: string }>;
+  searchParams: Promise<{
+    season?: string;
+    imported?: string;
+    updated?: string;
+    skipped?: string;
+    missing?: string;
+    cleared?: string;
+    clearError?: string;
+  }>;
 }) {
-  const { season: seasonParam, imported, updated, skipped } = await searchParams;
+  const { season: seasonParam, imported, updated, skipped, missing, cleared, clearError } = await searchParams;
 
   const leagues = await prisma.league.findMany({
     include: { country: true, seasons: { orderBy: { startDate: "desc" } } },
@@ -176,10 +212,28 @@ export default async function MatchesAdminPage({
         <button type="submit" className={buttonClass} style={buttonStyle}>Vis</button>
       </form>
 
-      {(imported || updated || skipped) && (
+      {cleared && (
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Import: {imported} nye, {updated} opdateret, {skipped} sprunget over (hold ikke fundet eller ugyldig dato).
+          Alle kampe i sæsonen er slettet.
         </p>
+      )}
+      {clearError && (
+        <p className="text-sm" style={{ color: "#e34948" }}>
+          Bekræftelsesteksten matchede ikke sæsonens navn — intet blev slettet.
+        </p>
+      )}
+      {(imported || updated || skipped) && (
+        <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          <p>
+            Import: {imported} nye, {updated} opdateret, {skipped} sprunget over (hold ikke fundet eller ugyldig dato).
+          </p>
+          {missing && (
+            <p className="mt-1" style={{ color: "#e34948" }}>
+              Ukendte holdnavne i filen: {missing.split(",").join(", ")} — opret dem under &quot;Hold&quot; og
+              importér filen igen (allerede importerede kampe springes automatisk over anden gang).
+            </p>
+          )}
+        </div>
       )}
 
       {selectedSeason && (
@@ -189,54 +243,59 @@ export default async function MatchesAdminPage({
               {matches.length} kampe i {selectedSeason.league.name} {selectedSeason.label}
             </h2>
             <div className="overflow-x-auto">
-              <div className="flex min-w-[820px] flex-col gap-2">
+              <div className="flex min-w-[880px] flex-col gap-2">
                 {matches.map((m) => (
-                  <form
-                    key={m.id}
-                    action={updateMatch}
-                    className="grid grid-cols-[36px_130px_1fr_56px_16px_56px_80px_auto] items-center gap-2 rounded border p-2 text-sm"
-                    style={{ borderColor: "var(--border)" }}
-                  >
-                    <input type="hidden" name="id" value={m.id} />
-                    <input type="hidden" name="seasonId" value={selectedSeasonId} />
-                    <div style={{ color: "var(--text-muted)" }}>{m.round ?? "–"}</div>
-                    <input
-                      name="kickoff"
-                      type="date"
-                      defaultValue={m.kickoff.toISOString().slice(0, 10)}
-                      className={inputClass}
-                      style={inputStyle}
-                    />
-                    <div className="truncate">
-                      {m.homeTeam.name} – {m.awayTeam.name}
-                    </div>
-                    <input
-                      name="homeScore"
-                      type="number"
-                      defaultValue={m.homeScore ?? ""}
-                      placeholder="H"
-                      className={inputClass}
-                      style={inputStyle}
-                    />
-                    <div className="text-center" style={{ color: "var(--text-muted)" }}>–</div>
-                    <input
-                      name="awayScore"
-                      type="number"
-                      defaultValue={m.awayScore ?? ""}
-                      placeholder="U"
-                      className={inputClass}
-                      style={inputStyle}
-                    />
-                    <input
-                      name="attendance"
-                      type="number"
-                      defaultValue={m.attendance ?? ""}
-                      placeholder="Tilskuere"
-                      className={inputClass}
-                      style={inputStyle}
-                    />
-                    <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>
-                  </form>
+                  <div key={m.id} className="flex items-center gap-2">
+                    <form
+                      action={updateMatch}
+                      className="grid flex-1 grid-cols-[36px_130px_1fr_56px_16px_56px_80px_auto] items-center gap-2 rounded border p-2 text-sm"
+                      style={{ borderColor: "var(--border)" }}
+                    >
+                      <input type="hidden" name="id" value={m.id} />
+                      <input type="hidden" name="seasonId" value={selectedSeasonId} />
+                      <div style={{ color: "var(--text-muted)" }}>{m.round ?? "–"}</div>
+                      <input
+                        name="kickoff"
+                        type="date"
+                        defaultValue={m.kickoff.toISOString().slice(0, 10)}
+                        className={inputClass}
+                        style={inputStyle}
+                      />
+                      <div className="truncate">
+                        {m.homeTeam.name} – {m.awayTeam.name}
+                      </div>
+                      <input
+                        name="homeScore"
+                        type="number"
+                        defaultValue={m.homeScore ?? ""}
+                        placeholder="H"
+                        className={inputClass}
+                        style={inputStyle}
+                      />
+                      <div className="text-center" style={{ color: "var(--text-muted)" }}>–</div>
+                      <input
+                        name="awayScore"
+                        type="number"
+                        defaultValue={m.awayScore ?? ""}
+                        placeholder="U"
+                        className={inputClass}
+                        style={inputStyle}
+                      />
+                      <input
+                        name="attendance"
+                        type="number"
+                        defaultValue={m.attendance ?? ""}
+                        placeholder="Tilskuere"
+                        className={inputClass}
+                        style={inputStyle}
+                      />
+                      <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>
+                    </form>
+                    <form action={deleteMatch}>
+                      <input type="hidden" name="id" value={m.id} />
+                      <button type="submit" className={dangerButtonClass} style={dangerButtonStyle}>Slet</button>
+                    </form>
+                  </div>
                 ))}
               </div>
             </div>
@@ -268,14 +327,36 @@ export default async function MatchesAdminPage({
             <h2 className="mb-2 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>Bulk-import (CSV)</h2>
             <p className="mb-3 text-xs" style={{ color: "var(--text-muted)" }}>
               Kommasepareret fil med header:{" "}
-              <code>dato,hjemmehold,udehold,tilskuere,hjemmemaal,udemaal,runde</code>. Holdnavne skal matche
-              præcis (som de hedder under &quot;Hold&quot;). Findes kampen allerede (samme hold + dato), opdateres den i
-              stedet for at oprette en ny.
+              <code>dato,hjemmehold,udehold,tilskuere,hjemmemaal,udemaal,runde</code> — de sidste tre kolonner er
+              valgfrie. Holdnavne skal matche præcis (som de hedder under &quot;Hold&quot;). Findes kampen allerede
+              (samme hold + dato), opdateres den i stedet for at oprette en ny.
             </p>
             <form action={importCsv} className="flex flex-wrap items-center gap-2">
               <input type="hidden" name="seasonId" value={selectedSeasonId} />
               <input type="file" name="file" accept=".csv,text/csv" required className="text-sm" />
               <button type="submit" className={buttonClass} style={buttonStyle}>Importér</button>
+            </form>
+          </section>
+
+          <section>
+            <h2 className="mb-2 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>Ryd sæson</h2>
+            <p className="mb-3 text-xs" style={{ color: "var(--text-muted)" }}>
+              Sletter alle {matches.length} kampe i {selectedSeason.label} permanent — brug det til at fjerne
+              demo-data før en rigtig import. Skriv sæsonens navn (<code>{selectedSeason.label}</code>) for at
+              bekræfte.
+            </p>
+            <form action={clearSeason} className="flex flex-wrap items-center gap-2">
+              <input type="hidden" name="seasonId" value={selectedSeasonId} />
+              <input
+                name="confirmLabel"
+                placeholder={selectedSeason.label}
+                required
+                className={inputClass}
+                style={{ ...inputStyle, maxWidth: 200 }}
+              />
+              <button type="submit" className={dangerButtonClass} style={dangerButtonStyle}>
+                Slet alle kampe i sæsonen
+              </button>
             </form>
           </section>
         </>
