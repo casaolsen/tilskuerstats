@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Scraper til tilskuertal for Superligaen sæson 2024/25 fra superstats.dk.
+"""Scraper til tilskuertal for Superligaen fra superstats.dk.
 
-Henter kampprogrammet (dato, runde, hold, resultat, tilskuertal) og
-besøger hver enkelt kampside for at hente stadionnavn. Output: CSV med
-kolonnerne dato, runde, hjemmehold, udehold, hjemmemål, udemål,
-tilskuere, stadion.
+Henter kampprogrammet (dato, runde, hold, resultat, tilskuertal) for en
+given sæson og besøger hver enkelt kampside for at hente stadionnavn.
+Output: CSV med kolonnerne dato, runde, hjemmehold, udehold,
+hjemmemål, udemål, tilskuere, stadion.
+
+Brug: python3 scrape_superstats.py [sæson, fx 2025-2026]
+Default-sæson er 2024-2025.
 """
 
 import csv
@@ -16,14 +19,13 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://superstats.dk"
-SEASON = "2024-2025"
-PROGRAM_URL = f"{BASE_URL}/program?aar={SEASON}&sr=1"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; tilskuerstats-scraper/1.0)"}
 REQUEST_DELAY = 0.5  # sekunder mellem kald til kampsider, for ikke at belaste sitet
 
-# Officielle klubnavne for holdene i Superligaen 2024/25.
-# Forkortelserne bruges i kampprogrammet, superstats.dk viser ikke fulde
-# navne der, så mapping er vedligeholdt manuelt her.
+# Officielle klubnavne for holdene i Superligaen. Forkortelserne bruges i
+# kampprogrammet, superstats.dk viser ikke fulde navne der, så mapping
+# vedligeholdes manuelt her. Indeholder både 2024/25- og 2025/26-holdene
+# (op- og nedrykkere ændrer sig fra sæson til sæson).
 TEAM_NAMES = {
     "AGF": "AGF",
     "FCM": "FC Midtjylland",
@@ -37,14 +39,18 @@ TEAM_NAMES = {
     "BIF": "Brøndby IF",
     "LBK": "Lyngby Boldklub",
     "FCK": "FC København",
+    "OB": "Odense Boldklub",
+    "FCF": "FC Fredericia",
 }
 
 DAY_ABBR = ("Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn")
 
-# Sæsonen løber fra juli 2024 til maj 2025. Programsiden viser kun dag/måned,
-# så vi udleder år ud fra måneden (jan-jun -> 2025, jul-dec -> 2024).
-def infer_year(month: int) -> int:
-    return 2025 if month <= 6 else 2024
+
+def infer_year(month: int, season_start_year: int) -> int:
+    """Sæsonen løber fra juli til maj. Programsiden viser kun dag/måned,
+    så vi udleder år ud fra måneden og sæsonens startår
+    (jan-jun -> startår+1, jul-dec -> startår)."""
+    return season_start_year + 1 if month <= 6 else season_start_year
 
 
 def fetch(url: str) -> BeautifulSoup:
@@ -57,7 +63,7 @@ def fetch(url: str) -> BeautifulSoup:
     return BeautifulSoup(resp.text, "lxml")
 
 
-def parse_program(soup: BeautifulSoup):
+def parse_program(soup: BeautifulSoup, season_start_year: int):
     """Udtræk (match_id, dato, runde, hjemme_kode, ude_kode, mål, tilskuere) for hver kamp."""
     matches = []
     current_round = None
@@ -81,7 +87,7 @@ def parse_program(soup: BeautifulSoup):
         if not date_match:
             continue
         day, month = int(date_match.group(1)), int(date_match.group(2))
-        year = infer_year(month)
+        year = infer_year(month, season_start_year)
         iso_date = f"{year:04d}-{month:02d}-{day:02d}"
 
         teams_text = cells[2].get_text(strip=True)  # fx "AGF-FCM"
@@ -133,9 +139,15 @@ def team_name(code: str) -> str:
 
 
 def main():
-    print(f"Henter kampprogram: {PROGRAM_URL}", file=sys.stderr)
-    program_soup = fetch(PROGRAM_URL)
-    matches = parse_program(program_soup)
+    season = sys.argv[1] if len(sys.argv) > 1 else "2024-2025"
+    if not re.match(r"^\d{4}-\d{4}$", season):
+        sys.exit(f"Ugyldigt sæsonformat: {season!r}. Forventet fx 2025-2026.")
+    season_start_year = int(season.split("-")[0])
+    program_url = f"{BASE_URL}/program?aar={season}&sr=1"
+
+    print(f"Henter kampprogram: {program_url}", file=sys.stderr)
+    program_soup = fetch(program_url)
+    matches = parse_program(program_soup, season_start_year)
     print(f"Fandt {len(matches)} kampe.", file=sys.stderr)
 
     rows = []
@@ -158,7 +170,9 @@ def main():
 
     rows.sort(key=lambda r: r["dato"])
 
-    out_path = "tilskuertal_superligaen_2024_25.csv"
+    end_year = season.split("-")[1]
+    season_suffix = f"{season_start_year}_{end_year[-2:]}"
+    out_path = f"tilskuertal_superligaen_{season_suffix}.csv"
     fieldnames = ["dato", "runde", "hjemmehold", "udehold", "hjemmemaal", "udemaal", "tilskuere", "stadion"]
     with open(out_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
