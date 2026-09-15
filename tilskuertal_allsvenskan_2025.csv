@@ -1,0 +1,241 @@
+dato,runde,hjemmehold,udehold,hjemmemaal,udemaal,tilskuere,stadion
+2025-03-29,1,Djurgården,Malmö,0,1,28785,3Arena
+2025-03-29,1,BK Häcken,Brommapojkarna,2,0,4557,Bravida Arena
+2025-03-30,1,Hammarby,Göteborg,4,0,30217,3Arena
+2025-03-30,1,Elfsborg,Mjällby,2,2,8025,Borås Arena
+2025-03-30,1,Halmstad,Degerfors,0,5,5524,Örjans Vall
+2025-03-30,1,Norrköping,Öster,4,3,9527,PlatinumCars Arena
+2025-03-31,1,Värnamo,Sirius,1,2,2524,Finnvedsvallen
+2025-03-31,1,GAIS,AIK Stockholm,0,1,15046,Gamla Ullevi
+2025-04-05,2,Göteborg,Halmstad,1,0,17251,Gamla Ullevi
+2025-04-05,2,Sirius,Djurgården,0,1,9639,Studenternas IP
+2025-04-05,2,Öster,BK Häcken,2,0,7871,Spiris Arena
+2025-04-06,2,Brommapojkarna,Hammarby,0,2,4254,Grimsta IP
+2025-04-06,2,AIK Stockholm,Norrköping,4,3,38525,Strawberry Arena
+2025-04-06,2,Mjällby,GAIS,1,1,3682,Strandvallen A-Plan
+2025-04-06,2,Degerfors,Värnamo,1,0,3506,Stora Valla
+2025-04-07,2,Malmö,Elfsborg,2,1,20930,Eleda Stadion
+2025-04-12,3,BK Häcken,Mjällby,0,3,4058,Bravida Arena
+2025-04-12,3,Elfsborg,Norrköping,2,0,8065,Borås Arena
+2025-04-13,3,Värnamo,Göteborg,0,1,4108,Finnvedsvallen
+2025-04-13,3,Hammarby,Djurgården,2,0,28333,3Arena
+2025-04-13,3,Sirius,Brommapojkarna,0,3,4935,Studenternas IP
+2025-04-13,3,GAIS,Degerfors,2,0,7651,Gamla Ullevi
+2025-04-14,3,Halmstad,Öster,1,0,4728,Örjans Vall
+2025-04-14,3,AIK Stockholm,Malmö,0,0,28472,Strawberry Arena
+2025-04-18,4,Malmö,Sirius,1,1,19353,Eleda Stadion
+2025-04-18,4,Mjällby,Hammarby,3,1,5941,Strandvallen A-Plan
+2025-04-19,4,Norrköping,Halmstad,3,0,5626,PlatinumCars Arena
+2025-04-19,4,Degerfors,Elfsborg,0,1,3127,Stora Valla
+2025-04-20,4,Brommapojkarna,Värnamo,3,2,530,Grimsta IP
+2025-04-20,4,Öster,AIK Stockholm,0,1,11685,Spiris Arena
+2025-04-20,4,Göteborg,BK Häcken,2,3,17318,Gamla Ullevi
+2025-04-21,4,Djurgården,GAIS,0,0,17978,3Arena
+2025-04-23,5,Hammarby,Malmö,2,0,27884,3Arena
+2025-04-23,5,Halmstad,Mjällby,1,3,3652,Örjans Vall
+2025-04-23,5,Elfsborg,Sirius,4,3,5723,Borås Arena
+2025-04-23,5,BK Häcken,Degerfors,3,4,3176,Bravida Arena
+2025-04-24,5,Värnamo,AIK Stockholm,1,2,3235,Finnvedsvallen
+2025-04-24,5,GAIS,Brommapojkarna,1,1,6157,Gamla Ullevi
+2025-04-24,5,Djurgården,Öster,1,0,12301,3Arena
+2025-04-24,5,Norrköping,Göteborg,2,3,8718,PlatinumCars Arena
+2025-04-27,6,Mjällby,Degerfors,4,1,3241,Strandvallen A-Plan
+2025-04-27,6,BK Häcken,Hammarby,1,1,6316,Bravida Arena
+2025-04-27,6,AIK Stockholm,Elfsborg,2,0,27079,Strawberry Arena
+2025-04-27,6,Sirius,Halmstad,1,1,4442,Studenternas IP
+2025-04-27,6,Värnamo,Norrköping,1,3,1888,Finnvedsvallen
+2025-04-28,6,Göteborg,GAIS,1,1,18021,Gamla Ullevi
+2025-04-29,6,Malmö,Öster,2,0,19764,Eleda Stadion
+2025-05-03,7,Degerfors,Sirius,1,1,4112,Stora Valla
+2025-05-03,7,Halmstad,Värnamo,4,2,4464,Örjans Vall
+2025-05-04,7,Djurgården,AIK Stockholm,1,1,26246,3Arena
+2025-05-04,7,Norrköping,BK Häcken,0,2,5589,PlatinumCars Arena
+2025-05-04,7,Mjällby,Göteborg,1,0,5496,Strandvallen A-Plan
+2025-05-04,7,Öster,Hammarby,0,3,11435,Spiris Arena
+2025-05-05,7,Malmö,Brommapojkarna,1,2,18597,Eleda Stadion
+2025-05-05,7,Elfsborg,GAIS,2,0,9942,Borås Arena
+2025-05-10,8,Brommapojkarna,Halmstad,0,1,1031,Grimsta IP
+2025-05-10,8,GAIS,Värnamo,1,1,7392,Gamla Ullevi
+2025-05-10,8,Sirius,BK Häcken,2,0,5179,Studenternas IP
+2025-05-11,8,Hammarby,Norrköping,1,1,27431,3Arena
+2025-05-11,8,AIK Stockholm,Mjällby,2,1,28448,Strawberry Arena
+2025-05-11,8,Öster,Elfsborg,0,1,6155,Spiris Arena
+2025-05-11,8,Degerfors,Malmö,1,4,5608,Stora Valla
+2025-05-12,8,Göteborg,Djurgården,1,2,16872,Gamla Ullevi
+2025-05-14,9,BK Häcken,AIK Stockholm,3,3,5884,Bravida Arena
+2025-05-14,9,Halmstad,GAIS,1,3,5007,Örjans Vall
+2025-05-14,9,Hammarby,Sirius,3,2,21496,3Arena
+2025-05-15,9,Göteborg,Öster,0,1,15754,Gamla Ullevi
+2025-05-15,9,Värnamo,Malmö,2,2,3481,Finnvedsvallen
+2025-05-15,9,Djurgården,Mjällby,1,3,14585,3Arena
+2025-05-15,9,Norrköping,Degerfors,1,2,5650,PlatinumCars Arena
+2025-05-15,9,Elfsborg,Brommapojkarna,4,3,6122,Borås Arena
+2025-05-18,10,AIK Stockholm,Hammarby,0,0,47727,Strawberry Arena
+2025-05-18,10,BK Häcken,Värnamo,2,0,3039,Bravida Arena
+2025-05-18,10,Öster,GAIS,1,1,5515,Spiris Arena
+2025-05-18,10,Malmö,Halmstad,3,0,17418,Eleda Stadion
+2025-05-19,10,Sirius,Norrköping,1,2,6041,Studenternas IP
+2025-05-19,10,Mjällby,Brommapojkarna,1,0,3583,Strandvallen A-Plan
+2025-05-19,10,Degerfors,Göteborg,1,3,5722,Stora Valla
+2025-05-19,10,Elfsborg,Djurgården,4,0,10134,Borås Arena
+2025-05-22,18,Hammarby,Mjällby,1,2,21798,3Arena
+2025-05-22,18,Malmö,AIK Stockholm,0,0,21269,Eleda Stadion
+2025-05-24,11,Värnamo,Öster,1,1,3167,Finnvedsvallen
+2025-05-24,11,GAIS,Sirius,2,1,6396,Gamla Ullevi
+2025-05-25,11,Halmstad,Elfsborg,1,4,4192,Örjans Vall
+2025-05-25,11,Göteborg,Malmö,1,0,16284,Gamla Ullevi
+2025-05-25,11,Brommapojkarna,AIK Stockholm,0,1,4118,Grimsta IP
+2025-05-25,11,Djurgården,BK Häcken,1,1,16483,3Arena
+2025-05-26,11,Norrköping,Mjällby,1,1,5463,PlatinumCars Arena
+2025-05-26,11,Hammarby,Degerfors,1,0,20893,3Arena
+2025-05-29,6,Brommapojkarna,Djurgården,0,1,4008,Grimsta IP
+2025-05-31,12,Degerfors,Öster,1,2,4990,Stora Valla
+2025-05-31,12,Norrköping,GAIS,0,3,7947,PlatinumCars Arena
+2025-05-31,12,Elfsborg,Hammarby,0,2,14239,Borås Arena
+2025-06-01,12,Halmstad,Djurgården,1,0,6086,Örjans Vall
+2025-06-01,12,Malmö,BK Häcken,3,0,17341,Eleda Stadion
+2025-06-01,12,Brommapojkarna,Göteborg,1,3,2682,Grimsta IP
+2025-06-01,12,Mjällby,Värnamo,2,0,4302,Strandvallen A-Plan
+2025-06-01,12,Sirius,AIK Stockholm,3,1,10135,Studenternas IP
+2025-06-28,13,Hammarby,Halmstad,2,0,24323,3Arena
+2025-06-28,13,Öster,Sirius,2,2,4872,Spiris Arena
+2025-06-29,13,AIK Stockholm,Göteborg,3,0,38172,Strawberry Arena
+2025-06-29,13,Degerfors,Brommapojkarna,0,3,3194,Stora Valla
+2025-06-29,13,BK Häcken,GAIS,1,3,6316,Bravida Arena
+2025-06-29,13,Värnamo,Elfsborg,0,0,3049,Finnvedsvallen
+2025-06-30,13,Mjällby,Malmö,1,1,5969,Strandvallen A-Plan
+2025-06-30,13,Djurgården,Norrköping,1,1,20727,3Arena
+2025-07-05,14,GAIS,Malmö,0,0,11313,Gamla Ullevi
+2025-07-05,14,Öster,Mjällby,0,1,6910,Spiris Arena
+2025-07-05,14,Hammarby,Värnamo,1,0,22055,3Arena
+2025-07-06,14,Göteborg,Sirius,3,1,16212,Gamla Ullevi
+2025-07-06,14,Halmstad,AIK Stockholm,2,0,9776,Örjans Vall
+2025-07-06,14,Elfsborg,BK Häcken,0,2,9122,Borås Arena
+2025-07-06,14,Djurgården,Degerfors,5,1,17245,3Arena
+2025-07-07,14,Norrköping,Brommapojkarna,0,1,6742,PlatinumCars Arena
+2025-07-12,15,Göteborg,Elfsborg,1,2,16617,Gamla Ullevi
+2025-07-12,15,Malmö,Norrköping,3,1,18527,Eleda Stadion
+2025-07-13,15,Brommapojkarna,Öster,2,0,948,3Arena
+2025-07-13,15,GAIS,Hammarby,3,2,16789,Gamla Ullevi
+2025-07-13,15,AIK Stockholm,Degerfors,3,0,27229,Strawberry Arena
+2025-07-13,15,Värnamo,Djurgården,1,0,4465,Finnvedsvallen
+2025-07-13,15,BK Häcken,Halmstad,4,1,5758,Bravida Arena
+2025-07-14,15,Sirius,Mjällby,1,2,6244,Studenternas IP
+2025-07-19,16,Djurgården,Elfsborg,1,0,15083,3Arena
+2025-07-19,16,Öster,Malmö,0,2,10405,Spiris Arena
+2025-07-19,16,Degerfors,GAIS,0,3,4201,Stora Valla
+2025-07-20,16,Sirius,Göteborg,0,1,6730,Studenternas IP
+2025-07-20,16,Mjällby,AIK Stockholm,2,0,5982,Strandvallen A-Plan
+2025-07-20,16,Halmstad,BK Häcken,0,0,5481,Örjans Vall
+2025-07-20,16,Hammarby,Brommapojkarna,3,2,21724,3Arena
+2025-07-21,16,Norrköping,Värnamo,3,1,8027,PlatinumCars Arena
+2025-07-26,17,GAIS,Halmstad,3,0,8039,Gamla Ullevi
+2025-07-26,17,Brommapojkarna,Malmö,2,3,2963,3Arena
+2025-07-26,17,Degerfors,Norrköping,0,0,4486,Stora Valla
+2025-07-27,17,AIK Stockholm,Öster,0,0,23458,Strawberry Arena
+2025-07-27,17,BK Häcken,Djurgården,1,6,6015,Bravida Arena
+2025-07-27,17,Värnamo,Hammarby,2,3,4387,Finnvedsvallen
+2025-07-27,17,Mjällby,Sirius,2,1,5386,Strandvallen A-Plan
+2025-07-28,17,Elfsborg,Göteborg,4,3,14304,Borås Arena
+2025-08-02,18,Brommapojkarna,Norrköping,6,4,1390,Grimsta IP
+2025-08-02,18,Värnamo,GAIS,2,2,3072,Finnvedsvallen
+2025-08-03,18,BK Häcken,Elfsborg,1,2,5845,Bravida Arena
+2025-08-03,18,Djurgården,Halmstad,1,1,19053,3Arena
+2025-08-03,18,Sirius,Öster,1,1,5706,Studenternas IP
+2025-08-04,18,Göteborg,Degerfors,3,0,16605,Gamla Ullevi
+2025-08-09,19,Malmö,Mjällby,1,3,20212,Eleda Stadion
+2025-08-09,19,Halmstad,Sirius,0,1,4476,Örjans Vall
+2025-08-10,19,AIK Stockholm,Djurgården,0,0,45922,Strawberry Arena
+2025-08-10,19,Degerfors,BK Häcken,0,0,3218,Stora Valla
+2025-08-10,19,Norrköping,Hammarby,0,2,14465,PlatinumCars Arena
+2025-08-10,19,Öster,Brommapojkarna,1,1,5096,Spiris Arena
+2025-08-11,19,GAIS,Göteborg,0,1,18078,Gamla Ullevi
+2025-08-11,19,Elfsborg,Värnamo,2,2,7466,Borås Arena
+2025-08-16,20,Halmstad,Malmö,0,4,8518,Örjans Vall
+2025-08-16,20,Norrköping,Elfsborg,2,1,5753,PlatinumCars Arena
+2025-08-17,20,Brommapojkarna,Sirius,2,4,2416,Grimsta IP
+2025-08-17,20,Göteborg,AIK Stockholm,2,1,17023,Gamla Ullevi
+2025-08-17,20,Mjällby,Djurgården,1,1,5780,Strandvallen A-Plan
+2025-08-17,20,Hammarby,GAIS,1,2,24632,3Arena
+2025-08-17,20,BK Häcken,Öster,0,2,3308,Bravida Arena
+2025-08-18,20,Värnamo,Degerfors,3,2,2528,Finnvedsvallen
+2025-08-24,21,Sirius,Hammarby,3,1,10033,Studenternas IP
+2025-08-24,21,Djurgården,Brommapojkarna,1,0,16340,3Arena
+2025-08-24,21,Degerfors,AIK Stockholm,0,1,6361,Stora Valla
+2025-08-24,21,Värnamo,BK Häcken,1,5,2130,Finnvedsvallen
+2025-08-24,21,Elfsborg,Halmstad,1,2,6233,Borås Arena
+2025-08-24,21,Malmö,Göteborg,0,0,20597,Eleda Stadion
+2025-08-25,21,Öster,Norrköping,1,2,5675,Spiris Arena
+2025-08-25,21,GAIS,Mjällby,0,2,9875,Gamla Ullevi
+2025-08-30,22,Brommapojkarna,Elfsborg,3,0,707,Grimsta IP
+2025-08-30,22,Göteborg,Värnamo,1,0,15919,Gamla Ullevi
+2025-08-30,22,Mjällby,Halmstad,1,0,5376,Strandvallen A-Plan
+2025-08-31,22,Norrköping,Djurgården,0,4,11632,PlatinumCars Arena
+2025-08-31,22,Malmö,Degerfors,1,1,17771,Eleda Stadion
+2025-08-31,22,AIK Stockholm,Sirius,2,1,24280,Strawberry Arena
+2025-08-31,22,Hammarby,Öster,4,0,19813,3Arena
+2025-08-31,22,GAIS,BK Häcken,2,1,10032,Gamla Ullevi
+2025-09-13,23,Degerfors,Mjällby,0,1,5395,Stora Valla
+2025-09-13,23,Halmstad,Norrköping,1,1,4179,Örjans Vall
+2025-09-14,23,Djurgården,Hammarby,3,3,26694,3Arena
+2025-09-14,23,Öster,Värnamo,4,3,6035,Spiris Arena
+2025-09-14,23,Sirius,GAIS,3,0,6090,Studenternas IP
+2025-09-14,23,Elfsborg,Malmö,2,2,10175,Borås Arena
+2025-09-15,23,AIK Stockholm,Brommapojkarna,2,1,21108,Strawberry Arena
+2025-09-15,23,BK Häcken,Göteborg,1,2,6316,Bravida Arena
+2025-09-20,24,GAIS,Elfsborg,2,0,9187,Gamla Ullevi
+2025-09-20,24,Malmö,Djurgården,0,1,18676,Eleda Stadion
+2025-09-20,24,Mjällby,Öster,1,1,5775,Strandvallen A-Plan
+2025-09-21,24,Göteborg,Brommapojkarna,0,1,15357,Gamla Ullevi
+2025-09-21,24,Hammarby,BK Häcken,4,0,20893,3Arena
+2025-09-21,24,Sirius,Degerfors,1,3,8143,Studenternas IP
+2025-09-22,24,Värnamo,Halmstad,1,2,2803,Finnvedsvallen
+2025-09-22,24,Norrköping,AIK Stockholm,3,1,12283,PlatinumCars Arena
+2025-09-27,25,Elfsborg,Degerfors,1,2,8037,Borås Arena
+2025-09-27,25,BK Häcken,Norrköping,2,0,4467,Bravida Arena
+2025-09-28,25,Halmstad,Hammarby,1,0,6852,Örjans Vall
+2025-09-28,25,Brommapojkarna,Mjällby,0,1,1696,Grimsta IP
+2025-09-28,25,AIK Stockholm,GAIS,1,1,25458,Strawberry Arena
+2025-09-28,25,Malmö,Värnamo,3,2,15226,Eleda Stadion
+2025-09-29,25,Djurgården,Sirius,8,2,16248,3Arena
+2025-09-29,25,Öster,Göteborg,0,2,8047,Spiris Arena
+2025-10-04,26,Mjällby,Elfsborg,2,0,4933,Strandvallen A-Plan
+2025-10-04,26,Öster,Halmstad,3,0,4317,Spiris Arena
+2025-10-04,26,Degerfors,Djurgården,1,1,3849,Stora Valla
+2025-10-04,26,GAIS,Norrköping,2,1,5280,Gamla Ullevi
+2025-10-05,26,AIK Stockholm,Värnamo,2,3,20331,Strawberry Arena
+2025-10-05,26,Göteborg,Hammarby,1,2,16644,Gamla Ullevi
+2025-10-05,26,Brommapojkarna,BK Häcken,1,3,2824,Grimsta IP
+2025-10-05,26,Sirius,Malmö,5,1,6799,Studenternas IP
+2025-10-18,27,Norrköping,Malmö,0,2,10019,PlatinumCars Arena
+2025-10-18,27,BK Häcken,Sirius,1,1,2714,Bravida Arena
+2025-10-19,27,Hammarby,AIK Stockholm,2,1,27876,3Arena
+2025-10-19,27,GAIS,Djurgården,3,2,13122,Gamla Ullevi
+2025-10-19,27,Elfsborg,Öster,5,1,5042,Borås Arena
+2025-10-19,27,Värnamo,Brommapojkarna,1,1,1011,Finnvedsvallen
+2025-10-20,27,Degerfors,Halmstad,0,1,3210,Stora Valla
+2025-10-20,27,Göteborg,Mjällby,0,2,16937,Gamla Ullevi
+2025-10-25,28,Djurgården,Värnamo,6,2,16427,3Arena
+2025-10-25,28,Öster,Degerfors,1,2,5517,Spiris Arena
+2025-10-26,28,Mjällby,Norrköping,2,1,5629,Strandvallen A-Plan
+2025-10-26,28,Sirius,Elfsborg,4,0,5233,Studenternas IP
+2025-10-26,28,AIK Stockholm,BK Häcken,2,2,23055,Strawberry Arena
+2025-10-26,28,Halmstad,Göteborg,0,3,8424,Örjans Vall
+2025-10-27,28,Brommapojkarna,GAIS,0,2,1811,Grimsta IP
+2025-10-27,28,Malmö,Hammarby,1,3,19144,Eleda Stadion
+2025-11-01,29,BK Häcken,Malmö,1,1,4314,Bravida Arena
+2025-11-01,29,Norrköping,Sirius,1,2,6447,PlatinumCars Arena
+2025-11-02,29,Halmstad,Brommapojkarna,0,0,4236,Örjans Vall
+2025-11-02,29,Elfsborg,AIK Stockholm,0,3,10144,Borås Arena
+2025-11-02,29,Djurgården,Göteborg,0,0,26809,3Arena
+2025-11-02,29,GAIS,Öster,1,1,12123,Gamla Ullevi
+2025-11-03,29,Degerfors,Hammarby,1,1,5839,Stora Valla
+2025-11-03,29,Värnamo,Mjällby,0,5,1592,Finnvedsvallen
+2025-11-09,30,Öster,Djurgården,1,3,9012,Spiris Arena
+2025-11-09,30,Mjällby,BK Häcken,1,0,5403,Strandvallen A-Plan
+2025-11-09,30,Sirius,Värnamo,3,1,5792,Studenternas IP
+2025-11-09,30,AIK Stockholm,Halmstad,0,2,31091,Strawberry Arena
+2025-11-09,30,Brommapojkarna,Degerfors,1,3,2249,Grimsta IP
+2025-11-09,30,Hammarby,Elfsborg,3,0,25091,3Arena
+2025-11-09,30,Malmö,GAIS,2,1,15772,Eleda Stadion
+2025-11-09,30,Göteborg,Norrköping,2,0,16412,Gamla Ullevi
