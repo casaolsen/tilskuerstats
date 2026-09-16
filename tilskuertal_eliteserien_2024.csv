@@ -1,0 +1,241 @@
+dato,runde,hjemmehold,udehold,hjemmemaal,udemaal,tilskuere,stadion
+2024-03-31,1,Odd,Haugesund,1,2,5649,Skagerak Arena
+2024-04-01,1,Fredrikstad,Bodø/Glimt,0,2,10691,Fredrikstad stadion
+2024-04-01,1,Lillestrøm,Kristiansund,2,3,9457,Åråsen stadion
+2024-04-01,1,Molde,Strømsgodset,4,0,7203,Aker stadion
+2024-04-01,1,Rosenborg,Sandefjord Fotball,2,0,14605,Lerkendal stadion
+2024-04-01,1,Tromsø,Brann,2,4,4890,Romssa Arena
+2024-04-01,1,Viking,Sarpsborg 08,1,0,12521,Lyse Arena
+2024-04-02,1,KFUM,HamKam,1,1,4018,Intility Arena
+2024-04-06,2,Bodø/Glimt,Viking,1,0,6584,Aspmyra stadion
+2024-04-07,2,Kristiansund,KFUM,1,1,3549,Nordmøre stadion
+2024-04-07,2,HamKam,Molde,0,1,3822,Briskeby
+2024-04-07,2,Haugesund,Lillestrøm,0,2,7134,Haugesund Sparebank Arena
+2024-04-07,2,Sarpsborg 08,Odd,0,1,4749,Sarpsborg st KG
+2024-04-07,2,Strømsgodset,Rosenborg,1,0,6206,Marienlyst stadion
+2024-04-07,2,Brann,Fredrikstad,0,2,16287,Brann stadion
+2024-04-13,3,Fredrikstad,Sarpsborg 08,2,2,12504,Fredrikstad stadion
+2024-04-14,3,Viking,Brann,1,1,15900,Lyse Arena
+2024-04-14,3,Molde,Kristiansund,2,0,8810,Aker stadion
+2024-04-14,3,Odd,Sandefjord Fotball,2,2,5389,Skagerak Arena
+2024-04-14,3,Rosenborg,HamKam,1,0,11278,Lerkendal stadion
+2024-04-14,3,Tromsø,Haugesund,0,1,4031,Romssa Arena
+2024-04-14,3,Lillestrøm,Bodø/Glimt,0,5,8344,Åråsen stadion
+2024-04-16,3,KFUM,Strømsgodset,1,3,2943,Intility Arena
+2024-04-17,16,Brann,HamKam,1,0,14808,Brann stadion
+2024-04-17,17,Molde,Odd,1,2,5753,Aker stadion
+2024-04-21,4,HamKam,Strømsgodset,0,1,3107,Briskeby
+2024-04-21,4,Brann,Odd,2,0,15564,Brann stadion
+2024-04-21,4,Haugesund,Rosenborg,1,3,5023,Haugesund Sparebank Arena
+2024-04-21,4,Kristiansund,Tromsø,1,0,3339,Nordmøre stadion
+2024-04-21,4,Sandefjord Fotball,Lillestrøm,0,1,4089,Jotun Arena
+2024-04-21,4,Sarpsborg 08,KFUM,0,2,,Sarpsborg st KG
+2024-04-21,4,Viking,Fredrikstad,1,1,15009,Lyse Arena
+2024-04-21,4,Bodø/Glimt,Molde,1,1,7127,Aspmyra stadion
+2024-04-27,5,Rosenborg,Bodø/Glimt,1,3,21276,Lerkendal stadion
+2024-04-28,5,Fredrikstad,Sandefjord Fotball,1,0,6669,Fredrikstad stadion
+2024-04-28,5,KFUM,Brann,0,0,3298,KFUM-Arena
+2024-04-28,5,Lillestrøm,HamKam,1,1,6190,Åråsen stadion
+2024-04-28,5,Molde,Haugesund,2,1,6160,Aker stadion
+2024-04-28,5,Strømsgodset,Kristiansund,2,2,4279,Marienlyst stadion
+2024-04-28,5,Tromsø,Sarpsborg 08,0,3,4873,Romssa Arena
+2024-04-28,5,Odd,Viking,3,3,4337,Skagerak Arena
+2024-05-04,6,Brann,Rosenborg,3,0,16750,Brann stadion
+2024-05-05,6,Bodø/Glimt,Strømsgodset,1,0,5961,Aspmyra stadion
+2024-05-05,6,Haugesund,KFUM,0,1,4017,Haugesund Sparebank Arena
+2024-05-05,6,Kristiansund,HamKam,1,1,3280,Nordmøre stadion
+2024-05-05,6,Odd,Fredrikstad,0,2,5154,Skagerak Arena
+2024-05-05,6,Sandefjord Fotball,Molde,3,1,,Jotun Arena
+2024-05-05,6,Sarpsborg 08,Lillestrøm,1,0,4706,Sarpsborg st KG
+2024-05-05,6,Viking,Tromsø,2,1,10093,Lyse Arena
+2024-05-11,7,Molde,Rosenborg,2,2,10746,Aker stadion
+2024-05-12,7,Kristiansund,Bodø/Glimt,2,4,4018,Nordmøre stadion
+2024-05-12,7,HamKam,Haugesund,2,2,3011,Briskeby
+2024-05-12,7,KFUM,Fredrikstad,1,4,3206,KFUM-Arena
+2024-05-12,7,Sandefjord Fotball,Sarpsborg 08,4,1,3513,Jotun Arena
+2024-05-12,7,Strømsgodset,Viking,0,1,4669,Marienlyst stadion
+2024-05-12,7,Tromsø,Odd,4,0,,Romssa Arena
+2024-05-12,7,Lillestrøm,Brann,0,2,8386,Åråsen stadion
+2024-05-16,8,Bodø/Glimt,Tromsø,4,0,8257,Aspmyra stadion
+2024-05-16,8,Brann,Sandefjord Fotball,2,1,16750,Brann stadion
+2024-05-16,8,Fredrikstad,Strømsgodset,4,1,11317,Fredrikstad stadion
+2024-05-16,8,Haugesund,Kristiansund,1,0,6628,Haugesund Sparebank Arena
+2024-05-16,8,Odd,Molde,0,4,6325,Skagerak Arena
+2024-05-16,8,Rosenborg,KFUM,1,3,21426,Lerkendal stadion
+2024-05-16,8,Sarpsborg 08,HamKam,1,7,6154,Sarpsborg st KG
+2024-05-16,8,Viking,Lillestrøm,1,4,15800,Lyse Arena
+2024-05-20,9,HamKam,Bodø/Glimt,1,0,5012,Briskeby
+2024-05-20,9,KFUM,Odd,0,0,2409,KFUM-Arena
+2024-05-20,9,Kristiansund,Brann,2,2,3581,Nordmøre stadion
+2024-05-20,9,Lillestrøm,Fredrikstad,0,3,9267,Åråsen stadion
+2024-05-20,9,Molde,Sarpsborg 08,2,4,6034,Aker stadion
+2024-05-20,9,Sandefjord Fotball,Viking,0,3,3696,Jotun Arena
+2024-05-20,9,Strømsgodset,Haugesund,2,0,5346,Marienlyst stadion
+2024-05-20,9,Tromsø,Rosenborg,3,2,4713,Romssa Arena
+2024-05-24,10,Bodø/Glimt,KFUM,2,2,6243,Aspmyra stadion
+2024-05-25,10,Fredrikstad,Tromsø,0,0,8671,Fredrikstad stadion
+2024-05-26,10,Haugesund,Sandefjord Fotball,2,1,3615,Haugesund Sparebank Arena
+2024-05-26,10,Odd,Lillestrøm,2,1,4529,Skagerak Arena
+2024-05-26,10,Rosenborg,Kristiansund,2,1,11649,Lerkendal stadion
+2024-05-26,10,Sarpsborg 08,Strømsgodset,1,3,4105,Sarpsborg st KG
+2024-05-26,10,Viking,HamKam,3,0,10024,Lyse Arena
+2024-05-26,10,Brann,Molde,1,3,16317,Brann stadion
+2024-05-29,18,Brann,Kristiansund,2,1,14538,Brann stadion
+2024-05-29,18,Tromsø,Fredrikstad,3,0,4501,Romssa Arena
+2024-05-29,19,Bodø/Glimt,Sandefjord Fotball,1,1,5853,Aspmyra stadion
+2024-06-01,11,HamKam,Brann,1,2,6218,Briskeby
+2024-06-02,11,Molde,Viking,2,2,6879,Aker stadion
+2024-06-02,11,Haugesund,Bodø/Glimt,0,1,4649,Haugesund Sparebank Arena
+2024-06-02,11,KFUM,Sandefjord Fotball,3,3,2759,KFUM-Arena
+2024-06-02,11,Kristiansund,Sarpsborg 08,3,1,3391,Nordmøre stadion
+2024-06-02,11,Strømsgodset,Odd,1,1,5381,Marienlyst stadion
+2024-06-02,11,Tromsø,Lillestrøm,1,2,5154,Romssa Arena
+2024-06-02,11,Rosenborg,Fredrikstad,1,1,11922,Lerkendal stadion
+2024-06-27,12,Sandefjord Fotball,HamKam,1,2,3241,Jotun Arena
+2024-06-27,12,Lillestrøm,KFUM,2,1,6212,Åråsen stadion
+2024-06-28,12,Brann,Strømsgodset,0,0,15933,Brann stadion
+2024-06-28,12,Odd,Kristiansund,1,1,4018,Skagerak Arena
+2024-06-28,12,Sarpsborg 08,Bodø/Glimt,1,2,6401,Sarpsborg st KG
+2024-06-28,12,Tromsø,Molde,0,2,4333,Romssa Arena
+2024-06-30,12,Viking,Rosenborg,4,2,11512,Lyse Arena
+2024-07-03,2,Sandefjord Fotball,Tromsø,1,2,3307,Jotun Arena
+2024-07-07,13,Bodø/Glimt,Brann,5,1,8118,Aspmyra stadion
+2024-07-07,13,HamKam,Tromsø,0,0,4406,Briskeby
+2024-07-07,13,Haugesund,Sarpsborg 08,1,2,3641,Haugesund Sparebank Arena
+2024-07-07,13,KFUM,Viking,1,2,2807,KFUM-Arena
+2024-07-07,13,Molde,Lillestrøm,3,0,7050,Aker stadion
+2024-07-07,13,Rosenborg,Odd,2,1,10434,Lerkendal stadion
+2024-07-08,13,Kristiansund,Fredrikstad,3,1,3621,Aker stadion
+2024-07-08,13,Strømsgodset,Sandefjord Fotball,1,1,4871,Marienlyst stadion
+2024-07-12,14,Sarpsborg 08,Rosenborg,4,1,5304,Sarpsborg st KG
+2024-07-13,14,Fredrikstad,Molde,0,0,9115,Fredrikstad stadion
+2024-07-13,14,Lillestrøm,Strømsgodset,3,1,5918,Åråsen stadion
+2024-07-13,14,Odd,HamKam,1,2,3783,Skagerak Arena
+2024-07-13,14,Sandefjord Fotball,Bodø/Glimt,2,1,4179,Jotun Arena
+2024-07-13,14,Viking,Kristiansund,2,0,10126,Lyse Arena
+2024-07-13,14,Brann,Haugesund,1,1,15757,Brann stadion
+2024-07-13,14,Tromsø,KFUM,1,2,5267,Romssa Arena
+2024-07-19,15,Bodø/Glimt,Odd,3,1,6888,Aspmyra stadion
+2024-07-20,15,Sarpsborg 08,Brann,1,1,5457,Sarpsborg st KG
+2024-07-20,15,Molde,KFUM,2,3,7564,Aker stadion
+2024-07-21,15,Strømsgodset,Tromsø,0,1,4607,Marienlyst stadion
+2024-07-21,15,HamKam,Fredrikstad,0,1,4486,Briskeby
+2024-07-21,15,Haugesund,Viking,1,0,6828,Haugesund Sparebank Arena
+2024-07-27,16,KFUM,Bodø/Glimt,1,1,3299,KFUM-Arena
+2024-07-27,16,Fredrikstad,Rosenborg,2,2,10630,Fredrikstad stadion
+2024-07-28,16,Lillestrøm,Sarpsborg 08,2,2,6387,Åråsen stadion
+2024-07-28,16,Odd,Strømsgodset,2,0,3781,Skagerak Arena
+2024-07-28,16,Sandefjord Fotball,Haugesund,4,3,3115,Jotun Arena
+2024-07-28,16,Tromsø,Kristiansund,0,0,4006,Romssa Arena
+2024-07-28,16,Viking,Molde,1,0,,Lyse Arena
+2024-08-03,17,Bodø/Glimt,Haugesund,4,2,6647,Aspmyra stadion
+2024-08-04,17,Fredrikstad,KFUM,0,0,7616,Fredrikstad stadion
+2024-08-04,17,HamKam,Viking,3,3,3504,Briskeby
+2024-08-04,17,Kristiansund,Lillestrøm,2,1,,Aker stadion
+2024-08-04,17,Sarpsborg 08,Sandefjord Fotball,2,1,4610,Sarpsborg st KG
+2024-08-04,17,Strømsgodset,Brann,2,3,5601,Marienlyst stadion
+2024-08-04,17,Rosenborg,Tromsø,1,0,11602,Lerkendal stadion
+2024-08-09,18,Sandefjord Fotball,Strømsgodset,2,2,6598,Jotun Arena
+2024-08-10,18,Haugesund,HamKam,0,1,3678,Haugesund Sparebank Arena
+2024-08-10,18,Viking,Bodø/Glimt,1,1,14976,Lyse Arena
+2024-08-11,18,KFUM,Rosenborg,1,0,3300,KFUM-Arena
+2024-08-11,18,Odd,Sarpsborg 08,1,1,4417,Skagerak Arena
+2024-08-11,18,Lillestrøm,Molde,1,2,6403,Åråsen stadion
+2024-08-14,12,Fredrikstad,Haugesund,1,0,6369,Fredrikstad stadion
+2024-08-17,19,Strømsgodset,Lillestrøm,3,2,5006,Marienlyst stadion
+2024-08-18,19,Fredrikstad,Brann,0,4,9147,Fredrikstad stadion
+2024-08-18,19,HamKam,Odd,1,0,4209,Briskeby
+2024-08-18,19,KFUM,Tromsø,0,1,2640,KFUM-Arena
+2024-08-18,19,Sarpsborg 08,Haugesund,2,2,4493,Sarpsborg st KG
+2024-08-18,19,Rosenborg,Viking,2,1,12218,Lerkendal stadion
+2024-08-21,15,Rosenborg,Lillestrøm,4,0,,Lerkendal stadion
+2024-08-24,20,Bodø/Glimt,Sarpsborg 08,6,0,6223,Aspmyra stadion
+2024-08-25,20,Lillestrøm,Tromsø,0,1,7315,Åråsen stadion
+2024-08-25,20,Haugesund,Fredrikstad,1,0,5550,Haugesund Sparebank Arena
+2024-08-25,20,Molde,HamKam,3,0,6433,Aker stadion
+2024-08-25,20,Sandefjord Fotball,Kristiansund,1,0,,Jotun Arena
+2024-08-25,20,Viking,Strømsgodset,5,2,10211,Lyse Arena
+2024-08-25,20,Odd,Rosenborg,1,3,5048,Skagerak Arena
+2024-08-30,21,KFUM,Lillestrøm,2,0,3216,KFUM-Arena
+2024-08-31,21,Fredrikstad,Odd,2,0,5976,Fredrikstad stadion
+2024-09-01,21,HamKam,Sandefjord Fotball,1,1,4316,Briskeby
+2024-09-01,21,Kristiansund,Haugesund,2,2,3927,Nordmøre stadion
+2024-09-01,21,Rosenborg,Molde,2,1,21426,Lerkendal stadion
+2024-09-01,21,Strømsgodset,Bodø/Glimt,0,1,5380,Marienlyst stadion
+2024-09-01,21,Tromsø,Viking,2,2,4807,Romssa Arena
+2024-09-01,21,Brann,Sarpsborg 08,1,3,14307,Brann stadion
+2024-09-13,22,Bodø/Glimt,HamKam,3,0,5879,Aspmyra stadion
+2024-09-14,22,Viking,KFUM,1,0,10099,Lyse Arena
+2024-09-14,22,Molde,Fredrikstad,6,1,6372,Aker stadion
+2024-09-15,22,Odd,Tromsø,1,0,4078,Skagerak Arena
+2024-09-15,22,Haugesund,Strømsgodset,0,0,3761,Haugesund Sparebank Arena
+2024-09-15,22,Sandefjord Fotball,Brann,2,2,4144,Jotun Arena
+2024-09-15,22,Sarpsborg 08,Kristiansund,0,2,5383,Sarpsborg st KG
+2024-09-15,22,Lillestrøm,Rosenborg,1,1,9731,Åråsen stadion
+2024-09-18,19,Kristiansund,Molde,0,4,4030,Nordmøre stadion
+2024-09-18,20,Brann,KFUM,2,0,14230,Brann stadion
+2024-09-21,23,Strømsgodset,Sarpsborg 08,2,1,5039,Marienlyst stadion
+2024-09-21,23,HamKam,Lillestrøm,5,0,4719,Briskeby
+2024-09-22,23,Brann,Bodø/Glimt,4,1,16551,Brann stadion
+2024-09-22,23,Kristiansund,Odd,0,0,3182,Nordmøre stadion
+2024-09-22,23,Rosenborg,Haugesund,4,0,12328,Lerkendal stadion
+2024-09-22,23,Tromsø,Sandefjord Fotball,3,0,3735,Romssa Arena
+2024-09-22,23,Fredrikstad,Viking,3,2,6171,Fredrikstad stadion
+2024-09-23,23,KFUM,Molde,1,1,2827,KFUM-Arena
+2024-09-28,24,Molde,Tromsø,5,3,6090,Aker stadion
+2024-09-28,24,Haugesund,Brann,0,1,7620,Haugesund Sparebank Arena
+2024-09-28,24,Sarpsborg 08,Fredrikstad,0,1,8022,Sarpsborg st KG
+2024-09-29,24,Strømsgodset,HamKam,1,1,4507,Marienlyst stadion
+2024-09-29,24,Bodø/Glimt,Kristiansund,4,0,5415,Aspmyra stadion
+2024-09-29,24,Lillestrøm,Viking,1,4,6478,Åråsen stadion
+2024-09-29,24,Odd,KFUM,1,3,4743,Skagerak Arena
+2024-09-29,24,Sandefjord Fotball,Rosenborg,0,1,4701,Jotun Arena
+2024-10-05,15,Kristiansund,Sandefjord Fotball,2,1,,Nordmøre stadion
+2024-10-19,25,Molde,Sandefjord Fotball,0,1,6293,Aker stadion
+2024-10-19,25,Tromsø,Bodø/Glimt,0,0,6991,Romssa Arena
+2024-10-20,25,Rosenborg,Brann,1,2,21426,Lerkendal stadion
+2024-10-20,25,HamKam,Sarpsborg 08,0,2,4155,Briskeby
+2024-10-20,25,KFUM,Haugesund,0,0,1930,KFUM-Arena
+2024-10-20,25,Kristiansund,Strømsgodset,0,0,3108,Nordmøre stadion
+2024-10-20,25,Viking,Odd,3,3,,Lyse Arena
+2024-10-20,25,Fredrikstad,Lillestrøm,2,1,10906,Fredrikstad stadion
+2024-10-26,26,Strømsgodset,Fredrikstad,2,0,4604,Marienlyst stadion
+2024-10-27,26,HamKam,Kristiansund,1,0,3134,Briskeby
+2024-10-27,26,Haugesund,Molde,0,3,3802,Haugesund Sparebank Arena
+2024-10-27,26,Lillestrøm,Odd,3,0,7046,Åråsen stadion
+2024-10-27,26,Sandefjord Fotball,KFUM,2,1,3543,Jotun Arena
+2024-10-27,26,Sarpsborg 08,Viking,1,2,4793,Sarpsborg st KG
+2024-10-27,26,Brann,Tromsø,4,0,15517,Brann stadion
+2024-10-28,26,Bodø/Glimt,Rosenborg,2,3,6821,Aspmyra stadion
+2024-11-02,27,Viking,Sandefjord Fotball,3,2,,Lyse Arena
+2024-11-03,27,Fredrikstad,Kristiansund,1,1,5990,Fredrikstad stadion
+2024-11-03,27,KFUM,Sarpsborg 08,1,2,1764,KFUM-Arena
+2024-11-03,27,Lillestrøm,Haugesund,0,1,7203,Åråsen stadion
+2024-11-03,27,Molde,Bodø/Glimt,3,3,6997,Aker stadion
+2024-11-03,27,Odd,Brann,0,3,5752,Skagerak Arena
+2024-11-03,27,Tromsø,HamKam,3,3,4052,Romssa Arena
+2024-11-03,27,Rosenborg,Strømsgodset,1,0,12424,Lerkendal stadion
+2024-11-09,28,Brann,Lillestrøm,2,1,16569,Brann stadion
+2024-11-10,28,HamKam,Rosenborg,0,2,5334,Briskeby
+2024-11-10,28,Haugesund,Tromsø,2,0,4531,Haugesund Sparebank Arena
+2024-11-10,28,Kristiansund,Viking,0,1,3395,Nordmøre stadion
+2024-11-10,28,Sandefjord Fotball,Odd,1,0,5497,Jotun Arena
+2024-11-10,28,Sarpsborg 08,Molde,2,2,4274,Sarpsborg st KG
+2024-11-10,28,Strømsgodset,KFUM,1,0,4418,Marienlyst stadion
+2024-11-10,28,Bodø/Glimt,Fredrikstad,2,2,5872,Aspmyra stadion
+2024-11-23,29,Fredrikstad,HamKam,1,0,5578,Fredrikstad stadion
+2024-11-23,29,KFUM,Kristiansund,1,2,2348,KFUM-Arena
+2024-11-23,29,Lillestrøm,Sandefjord Fotball,0,3,6217,Åråsen stadion
+2024-11-23,29,Molde,Brann,2,1,9248,Aker stadion
+2024-11-23,29,Odd,Bodø/Glimt,0,2,3971,Skagerak Arena
+2024-11-23,29,Rosenborg,Sarpsborg 08,1,1,13222,Lerkendal stadion
+2024-11-23,29,Tromsø,Strømsgodset,2,0,3991,Romssa Arena
+2024-11-23,29,Viking,Haugesund,5,1,14701,Lyse Arena
+2024-12-01,30,Bodø/Glimt,Lillestrøm,5,2,7707,Aspmyra stadion
+2024-12-01,30,Brann,Viking,1,1,16500,Brann stadion
+2024-12-01,30,HamKam,KFUM,0,2,2508,Briskeby
+2024-12-01,30,Haugesund,Odd,2,1,3964,Haugesund Sparebank Arena
+2024-12-01,30,Kristiansund,Rosenborg,0,4,4309,Nordmøre stadion
+2024-12-01,30,Sandefjord Fotball,Fredrikstad,0,1,3616,Jotun Arena
+2024-12-01,30,Sarpsborg 08,Tromsø,2,1,3897,Sarpsborg st KG
+2024-12-01,30,Strømsgodset,Molde,1,0,4207,Marienlyst stadion
