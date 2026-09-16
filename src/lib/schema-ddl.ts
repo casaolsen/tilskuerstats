@@ -48,7 +48,8 @@ export const SETUP_DDL: string[] = [
     "city" TEXT NOT NULL,
     "address" TEXT,
     "capacity" INTEGER,
-    "imageUrl" TEXT
+    "imageUrl" TEXT,
+    "website" TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS "Team" (
     "id" TEXT PRIMARY KEY,
@@ -97,6 +98,7 @@ export const SETUP_DDL: string[] = [
   `ALTER TABLE "League" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "address" TEXT`,
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "imageUrl" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
 ];

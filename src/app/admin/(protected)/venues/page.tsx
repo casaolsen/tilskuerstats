@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { buttonClass, buttonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
+import { buttonClass, buttonStyle, dangerButtonClass, dangerButtonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
+import { ConfirmButton } from "@/components/ConfirmButton";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +18,7 @@ async function updateVenue(formData: FormData) {
       address: String(formData.get("address") ?? "") || null,
       capacity: capacityRaw ? Number(capacityRaw) : null,
       imageUrl: String(formData.get("imageUrl") ?? "") || null,
+      website: String(formData.get("website") ?? "") || null,
     },
   });
   revalidatePath("/admin/venues");
@@ -31,9 +34,32 @@ async function createVenue(formData: FormData) {
   revalidatePath("/admin/venues");
 }
 
-export default async function VenuesAdminPage() {
+async function deleteVenue(formData: FormData) {
+  "use server";
+  const id = String(formData.get("id"));
+  const [teamCount, matchCount] = await Promise.all([
+    prisma.team.count({ where: { homeVenueId: id } }),
+    prisma.match.count({ where: { venueId: id } }),
+  ]);
+  if (teamCount > 0 || matchCount > 0) {
+    redirect(`/admin/venues?deleteError=${encodeURIComponent("Stadionet er tilknyttet hold eller kampe og kan ikke slettes.")}`);
+  }
+  await prisma.venue.delete({ where: { id } });
+  revalidatePath("/admin/venues");
+  redirect("/admin/venues?deleted=1");
+}
+
+export default async function VenuesAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ deleteError?: string; deleted?: string }>;
+}) {
+  const { deleteError, deleted } = await searchParams;
   const [venues, countries] = await Promise.all([
-    prisma.venue.findMany({ include: { country: true }, orderBy: { name: "asc" } }),
+    prisma.venue.findMany({
+      include: { country: true, _count: { select: { teams: true, matches: true } } },
+      orderBy: { name: "asc" },
+    }),
     prisma.country.findMany({ orderBy: { code: "asc" } }),
   ]);
 
@@ -41,13 +67,22 @@ export default async function VenuesAdminPage() {
     <div className="flex flex-col gap-8">
       <h1 className="text-xl font-semibold">Stadions</h1>
 
+      {deleted && (
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Stadionet er slettet.</p>
+      )}
+      {deleteError && (
+        <p className="text-sm" style={{ color: "#e34948" }}>{deleteError}</p>
+      )}
+
       <div className="overflow-x-auto">
-      <div className="flex min-w-[900px] flex-col gap-3">
-        {venues.map((v) => (
+      <div className="flex min-w-[1080px] flex-col gap-3">
+        {venues.map((v) => {
+          const inUse = v._count.teams + v._count.matches > 0;
+          return (
+          <div key={v.id} className="flex items-center gap-2">
           <form
-            key={v.id}
             action={updateVenue}
-            className="grid grid-cols-[1fr_1fr_1.4fr_90px_1fr_auto] items-center gap-2 rounded-lg border p-3"
+            className="grid flex-1 grid-cols-[1fr_1fr_1.4fr_90px_1fr_1fr_auto] items-center gap-2 rounded-lg border p-3"
             style={{ borderColor: "var(--border)" }}
           >
             <input type="hidden" name="id" value={v.id} />
@@ -76,9 +111,40 @@ export default async function VenuesAdminPage() {
               className={inputClass}
               style={inputStyle}
             />
+            <input
+              name="website"
+              defaultValue={v.website ?? ""}
+              placeholder="https://..."
+              className={inputClass}
+              style={inputStyle}
+            />
             <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>
           </form>
-        ))}
+          <form action={deleteVenue}>
+            <input type="hidden" name="id" value={v.id} />
+            {inUse ? (
+              <button
+                type="submit"
+                disabled
+                title="Stadionet er tilknyttet hold eller kampe og kan ikke slettes"
+                className={dangerButtonClass}
+                style={dangerButtonStyle}
+              >
+                Slet
+              </button>
+            ) : (
+              <ConfirmButton
+                confirmText={`Slet stadionet "${v.name}"? Dette kan ikke fortrydes.`}
+                className={dangerButtonClass}
+                style={dangerButtonStyle}
+              >
+                Slet
+              </ConfirmButton>
+            )}
+          </form>
+          </div>
+          );
+        })}
       </div>
       </div>
 

@@ -61,7 +61,12 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
   const selectedSeason = isAllSeasons ? null : (seasons.find((s) => s.label === seasonParam) ?? latestSeason);
 
   const teams = await prisma.team.findMany({
-    where: { countryId: country.id },
+    where: {
+      countryId: country.id,
+      seasons: {
+        some: isAllSeasons ? { season: { leagueId: league.id } } : { seasonId: selectedSeason!.id },
+      },
+    },
     include: {
       homeVenue: true,
       homeMatches: {
@@ -142,9 +147,11 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
     team: {
       slug: team.slug,
       name: team.name,
+      website: team.website,
       countryCode: team.country.code,
       countryName: team.country.name,
       venueName: team.homeVenue?.name ?? null,
+      venueWebsite: team.homeVenue?.website ?? null,
       city: team.homeVenue?.city ?? null,
       capacity: team.homeVenue?.capacity ?? null,
     },

@@ -1,7 +1,9 @@
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { buttonClass, buttonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
+import { buttonClass, buttonStyle, dangerButtonClass, dangerButtonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
 import { slugify } from "@/lib/slugify";
+import { ConfirmButton } from "@/components/ConfirmButton";
 
 export const dynamic = "force-dynamic";
 
@@ -32,9 +34,29 @@ async function createLeague(formData: FormData) {
   revalidatePath("/admin/leagues");
 }
 
-export default async function LeaguesAdminPage() {
+async function deleteLeague(formData: FormData) {
+  "use server";
+  const id = String(formData.get("id"));
+  const seasonCount = await prisma.season.count({ where: { leagueId: id } });
+  if (seasonCount > 0) {
+    redirect(`/admin/leagues?deleteError=${encodeURIComponent("Ligaen har sæsoner og kan ikke slettes.")}`);
+  }
+  await prisma.league.delete({ where: { id } });
+  revalidatePath("/admin/leagues");
+  redirect("/admin/leagues?deleted=1");
+}
+
+export default async function LeaguesAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ deleteError?: string; deleted?: string }>;
+}) {
+  const { deleteError, deleted } = await searchParams;
   const [leagues, countries] = await Promise.all([
-    prisma.league.findMany({ include: { country: true }, orderBy: [{ country: { code: "asc" } }, { tier: "asc" }] }),
+    prisma.league.findMany({
+      include: { country: true, _count: { select: { seasons: true } } },
+      orderBy: [{ country: { code: "asc" } }, { tier: "asc" }],
+    }),
     prisma.country.findMany({ orderBy: { code: "asc" } }),
   ]);
 
@@ -42,13 +64,22 @@ export default async function LeaguesAdminPage() {
     <div className="flex flex-col gap-8">
       <h1 className="text-xl font-semibold">Ligaer</h1>
 
+      {deleted && (
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Ligaen er slettet.</p>
+      )}
+      {deleteError && (
+        <p className="text-sm" style={{ color: "#e34948" }}>{deleteError}</p>
+      )}
+
       <div className="overflow-x-auto">
-      <div className="flex min-w-[760px] flex-col gap-3">
-        {leagues.map((l) => (
+      <div className="flex min-w-[840px] flex-col gap-3">
+        {leagues.map((l) => {
+          const inUse = l._count.seasons > 0;
+          return (
+          <div key={l.id} className="flex items-center gap-2">
           <form
-            key={l.id}
             action={updateLeague}
-            className="grid grid-cols-[60px_1fr_70px_1fr_1fr_auto] items-center gap-2 rounded-lg border p-3"
+            className="grid flex-1 grid-cols-[60px_1fr_70px_1fr_1fr_auto] items-center gap-2 rounded-lg border p-3"
             style={{ borderColor: "var(--border)" }}
           >
             <input type="hidden" name="id" value={l.id} />
@@ -79,7 +110,31 @@ export default async function LeaguesAdminPage() {
             />
             <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>
           </form>
-        ))}
+          <form action={deleteLeague}>
+            <input type="hidden" name="id" value={l.id} />
+            {inUse ? (
+              <button
+                type="submit"
+                disabled
+                title="Ligaen har sæsoner og kan ikke slettes"
+                className={dangerButtonClass}
+                style={dangerButtonStyle}
+              >
+                Slet
+              </button>
+            ) : (
+              <ConfirmButton
+                confirmText={`Slet ligaen "${l.name}"? Dette kan ikke fortrydes.`}
+                className={dangerButtonClass}
+                style={dangerButtonStyle}
+              >
+                Slet
+              </ConfirmButton>
+            )}
+          </form>
+          </div>
+          );
+        })}
       </div>
       </div>
 

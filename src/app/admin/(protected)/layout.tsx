@@ -29,14 +29,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link
             key={l.href}
             href={l.href}
-            className="text-sm hover:underline"
+            className="rounded px-1.5 py-0.5 text-sm transition-colors hover:underline"
             style={{ color: "var(--text-secondary)" }}
           >
             {l.label}
           </Link>
         ))}
         <form action={logout} className="ml-auto">
-          <button type="submit" className="text-sm hover:underline" style={{ color: "var(--text-muted)" }}>
+          <button
+            type="submit"
+            className="cursor-pointer rounded px-1.5 py-0.5 text-sm transition-colors hover:underline"
+            style={{ color: "var(--text-muted)" }}
+          >
             Log ud
           </button>
         </form>

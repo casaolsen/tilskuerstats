@@ -61,6 +61,7 @@ model Venue {
   address   String? // for a future map embed
   capacity  Int?
   imageUrl  String?
+  website   String?
   teams     Team[]   @relation("HomeVenue")
   matches   Match[]
 }

@@ -26,9 +26,26 @@ export default async function TeamPage({
         <Link href={`/${country}`} className="text-sm hover:underline" style={{ color: "var(--text-muted)" }}>
           ← {data.team.countryName}
         </Link>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">{data.team.name}</h1>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight">
+          {data.team.website ? (
+            <a href={data.team.website} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              {data.team.name}
+            </a>
+          ) : (
+            data.team.name
+          )}
+        </h1>
         <div className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
-          {data.leagueName} · {data.team.venueName}
+          {data.leagueName} ·{" "}
+          {data.team.venueName ? (
+            data.team.venueWebsite ? (
+              <a href={data.team.venueWebsite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {data.team.venueName}
+              </a>
+            ) : (
+              data.team.venueName
+            )
+          ) : null}
           {data.team.city ? `, ${data.team.city}` : ""}
           {data.team.capacity ? ` · Kapacitet ${data.team.capacity.toLocaleString("da-DK")}` : ""}
         </div>
