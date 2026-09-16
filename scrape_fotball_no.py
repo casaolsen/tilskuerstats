@@ -30,6 +30,7 @@ REQUEST_DELAY = 0.5  # sekunder mellem kald til kampsider, for ikke at belaste s
 # som ikke kan udledes af årstal. Fundet ved at slå de enkelte sæsoner op
 # på fotball.no (Eliteserien {år}).
 SEASON_FIKS_IDS = {
+    "2024": "192924",
     "2025": "199603",
     "2026": "206092",
 }
