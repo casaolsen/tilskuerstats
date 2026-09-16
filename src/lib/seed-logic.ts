@@ -52,15 +52,19 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
   const summary: SeedSummary = [];
 
   for (const league of LEAGUES) {
+    // update: {} everywhere below is deliberate — once a row exists, admin
+    // may have hand-edited its name/venue/etc., and re-running this seed
+    // (e.g. from /api/setup after a schema change) must not clobber that.
+    // Only brand-new rows get the seed's demo values.
     const country = await prisma.country.upsert({
       where: { code: league.countryCode },
-      update: { name: league.countryName },
+      update: {},
       create: { code: league.countryCode, name: league.countryName },
     });
 
     const leagueRow = await prisma.league.upsert({
       where: { slug: league.leagueSlug },
-      update: { name: league.leagueName, countryId: country.id, tier: 1 },
+      update: {},
       create: {
         slug: league.leagueSlug,
         name: league.leagueName,
@@ -75,7 +79,7 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
     for (const t of league.teams) {
       const venue = await prisma.venue.upsert({
         where: { id: `${league.leagueSlug}-${t.slug}-venue` },
-        update: { name: t.venue, city: t.city, capacity: t.capacity, countryId: country.id },
+        update: {},
         create: {
           id: `${league.leagueSlug}-${t.slug}-venue`,
           name: t.venue,
@@ -86,12 +90,7 @@ export async function runSeed(prisma: PrismaClient): Promise<SeedSummary> {
       });
       const team = await prisma.team.upsert({
         where: { slug: t.slug },
-        update: {
-          name: t.name,
-          shortName: t.shortName,
-          countryId: country.id,
-          homeVenueId: venue.id,
-        },
+        update: {},
         create: {
           slug: t.slug,
           name: t.name,
