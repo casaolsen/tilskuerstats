@@ -36,10 +36,16 @@ SEASON_FIKS_IDS = {
 }
 
 
-def fetch(url: str) -> BeautifulSoup:
-    resp = requests.get(url, headers=HEADERS, timeout=20)
-    resp.raise_for_status()
-    return BeautifulSoup(resp.text, "lxml")
+def fetch(url: str, retries: int = 3) -> BeautifulSoup:
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=20)
+            resp.raise_for_status()
+            return BeautifulSoup(resp.text, "lxml")
+        except requests.exceptions.RequestException:
+            if attempt == retries:
+                raise
+            time.sleep(2 * attempt)
 
 
 def parse_matches(soup: BeautifulSoup):
