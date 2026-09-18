@@ -27,7 +27,7 @@ from bs4 import BeautifulSoup
 # virkeligheden) er registreret som "Salon Urheilupuisto Stadion" - et
 # stadion i Salo, Finland - i stedet for deres faktiske hjemmebane.
 VENUE_FIXES = {
-    "Salon Urheilupuisto Stadion": "Gamla Ullevi",
+    "Salon Urheilupuisto Stadion": "Nya Gamla Ullevi",
 }
 
 

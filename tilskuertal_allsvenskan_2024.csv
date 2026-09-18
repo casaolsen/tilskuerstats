@@ -1,0 +1,241 @@
+dato,runde,hjemmehold,udehold,hjemmemaal,udemaal,tilskuere,stadion
+2024-03-30,1,Norrköping,Malmö,1,5,13028,PlatinumCars Arena
+2024-03-31,1,Hammarby,Kalmar,3,1,29882,Tele2 Arena
+2024-03-31,1,GAIS,Brommapojkarna,0,4,8077,Gamla Ullevi (1916)
+2024-03-31,1,BK Häcken,Mjällby,0,1,3631,Bravida Arena
+2024-04-01,1,Göteborg,Djurgården,1,4,17879,Gamla Ullevi (1916)
+2024-04-01,1,Sirius,Halmstad,3,0,6449,Studenternas IP
+2024-04-01,1,AIK Stockholm,Västerås,1,0,36602,Strawberry Arena
+2024-04-01,1,Elfsborg,Värnamo,2,2,9089,Borås Arena
+2024-04-06,2,Brommapojkarna,AIK Stockholm,2,2,3489,Tele2 Arena
+2024-04-06,2,Mjällby,Norrköping,3,0,2851,Strandvallen A-Plan
+2024-04-07,2,Malmö,Hammarby,2,0,21357,Eleda Stadion
+2024-04-07,2,Halmstad,Göteborg,1,0,10011,Örjans Vall
+2024-04-07,2,Västerås,Elfsborg,0,1,7009,Hitachi Energy Arena
+2024-04-08,2,Kalmar,Sirius,1,2,5731,Guldfågeln Arena
+2024-04-08,2,Värnamo,GAIS,1,2,1683,Finnvedsvallen
+2024-04-08,2,Djurgården,BK Häcken,3,3,22485,Tele2 Arena
+2024-04-13,3,Mjällby,AIK Stockholm,1,1,4138,Strandvallen A-Plan
+2024-04-13,3,Västerås,Halmstad,0,1,4664,Hitachi Energy Arena
+2024-04-14,3,Kalmar,Göteborg,0,1,6576,Guldfågeln Arena
+2024-04-14,3,Norrköping,GAIS,1,0,6027,PlatinumCars Arena
+2024-04-14,3,Djurgården,Sirius,2,0,19486,Tele2 Arena
+2024-04-15,3,BK Häcken,Brommapojkarna,4,3,3265,Bravida Arena
+2024-04-15,3,Värnamo,Malmö,0,4,1371,Finnvedsvallen
+2024-04-15,3,Hammarby,Elfsborg,3,0,21709,Tele2 Arena
+2024-04-20,4,Göteborg,Norrköping,1,1,16861,Gamla Ullevi (1916)
+2024-04-20,4,Sirius,Värnamo,0,1,5174,Studenternas IP
+2024-04-20,4,Malmö,Västerås,1,0,20118,Eleda Stadion
+2024-04-21,4,AIK Stockholm,Djurgården,2,0,44734,Strawberry Arena
+2024-04-21,4,GAIS,Mjällby,2,1,5105,Gamla Ullevi (1916)
+2024-04-21,4,BK Häcken,Hammarby,2,1,6073,Bravida Arena
+2024-04-21,4,Halmstad,Brommapojkarna,0,2,5073,Örjans Vall
+2024-04-22,4,Elfsborg,Kalmar,1,2,5672,Borås Arena
+2024-04-24,5,AIK Stockholm,Värnamo,2,0,18054,Strawberry Arena
+2024-04-24,5,Göteborg,BK Häcken,0,1,17022,Gamla Ullevi (1916)
+2024-04-24,5,Brommapojkarna,Sirius,1,1,608,Grimsta IP
+2024-04-25,5,Djurgården,Malmö,0,1,23010,Tele2 Arena
+2024-04-25,5,Norrköping,Elfsborg,4,2,5042,PlatinumCars Arena
+2024-04-25,5,Kalmar,GAIS,2,3,3835,Guldfågeln Arena
+2024-04-25,5,Västerås,Mjällby,2,1,3468,Hitachi Energy Arena
+2024-04-25,5,Halmstad,Hammarby,2,1,5712,Örjans Vall
+2024-04-28,6,Malmö,AIK Stockholm,5,0,21495,Eleda Stadion
+2024-04-28,6,Värnamo,Halmstad,1,3,1237,Finnvedsvallen
+2024-04-28,6,Djurgården,GAIS,1,0,17579,Tele2 Arena
+2024-04-28,6,BK Häcken,Norrköping,1,2,4046,Bravida Arena
+2024-04-29,6,Elfsborg,Sirius,2,0,5144,Borås Arena
+2024-04-29,6,Mjällby,Kalmar,3,2,2720,Strandvallen A-Plan
+2024-04-29,6,Brommapojkarna,Göteborg,0,3,2289,Grimsta IP
+2024-04-29,6,Hammarby,Västerås,2,1,21662,Tele2 Arena
+2024-05-04,7,Mjällby,Brommapojkarna,1,1,3236,Strandvallen A-Plan
+2024-05-04,7,Kalmar,Halmstad,5,2,4735,Guldfågeln Arena
+2024-05-04,7,Sirius,BK Häcken,0,3,5459,Studenternas IP
+2024-05-05,7,Västerås,Djurgården,0,2,8714,Hitachi Energy Arena
+2024-05-05,7,Elfsborg,Malmö,3,1,11145,Borås Arena
+2024-05-05,7,AIK Stockholm,Norrköping,6,2,24177,Strawberry Arena
+2024-05-05,7,Hammarby,Värnamo,1,2,20116,Tele2 Arena
+2024-05-06,7,GAIS,Göteborg,2,1,16646,Gamla Ullevi (1916)
+2024-05-11,8,Halmstad,Mjällby,1,3,5207,Örjans Vall
+2024-05-11,8,AIK Stockholm,Sirius,1,3,25289,Strawberry Arena
+2024-05-11,8,GAIS,Västerås,2,0,5905,Gamla Ullevi (1916)
+2024-05-12,8,BK Häcken,Kalmar,3,1,5143,Bravida Arena
+2024-05-12,8,Norrköping,Hammarby,1,2,13356,PlatinumCars Arena
+2024-05-12,8,Värnamo,Brommapojkarna,1,1,316,Finnvedsvallen
+2024-05-12,8,Djurgården,Elfsborg,2,0,19418,Tele2 Arena
+2024-05-13,8,Göteborg,Malmö,0,3,17316,Gamla Ullevi (1916)
+2024-05-15,9,Halmstad,BK Häcken,3,0,4210,Örjans Vall
+2024-05-15,9,Mjällby,Hammarby,3,0,3819,Strandvallen A-Plan
+2024-05-15,9,Västerås,Värnamo,0,2,5158,Hitachi Energy Arena
+2024-05-15,9,Elfsborg,AIK Stockholm,6,1,9205,Borås Arena
+2024-05-16,9,Sirius,Göteborg,2,2,6961,Studenternas IP
+2024-05-16,9,Malmö,GAIS,1,0,20673,Eleda Stadion
+2024-05-16,9,Brommapojkarna,Djurgården,0,5,3780,Grimsta IP
+2024-05-16,9,Kalmar,Norrköping,1,1,4171,Guldfågeln Arena
+2024-05-19,10,Brommapojkarna,Norrköping,2,1,1022,Grimsta IP
+2024-05-19,10,Hammarby,AIK Stockholm,2,1,27204,Tele2 Arena
+2024-05-19,10,Värnamo,Kalmar,0,2,2436,Finnvedsvallen
+2024-05-19,10,GAIS,Elfsborg,2,1,8319,Gamla Ullevi (1916)
+2024-05-20,10,Djurgården,Halmstad,2,0,16796,Tele2 Arena
+2024-05-20,10,Sirius,Västerås,0,0,7150,Studenternas IP
+2024-05-20,10,BK Häcken,Malmö,2,2,5952,Bravida Arena
+2024-05-21,10,Göteborg,Mjällby,1,0,15743,Gamla Ullevi (1916)
+2024-05-24,11,Elfsborg,Halmstad,2,0,7122,Borås Arena
+2024-05-24,11,Malmö,Kalmar,5,0,20546,Eleda Stadion
+2024-05-25,11,GAIS,BK Häcken,3,0,10834,Gamla Ullevi (1916)
+2024-05-25,11,Mjällby,Djurgården,1,3,5005,Strandvallen A-Plan
+2024-05-26,11,Hammarby,Sirius,3,0,20315,Tele2 Arena
+2024-05-26,11,Västerås,Brommapojkarna,1,1,5355,Hitachi Energy Arena
+2024-05-27,11,Norrköping,Värnamo,0,4,5289,PlatinumCars Arena
+2024-05-27,11,AIK Stockholm,Göteborg,5,2,25932,Strawberry Arena
+2024-05-28,17,Malmö,Elfsborg,2,1,20488,Eleda Stadion
+2024-05-29,17,Mjällby,BK Häcken,2,1,2649,Strandvallen A-Plan
+2024-06-01,12,Göteborg,Elfsborg,1,0,17183,Nya Gamla Ullevi
+2024-06-01,12,Brommapojkarna,Malmö,2,2,3480,Grimsta IP
+2024-06-01,12,Halmstad,GAIS,4,0,8030,Örjans Vall
+2024-06-01,12,Sirius,Norrköping,5,1,6529,Studenternas IP
+2024-06-02,12,Kalmar,Västerås,0,4,5236,Guldfågeln Arena
+2024-06-02,12,Djurgården,Hammarby,0,3,27344,Tele2 Arena
+2024-06-02,12,BK Häcken,AIK Stockholm,4,1,6216,Bravida Arena
+2024-06-02,12,Värnamo,Mjällby,1,2,1907,Finnvedsvallen
+2024-07-06,13,Mjällby,Sirius,3,2,3374,Strandvallen A-Plan
+2024-07-06,13,Elfsborg,Brommapojkarna,3,0,5905,Borås Arena
+2024-07-07,13,AIK Stockholm,Kalmar,1,2,23522,Strawberry Arena
+2024-07-07,13,Värnamo,Göteborg,2,0,4277,Finnvedsvallen
+2024-07-07,13,GAIS,Hammarby,0,0,15206,Nya Gamla Ullevi
+2024-07-07,13,Malmö,Halmstad,5,1,20081,Eleda Stadion
+2024-07-08,13,Västerås,BK Häcken,1,2,6070,Hitachi Energy Arena
+2024-07-08,13,Norrköping,Djurgården,1,3,12616,PlatinumCars Arena
+2024-07-13,14,Mjällby,Malmö,2,1,5919,Strandvallen A-Plan
+2024-07-13,14,Sirius,GAIS,3,1,5170,Studenternas IP
+2024-07-14,14,Djurgården,Värnamo,1,0,17788,Tele2 Arena
+2024-07-14,14,Kalmar,Brommapojkarna,0,1,5508,Guldfågeln Arena
+2024-07-14,14,BK Häcken,Elfsborg,3,5,6177,Bravida Arena
+2024-07-14,14,Västerås,Norrköping,2,1,6086,Hitachi Energy Arena
+2024-07-15,14,Hammarby,Göteborg,0,1,26062,Tele2 Arena
+2024-07-15,14,Halmstad,AIK Stockholm,1,2,10504,Örjans Vall
+2024-07-19,15,Sirius,Malmö,3,4,7695,Studenternas IP
+2024-07-20,15,Kalmar,Djurgården,2,1,9634,Guldfågeln Arena
+2024-07-20,15,Värnamo,BK Häcken,2,2,1493,Finnvedsvallen
+2024-07-20,15,Brommapojkarna,Hammarby,0,2,3657,Grimsta IP
+2024-07-21,15,Norrköping,Halmstad,1,0,5367,PlatinumCars Arena
+2024-07-21,15,Göteborg,Västerås,1,1,17137,Nya Gamla Ullevi
+2024-07-21,15,Elfsborg,Mjällby,3,1,6121,Borås Arena
+2024-07-22,15,GAIS,AIK Stockholm,2,0,11823,Nya Gamla Ullevi
+2024-07-27,16,Norrköping,Kalmar,2,0,6919,PlatinumCars Arena
+2024-07-27,16,Malmö,Sirius,0,1,19178,Eleda Stadion
+2024-07-27,16,Göteborg,Brommapojkarna,3,4,16268,Nya Gamla Ullevi
+2024-07-27,16,Halmstad,Värnamo,1,0,7377,Örjans Vall
+2024-07-28,16,BK Häcken,Västerås,4,0,4190,Bravida Arena
+2024-07-28,16,Hammarby,Mjällby,3,0,22593,Tele2 Arena
+2024-07-28,16,Elfsborg,Djurgården,1,2,10157,Borås Arena
+2024-07-29,16,AIK Stockholm,GAIS,0,1,24069,Strawberry Arena
+2024-08-03,17,GAIS,Norrköping,0,1,7368,Nya Gamla Ullevi
+2024-08-03,17,Västerås,AIK Stockholm,1,2,8679,Hitachi Energy Arena
+2024-08-03,17,Brommapojkarna,Halmstad,4,1,746,Grimsta IP
+2024-08-04,17,Värnamo,Sirius,2,4,1360,Finnvedsvallen
+2024-08-04,17,Djurgården,Göteborg,1,1,23418,Tele2 Arena
+2024-08-04,17,Kalmar,Hammarby,1,4,9360,Guldfågeln Arena
+2024-08-10,18,Norrköping,Västerås,2,1,6624,PlatinumCars Arena
+2024-08-10,18,Halmstad,Malmö,0,1,8654,Örjans Vall
+2024-08-10,18,Göteborg,Värnamo,0,0,15761,Nya Gamla Ullevi
+2024-08-11,18,AIK Stockholm,Mjällby,1,0,20250,Strawberry Arena
+2024-08-11,18,Elfsborg,GAIS,2,1,11437,Borås Arena
+2024-08-11,18,Sirius,Kalmar,3,1,6292,Studenternas IP
+2024-08-12,18,Hammarby,Brommapojkarna,3,3,22868,Tele2 Arena
+2024-08-17,19,Malmö,Norrköping,2,1,19758,Eleda Stadion
+2024-08-17,19,Värnamo,Hammarby,0,3,3241,Finnvedsvallen
+2024-08-17,19,Göteborg,Sirius,1,1,15761,Nya Gamla Ullevi
+2024-08-17,19,Västerås,Kalmar,2,1,5351,Hitachi Energy Arena
+2024-08-18,19,Djurgården,AIK Stockholm,0,2,26225,Tele2 Arena
+2024-08-18,19,Mjällby,Elfsborg,1,1,3720,Strandvallen A-Plan
+2024-08-18,19,Brommapojkarna,BK Häcken,1,3,2339,Grimsta IP
+2024-08-18,19,GAIS,Halmstad,3,1,6564,Nya Gamla Ullevi
+2024-08-24,20,Kalmar,Malmö,2,2,7313,Guldfågeln Arena
+2024-08-25,20,Elfsborg,Göteborg,3,1,13533,Borås Arena
+2024-08-25,20,Sirius,Djurgården,0,1,9829,Studenternas IP
+2024-08-25,20,BK Häcken,Värnamo,1,1,4293,Bravida Arena
+2024-08-25,20,AIK Stockholm,Brommapojkarna,2,1,23051,Strawberry Arena
+2024-08-26,20,Halmstad,Västerås,0,1,4688,Örjans Vall
+2024-08-26,20,Norrköping,Mjällby,1,2,8108,PlatinumCars Arena
+2024-08-26,20,Hammarby,GAIS,0,0,25076,Tele2 Arena
+2024-08-31,21,Värnamo,AIK Stockholm,0,1,3358,Finnvedsvallen
+2024-08-31,21,GAIS,Kalmar,1,1,6199,Nya Gamla Ullevi
+2024-08-31,21,Västerås,Sirius,1,2,6877,Hitachi Energy Arena
+2024-08-31,21,Mjällby,Halmstad,3,1,3253,Strandvallen A-Plan
+2024-09-01,21,Brommapojkarna,Elfsborg,3,3,1349,Grimsta IP
+2024-09-01,21,Malmö,Djurgården,4,0,20342,Eleda Stadion
+2024-09-01,21,Göteborg,Hammarby,0,1,17151,Nya Gamla Ullevi
+2024-09-01,21,Norrköping,BK Häcken,3,3,5048,PlatinumCars Arena
+2024-09-14,22,Västerås,GAIS,2,3,5871,Hitachi Energy Arena
+2024-09-15,22,Djurgården,Mjällby,1,1,16489,Tele2 Arena
+2024-09-15,22,Sirius,Brommapojkarna,3,2,7109,Studenternas IP
+2024-09-15,22,AIK Stockholm,Malmö,0,0,27595,Strawberry Arena
+2024-09-15,22,BK Häcken,Göteborg,3,3,6316,Bravida Arena
+2024-09-15,22,Kalmar,Värnamo,3,1,4861,Guldfågeln Arena
+2024-09-15,22,Halmstad,Elfsborg,0,1,5576,Örjans Vall
+2024-09-16,22,Hammarby,Norrköping,1,1,21302,Tele2 Arena
+2024-09-18,24,GAIS,Malmö,0,0,8470,Nya Gamla Ullevi
+2024-09-19,18,BK Häcken,Djurgården,1,2,4741,Bravida Arena
+2024-09-19,24,Elfsborg,Norrköping,2,2,5667,Borås Arena
+2024-09-21,23,Kalmar,AIK Stockholm,0,1,6959,Guldfågeln Arena
+2024-09-21,23,Brommapojkarna,Mjällby,0,0,738,Grimsta IP
+2024-09-22,23,GAIS,Djurgården,3,0,9187,Nya Gamla Ullevi
+2024-09-22,23,Värnamo,Västerås,2,0,2108,Finnvedsvallen
+2024-09-22,23,Elfsborg,Hammarby,0,0,11017,Borås Arena
+2024-09-22,23,Malmö,BK Häcken,4,0,19856,Eleda Stadion
+2024-09-23,23,Göteborg,Halmstad,1,1,16065,Nya Gamla Ullevi
+2024-09-25,24,Djurgården,Brommapojkarna,2,1,12357,Tele2 Arena
+2024-09-25,24,Sirius,AIK Stockholm,0,1,10071,Studenternas IP
+2024-09-25,24,Mjällby,Värnamo,1,1,2557,Strandvallen A-Plan
+2024-09-26,24,Västerås,Göteborg,1,1,6252,Hitachi Energy Arena
+2024-09-26,24,Hammarby,BK Häcken,2,0,17599,Tele2 Arena
+2024-09-26,24,Halmstad,Kalmar,2,2,3670,Örjans Vall
+2024-09-29,25,Värnamo,Djurgården,1,1,3005,Finnvedsvallen
+2024-09-29,25,Halmstad,Norrköping,0,0,4239,Örjans Vall
+2024-09-29,25,AIK Stockholm,Hammarby,1,0,47129,Strawberry Arena
+2024-09-29,25,BK Häcken,Sirius,2,0,3115,Bravida Arena
+2024-09-29,25,Malmö,Mjällby,2,0,19673,Eleda Stadion
+2024-09-29,25,Kalmar,Elfsborg,1,3,5283,Guldfågeln Arena
+2024-09-30,25,Brommapojkarna,Västerås,2,1,1144,Grimsta IP
+2024-09-30,25,Göteborg,GAIS,2,0,18051,Nya Gamla Ullevi
+2024-10-03,23,Norrköping,Sirius,0,2,5274,PlatinumCars Arena
+2024-10-05,26,Mjällby,Västerås,2,1,3064,Strandvallen A-Plan
+2024-10-05,26,Hammarby,Halmstad,1,0,23238,Tele2 Arena
+2024-10-05,26,Brommapojkarna,GAIS,2,0,2083,Grimsta IP
+2024-10-06,26,Djurgården,Kalmar,1,1,15310,Tele2 Arena
+2024-10-06,26,AIK Stockholm,BK Häcken,0,2,24030,Strawberry Arena
+2024-10-06,26,Norrköping,Göteborg,0,2,8767,PlatinumCars Arena
+2024-10-06,26,Sirius,Elfsborg,4,1,5692,Studenternas IP
+2024-10-06,26,Malmö,Värnamo,1,1,19443,Eleda Stadion
+2024-10-19,27,Elfsborg,BK Häcken,1,3,8276,Borås Arena
+2024-10-19,27,Västerås,Malmö,1,1,7738,Hitachi Energy Arena
+2024-10-19,27,Halmstad,Sirius,3,1,4262,Örjans Vall
+2024-10-20,27,Kalmar,Mjällby,0,3,7575,Guldfågeln Arena
+2024-10-20,27,GAIS,Värnamo,0,0,6285,Nya Gamla Ullevi
+2024-10-21,27,Hammarby,Djurgården,2,0,27881,Tele2 Arena
+2024-10-21,27,Norrköping,Brommapojkarna,1,1,5521,PlatinumCars Arena
+2024-10-21,27,Göteborg,AIK Stockholm,1,2,17165,Nya Gamla Ullevi
+2024-10-26,28,Sirius,Hammarby,0,3,10080,Studenternas IP
+2024-10-26,28,Mjällby,GAIS,1,1,4004,Strandvallen A-Plan
+2024-10-26,28,Brommapojkarna,Kalmar,1,2,977,Grimsta IP
+2024-10-27,28,AIK Stockholm,Elfsborg,2,1,17165,Strawberry Arena
+2024-10-27,28,Värnamo,Norrköping,1,2,3996,Finnvedsvallen
+2024-10-27,28,BK Häcken,Halmstad,0,1,5124,Bravida Arena
+2024-10-28,28,Djurgården,Västerås,2,1,14450,Tele2 Arena
+2024-10-28,28,Malmö,Göteborg,2,1,21258,Eleda Stadion
+2024-11-02,29,Hammarby,Malmö,2,2,26175,Tele2 Arena
+2024-11-02,29,Elfsborg,Västerås,1,0,5285,Borås Arena
+2024-11-02,29,Göteborg,Kalmar,1,1,17287,Nya Gamla Ullevi
+2024-11-03,29,Brommapojkarna,Värnamo,0,1,755,Grimsta IP
+2024-11-03,29,BK Häcken,GAIS,1,2,6313,Bravida Arena
+2024-11-03,29,Halmstad,Djurgården,1,0,7009,Örjans Vall
+2024-11-03,29,Sirius,Mjällby,1,1,5833,Studenternas IP
+2024-11-04,29,Norrköping,AIK Stockholm,1,0,14112,PlatinumCars Arena
+2024-11-10,30,Malmö,Brommapojkarna,2,1,19745,Eleda Stadion
+2024-11-10,30,Djurgården,Norrköping,3,1,17938,Tele2 Arena
+2024-11-10,30,Kalmar,BK Häcken,1,0,3523,Guldfågeln Arena
+2024-11-10,30,AIK Stockholm,Halmstad,5,1,37229,Strawberry Arena
+2024-11-10,30,Mjällby,Göteborg,1,0,5362,Strandvallen A-Plan
+2024-11-10,30,Värnamo,Elfsborg,0,0,2771,Finnvedsvallen
+2024-11-10,30,GAIS,Sirius,2,1,9172,Nya Gamla Ullevi
+2024-11-10,30,Västerås,Hammarby,1,0,7675,Hitachi Energy Arena
