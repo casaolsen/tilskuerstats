@@ -12,6 +12,7 @@ async function updateMatch(formData: FormData) {
   const homeScoreRaw = String(formData.get("homeScore") ?? "");
   const awayScoreRaw = String(formData.get("awayScore") ?? "");
   const kickoffRaw = String(formData.get("kickoff") ?? "");
+  const note = String(formData.get("note") ?? "").trim();
 
   await prisma.match.update({
     where: { id },
@@ -19,6 +20,7 @@ async function updateMatch(formData: FormData) {
       attendance: attendanceRaw ? Number(attendanceRaw) : null,
       homeScore: homeScoreRaw ? Number(homeScoreRaw) : null,
       awayScore: awayScoreRaw ? Number(awayScoreRaw) : null,
+      note: note || null,
       ...(kickoffRaw ? { kickoff: new Date(kickoffRaw) } : {}),
     },
   });
@@ -287,6 +289,13 @@ export default async function MatchesAdminPage({
                         defaultValue={m.attendance ?? ""}
                         placeholder="Tilskuere"
                         className={inputClass}
+                        style={inputStyle}
+                      />
+                      <input
+                        name="note"
+                        defaultValue={m.note ?? ""}
+                        placeholder="Bemærkning, fx 'Tribune X lukket pga. straf' (vises som ikon på frontend)"
+                        className={`${inputClass} col-span-full`}
                         style={inputStyle}
                       />
                       <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>

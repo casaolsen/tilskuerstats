@@ -78,6 +78,7 @@ export const SETUP_DDL: string[] = [
     "attendance" INTEGER,
     "homeScore" INTEGER,
     "awayScore" INTEGER,
+    "note" TEXT,
     "weatherTempC" DOUBLE PRECISION,
     "weatherCondition" TEXT,
     "weatherWindMs" DOUBLE PRECISION,
@@ -101,4 +102,5 @@ export const SETUP_DDL: string[] = [
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
+  `ALTER TABLE "Match" ADD COLUMN IF NOT EXISTS "note" TEXT`,
 ];

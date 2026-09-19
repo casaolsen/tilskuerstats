@@ -4,6 +4,7 @@ import { getLeagueByCountryCode } from "@/lib/queries";
 import { AttendanceBarChart } from "@/components/AttendanceBarChart";
 import { SeasonSelector } from "@/components/SeasonSelector";
 import { TrendIndicator } from "@/components/TrendIndicator";
+import { NoteBadge } from "@/components/NoteBadge";
 
 const VALID_CODES = ["dk", "se", "no"];
 
@@ -67,12 +68,15 @@ export default async function CountryPage({
                 <tr key={t.slug} className="border-b last:border-0" style={{ borderColor: "var(--border)" }}>
                   <td className="px-3 py-2 tabular-nums" style={{ color: "var(--text-muted)" }}>{i + 1}</td>
                   <td className="px-3 py-2">
-                    <Link
-                      href={`/${country}/${t.slug}${data.isAllSeasons ? "?season=all" : season ? `?season=${encodeURIComponent(season)}` : ""}`}
-                      className="font-medium hover:underline"
-                    >
-                      {t.name}
-                    </Link>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Link
+                        href={`/${country}/${t.slug}${data.isAllSeasons ? "?season=all" : season ? `?season=${encodeURIComponent(season)}` : ""}`}
+                        className="font-medium hover:underline"
+                      >
+                        {t.name}
+                      </Link>
+                      {t.notes.length > 0 && <NoteBadge tooltip={t.notes.join("\n")} />}
+                    </span>
                   </td>
                   <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>
                     {t.venueName} {t.city ? `· ${t.city}` : ""}

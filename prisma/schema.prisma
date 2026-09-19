@@ -110,6 +110,9 @@ model Match {
   attendance Int?
   homeScore  Int?
   awayScore  Int?
+  // Free-text note for anomalies affecting attendance, e.g. a stand closed
+  // due to a disciplinary sanction — surfaced as a marker on the frontend.
+  note       String?
 
   // Placeholders for the future prediction feature (history + weather + performance)
   weatherTempC     Float?

@@ -162,7 +162,13 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
         where: isAllSeasons
           ? { season: { leagueId: league.id } }
           : { seasonId: previousSeason ? { in: [selectedSeason!.id, previousSeason.id] } : selectedSeason!.id },
-        select: { attendance: true, seasonId: true },
+        select: {
+          attendance: true,
+          seasonId: true,
+          note: true,
+          kickoff: true,
+          awayTeam: { select: { name: true } },
+        },
       },
     },
   });
@@ -178,6 +184,9 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
         : null;
       const capacity = team.homeVenue?.capacity ?? null;
       const fillRate = avgAttendance && capacity ? avgAttendance / capacity : null;
+      const notes = currentMatches
+        .filter((m): m is typeof m & { note: string } => !!m.note)
+        .map((m) => `${m.kickoff.toISOString().slice(0, 10)} vs. ${m.awayTeam.name}: ${m.note}`);
       return {
         slug: team.slug,
         name: team.name,
@@ -189,6 +198,7 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
         changePct: pctChange(avgAttendance, previousAvgAttendance),
         fillRate,
         matchesPlayed: currentMatches.length,
+        notes,
       };
     })
     .sort((a, b) => (b.avgAttendance ?? 0) - (a.avgAttendance ?? 0));
@@ -262,6 +272,7 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
       opponent: m.awayTeam.name,
       attendance: m.attendance,
       date: m.kickoff.toISOString().slice(0, 10),
+      note: m.note,
     })),
     matches: matches.map((m) => ({
       id: m.id,
@@ -274,6 +285,7 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
       attendance: m.attendance,
       homeScore: m.homeScore,
       awayScore: m.awayScore,
+      note: m.note,
     })),
   };
 }

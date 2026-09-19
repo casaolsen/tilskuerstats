@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTeamDetail } from "@/lib/queries";
 import { AttendanceLineChart } from "@/components/AttendanceLineChart";
 import { SeasonSelector } from "@/components/SeasonSelector";
+import { NoteBadge } from "@/components/NoteBadge";
 
 // Data changes as scrapers run — render fresh per request instead of baking
 // it in at build time.
@@ -106,9 +107,14 @@ export default async function TeamPage({
                   <td className="px-3 py-2 tabular-nums" style={{ color: "var(--text-muted)" }}>{m.round}</td>
                   <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>{m.date}</td>
                   <td className="px-3 py-2">
-                    <span className={m.isHome ? "font-medium" : ""}>{m.home}</span>
-                    {" – "}
-                    <span className={!m.isHome ? "font-medium" : ""}>{m.away}</span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <span>
+                        <span className={m.isHome ? "font-medium" : ""}>{m.home}</span>
+                        {" – "}
+                        <span className={!m.isHome ? "font-medium" : ""}>{m.away}</span>
+                      </span>
+                      {m.note && <NoteBadge tooltip={m.note} />}
+                    </span>
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums" style={{ color: "var(--text-secondary)" }}>
                     {m.homeScore ?? "–"}–{m.awayScore ?? "–"}

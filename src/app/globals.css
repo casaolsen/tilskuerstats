@@ -24,6 +24,7 @@
 
   /* Status — fixed, never themed; used only with an icon/glyph, never color alone */
   --status-good: #0ca30c;
+  --status-warning: #fab219;
   --status-critical: #d03b3b;
 }
 
