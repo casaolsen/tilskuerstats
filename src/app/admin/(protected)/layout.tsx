@@ -16,6 +16,7 @@ const ADMIN_LINKS = [
   { href: "/admin/venues", label: "Stadions" },
   { href: "/admin/seasons", label: "Sæsoner" },
   { href: "/admin/matches", label: "Kampe" },
+  { href: "/admin/quality", label: "Datakvalitet" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

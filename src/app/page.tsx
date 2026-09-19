@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getCountriesOverview } from "@/lib/queries";
+import { getCountriesOverview, getTopClubs } from "@/lib/queries";
+import { TrendIndicator } from "@/components/TrendIndicator";
 
 // Data changes as scrapers run — render fresh per request instead of baking
 // it in at build time.
@@ -14,9 +15,12 @@ const SERIES_COLOR: Record<string, string> = {
 const DISPLAY_ORDER = ["DK", "SE", "NO"];
 
 export default async function Home() {
-  const countries = (await getCountriesOverview()).sort(
-    (a, b) => DISPLAY_ORDER.indexOf(a.code) - DISPLAY_ORDER.indexOf(b.code)
-  );
+  const [countries, topClubs] = await Promise.all([
+    getCountriesOverview().then((rows) =>
+      rows.sort((a, b) => DISPLAY_ORDER.indexOf(a.code) - DISPLAY_ORDER.indexOf(b.code))
+    ),
+    getTopClubs(10),
+  ]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -58,6 +62,9 @@ export default async function Home() {
               <span className="text-xs" style={{ color: "var(--text-muted)" }}>
                 gns. tilskuere/kamp
               </span>
+              <span className="ml-auto">
+                <TrendIndicator pct={c.changePct} />
+              </span>
             </div>
             <div className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
               {c.matchCount.toLocaleString("da-DK")} kampe registreret
@@ -65,6 +72,57 @@ export default async function Home() {
           </Link>
         ))}
       </div>
+
+      <section>
+        <h2 className="mb-3 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
+          Top 10 klubber på tværs af Norden
+        </h2>
+        <div className="overflow-x-auto rounded-lg border" style={{ borderColor: "var(--border)" }}>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b text-left" style={{ borderColor: "var(--border)" }}>
+                <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>#</th>
+                <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Klub</th>
+                <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Land</th>
+                <th className="px-3 py-2 font-medium" style={{ color: "var(--text-muted)" }}>Stadion</th>
+                <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Gns. tilskuere</th>
+                <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Udvikling</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topClubs.map((c, i) => (
+                <tr key={c.slug} className="border-b last:border-0" style={{ borderColor: "var(--border)" }}>
+                  <td className="px-3 py-2 tabular-nums" style={{ color: "var(--text-muted)" }}>{i + 1}</td>
+                  <td className="px-3 py-2">
+                    <Link href={`/${c.countryCode.toLowerCase()}/${c.slug}`} className="font-medium hover:underline">
+                      {c.name}
+                    </Link>
+                  </td>
+                  <td className="px-3 py-2">
+                    <span className="inline-flex items-center gap-1.5">
+                      <span
+                        aria-hidden
+                        className="inline-block h-2 w-2 rounded-full"
+                        style={{ background: SERIES_COLOR[c.countryCode] }}
+                      />
+                      <span style={{ color: "var(--text-secondary)" }}>{c.countryName}</span>
+                    </span>
+                  </td>
+                  <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>
+                    {c.venueName} {c.city ? `· ${c.city}` : ""}
+                  </td>
+                  <td className="px-3 py-2 text-right font-medium tabular-nums">
+                    {c.avgAttendance?.toLocaleString("da-DK") ?? "–"}
+                  </td>
+                  <td className="px-3 py-2 text-right">
+                    <TrendIndicator pct={c.changePct} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   );
 }

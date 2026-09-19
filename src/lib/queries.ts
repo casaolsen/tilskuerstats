@@ -1,5 +1,17 @@
 import { prisma } from "./db";
 
+function average(values: (number | null)[]): number | null {
+  const nums = values.filter((v): v is number => v != null);
+  return nums.length ? Math.round(nums.reduce((a, b) => a + b, 0) / nums.length) : null;
+}
+
+// % change from `previous` to `current`, or null when there's nothing to
+// compare against (no previous season, or it had no recorded attendances).
+function pctChange(current: number | null, previous: number | null): number | null {
+  if (current == null || previous == null || previous === 0) return null;
+  return ((current - previous) / previous) * 100;
+}
+
 export async function getCountriesOverview() {
   const countries = await prisma.country.findMany({
     orderBy: { code: "asc" },
@@ -8,7 +20,7 @@ export async function getCountriesOverview() {
         include: {
           seasons: {
             orderBy: { startDate: "desc" },
-            take: 1,
+            take: 2, // latest + previous, for the season-over-season trend
             include: {
               matches: { select: { attendance: true } },
               _count: { select: { matches: true } },
@@ -22,10 +34,9 @@ export async function getCountriesOverview() {
   return countries.map((country) => {
     const league = country.leagues[0];
     const season = league?.seasons[0];
-    const attendances = season?.matches.map((m) => m.attendance).filter((a): a is number => a != null) ?? [];
-    const avgAttendance = attendances.length
-      ? Math.round(attendances.reduce((a, b) => a + b, 0) / attendances.length)
-      : null;
+    const previousSeason = league?.seasons[1];
+    const avgAttendance = average(season?.matches.map((m) => m.attendance) ?? []);
+    const previousAvgAttendance = average(previousSeason?.matches.map((m) => m.attendance) ?? []);
     return {
       code: country.code,
       name: country.name,
@@ -33,8 +44,78 @@ export async function getCountriesOverview() {
       seasonLabel: season?.label ?? null,
       matchCount: season?._count.matches ?? 0,
       avgAttendance,
+      changePct: pctChange(avgAttendance, previousAvgAttendance),
     };
   });
+}
+
+// Top clubs across all three countries, ranked by their latest season's
+// average home attendance, each with its season-over-season trend.
+export async function getTopClubs(limit = 10) {
+  const countries = await prisma.country.findMany({
+    include: {
+      leagues: {
+        include: {
+          seasons: { orderBy: { startDate: "desc" }, take: 2 },
+        },
+      },
+    },
+  });
+
+  const rows: {
+    slug: string;
+    name: string;
+    countryCode: string;
+    countryName: string;
+    venueName: string | null;
+    city: string | null;
+    avgAttendance: number | null;
+    changePct: number | null;
+  }[] = [];
+
+  for (const country of countries) {
+    const league = country.leagues[0];
+    const latestSeason = league?.seasons[0];
+    if (!league || !latestSeason) continue;
+    const previousSeason = league.seasons[1];
+    const seasonIds = [latestSeason.id, previousSeason?.id].filter((id): id is string => !!id);
+
+    const teams = await prisma.team.findMany({
+      where: { countryId: country.id, seasons: { some: { seasonId: latestSeason.id } } },
+      include: {
+        homeVenue: true,
+        homeMatches: {
+          where: { seasonId: { in: seasonIds } },
+          select: { attendance: true, seasonId: true },
+        },
+      },
+    });
+
+    for (const team of teams) {
+      const avgAttendance = average(
+        team.homeMatches.filter((m) => m.seasonId === latestSeason.id).map((m) => m.attendance)
+      );
+      const previousAvgAttendance = previousSeason
+        ? average(team.homeMatches.filter((m) => m.seasonId === previousSeason.id).map((m) => m.attendance))
+        : null;
+
+      rows.push({
+        slug: team.slug,
+        name: team.name,
+        countryCode: country.code,
+        countryName: country.name,
+        venueName: team.homeVenue?.name ?? null,
+        city: team.homeVenue?.city ?? null,
+        avgAttendance,
+        changePct: pctChange(avgAttendance, previousAvgAttendance),
+      });
+    }
+  }
+
+  return rows
+    .filter((r) => r.avgAttendance != null)
+    .sort((a, b) => (b.avgAttendance ?? 0) - (a.avgAttendance ?? 0))
+    .slice(0, limit);
 }
 
 // seasonParam: undefined -> latest season (default); "all" -> aggregate across
@@ -59,6 +140,11 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
   const latestSeason = seasons[0];
   const isAllSeasons = seasonParam === "all";
   const selectedSeason = isAllSeasons ? null : (seasons.find((s) => s.label === seasonParam) ?? latestSeason);
+  // Season immediately before the selected one, for the trend column — not
+  // meaningful in "all seasons" view, so left null there.
+  const previousSeason = isAllSeasons
+    ? null
+    : (seasons[seasons.findIndex((s) => s.id === selectedSeason!.id) + 1] ?? null);
 
   const teams = await prisma.team.findMany({
     where: {
@@ -70,17 +156,22 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
     include: {
       homeVenue: true,
       homeMatches: {
-        where: isAllSeasons ? { season: { leagueId: league.id } } : { seasonId: selectedSeason!.id },
-        select: { attendance: true },
+        where: isAllSeasons
+          ? { season: { leagueId: league.id } }
+          : { seasonId: previousSeason ? { in: [selectedSeason!.id, previousSeason.id] } : selectedSeason!.id },
+        select: { attendance: true, seasonId: true },
       },
     },
   });
 
   const teamStats = teams
     .map((team) => {
-      const attendances = team.homeMatches.map((m) => m.attendance).filter((a): a is number => a != null);
-      const avgAttendance = attendances.length
-        ? Math.round(attendances.reduce((a, b) => a + b, 0) / attendances.length)
+      const currentMatches = isAllSeasons
+        ? team.homeMatches
+        : team.homeMatches.filter((m) => m.seasonId === selectedSeason!.id);
+      const avgAttendance = average(currentMatches.map((m) => m.attendance));
+      const previousAvgAttendance = previousSeason
+        ? average(team.homeMatches.filter((m) => m.seasonId === previousSeason.id).map((m) => m.attendance))
         : null;
       const capacity = team.homeVenue?.capacity ?? null;
       const fillRate = avgAttendance && capacity ? avgAttendance / capacity : null;
@@ -92,8 +183,9 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
         city: team.homeVenue?.city ?? null,
         capacity,
         avgAttendance,
+        changePct: pctChange(avgAttendance, previousAvgAttendance),
         fillRate,
-        matchesPlayed: team.homeMatches.length,
+        matchesPlayed: currentMatches.length,
       };
     })
     .sort((a, b) => (b.avgAttendance ?? 0) - (a.avgAttendance ?? 0));

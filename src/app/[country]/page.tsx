@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLeagueByCountryCode } from "@/lib/queries";
 import { AttendanceBarChart } from "@/components/AttendanceBarChart";
 import { SeasonSelector } from "@/components/SeasonSelector";
+import { TrendIndicator } from "@/components/TrendIndicator";
 
 const VALID_CODES = ["dk", "se", "no"];
 
@@ -57,6 +58,7 @@ export default async function CountryPage({
                 <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Kapacitet</th>
                 <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Kampe</th>
                 <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Gns. tilskuere</th>
+                <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Udvikling</th>
                 <th className="px-3 py-2 text-right font-medium" style={{ color: "var(--text-muted)" }}>Belægning</th>
               </tr>
             </thead>
@@ -83,6 +85,9 @@ export default async function CountryPage({
                   </td>
                   <td className="px-3 py-2 text-right font-medium tabular-nums">
                     {t.avgAttendance?.toLocaleString("da-DK") ?? "–"}
+                  </td>
+                  <td className="px-3 py-2 text-right">
+                    <TrendIndicator pct={t.changePct} />
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums" style={{ color: "var(--text-secondary)" }}>
                     {t.fillRate != null ? `${Math.round(t.fillRate * 100)}%` : "–"}

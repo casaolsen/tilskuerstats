@@ -21,6 +21,10 @@
   --seq-250: #86b6ef;
   --seq-450: #2a78d6;
   --seq-650: #104281;
+
+  /* Status — fixed, never themed; used only with an icon/glyph, never color alone */
+  --status-good: #0ca30c;
+  --status-critical: #d03b3b;
 }
 
 @theme inline {
