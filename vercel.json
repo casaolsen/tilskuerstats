@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/scrape-dk",
-      "schedule": "0 5 * * *"
+      "schedule": "0 22 * * 1"
     }
   ]
 }

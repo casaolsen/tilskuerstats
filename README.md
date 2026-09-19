@@ -138,9 +138,10 @@ kilder — fbref.com, fotball.no — ikke er testet fra denne kodebases miljø).
 
 ### Automatisk opdatering (DK)
 
-Et Vercel Cron Job kalder `/api/cron/scrape-dk` dagligt kl. 05:00 UTC (se
-`vercel.json`) — sent nok til at fange alle den forrige dags kampe, tidligt
-nok til at være klar inden aftenens. Kræver at `CRON_SECRET` (en selvvalgt
+Et Vercel Cron Job kalder `/api/cron/scrape-dk` hver mandag kl. 22:00 UTC
+(23:00 dansk vintertid — se `vercel.json`, som ikke selv følger sommertid;
+skemaet skal justeres 1 time to gange om året hvis det skal ramme kl. 23
+dansk tid præcist hele året). Kræver at `CRON_SECRET` (en selvvalgt
 hemmelig streng, samme princip som `SETUP_SECRET`) er sat som environment
 variable i Vercel — Vercel sender den automatisk som
 `Authorization: Bearer <CRON_SECRET>` ved planlagte kald. Ruten kan også
