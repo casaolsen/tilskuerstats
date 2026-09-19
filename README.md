@@ -54,11 +54,22 @@ npm run dev
      beskytte trin 6)
    - `ADMIN_PASSWORD` = kodeordet til `/admin` (se "Admin" nedenfor)
 5. **Deploy**
-6. Opret/opdatér skema + seed-data ved at besøge (i browseren):
+6. Opret/opdatér databaseskemaet ved at besøge (i browseren):
    `https://<dit-projekt>.vercel.app/api/setup?key=<din SETUP_SECRET>`
-   — det opretter tabellerne og fylder dem med data. Siden svarer med en
-   lille JSON-status. Kan roligt besøges flere gange (den springer over det
-   der allerede findes).
+   — det opretter tabellerne (og tilføjer nye kolonner ved fremtidige
+   skema-ændringer). Siden svarer med en lille JSON-status. **Denne
+   simple form rører aldrig eksisterende data** og kan roligt besøges igen
+   hver gang appen får en skema-ændring — brug den til det, ikke kun ved
+   første opsætning.
+
+   Vil du (kun ved allerførste opsætning, på en helt tom database) også
+   have de 3 demo-ligaer med syntetisk testdata, tilføj `&seed=1`:
+   `https://<dit-projekt>.vercel.app/api/setup?key=<din SETUP_SECRET>&seed=1`
+   — **kør kun dette én gang, før du har rigtige data i admin.** Seed-logikken
+   opretter/genopretter hold ud fra deres slug og tilføjer alle demo-hold til
+   hver sæsons trup, så at køre den igen efter du har redigeret/slettet hold
+   eller sæson-trupper i admin vil overskrive dine ændringer og
+   genskabe slettede hold.
 
    Har du i stedet Node.js lokalt og kan nå databasen direkte, kan du bruge
    den "rigtige" vej i stedet for `/api/setup`:
