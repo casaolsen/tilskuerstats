@@ -173,7 +173,7 @@ export default async function MatchesAdminPage({
   const { season: seasonParam, imported, updated, skipped, missing, cleared, clearError } = await searchParams;
 
   const leagues = await prisma.league.findMany({
-    include: { country: true, seasons: { orderBy: { startDate: "desc" } } },
+    include: { country: true, seasons: { orderBy: { startDate: { sort: "desc", nulls: "last" } } } },
     orderBy: [{ country: { code: "asc" } }, { tier: "asc" }],
   });
   const allSeasons = leagues.flatMap((l) =>

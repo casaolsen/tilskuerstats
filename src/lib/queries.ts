@@ -19,7 +19,10 @@ export async function getCountriesOverview() {
       leagues: {
         include: {
           seasons: {
-            orderBy: { startDate: "desc" },
+            // nulls: "last" — a season created without a start date must never
+            // be mistaken for "latest" (Postgres' default DESC order puts
+            // NULLs first, which silently broke the season-over-season trend).
+            orderBy: { startDate: { sort: "desc", nulls: "last" } },
             take: 2, // latest + previous, for the season-over-season trend
             include: {
               matches: { select: { attendance: true } },
@@ -56,7 +59,7 @@ export async function getTopClubs(limit = 10) {
     include: {
       leagues: {
         include: {
-          seasons: { orderBy: { startDate: "desc" }, take: 2 },
+          seasons: { orderBy: { startDate: { sort: "desc", nulls: "last" } }, take: 2 },
         },
       },
     },
@@ -126,7 +129,7 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
     include: {
       leagues: {
         include: {
-          seasons: { orderBy: { startDate: "desc" } },
+          seasons: { orderBy: { startDate: { sort: "desc", nulls: "last" } } },
         },
       },
     },
@@ -211,7 +214,7 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
 
   const league = await prisma.league.findFirst({
     where: { countryId: team.countryId },
-    include: { seasons: { orderBy: { startDate: "desc" } } },
+    include: { seasons: { orderBy: { startDate: { sort: "desc", nulls: "last" } } } },
   });
   if (!league || league.seasons.length === 0) return null;
 

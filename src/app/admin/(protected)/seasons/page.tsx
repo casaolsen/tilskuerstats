@@ -10,12 +10,15 @@ async function createSeason(formData: FormData) {
   const leagueId = String(formData.get("leagueId") ?? "");
   const label = String(formData.get("label") ?? "").trim();
   const startDateRaw = String(formData.get("startDate") ?? "");
-  if (!leagueId || !label) return;
+  // A season without a start date sorts as "latest" ahead of dated ones
+  // (Postgres puts NULLs first on DESC) and breaks season selection and
+  // trend calculations everywhere — so this is required, not optional.
+  if (!leagueId || !label || !startDateRaw) return;
   await prisma.season.create({
     data: {
       leagueId,
       label,
-      startDate: startDateRaw ? new Date(startDateRaw) : null,
+      startDate: new Date(startDateRaw),
     },
   });
   revalidatePath("/admin/seasons");
@@ -26,7 +29,7 @@ export default async function SeasonsAdminPage() {
     include: {
       country: true,
       seasons: {
-        orderBy: { startDate: "desc" },
+        orderBy: { startDate: { sort: "desc", nulls: "last" } },
         include: { _count: { select: { seasonTeams: true, matches: true } } },
       },
     },
@@ -77,7 +80,7 @@ export default async function SeasonsAdminPage() {
           <form action={createSeason} className="grid grid-cols-[1fr_1fr_auto] gap-2">
             <input type="hidden" name="leagueId" value={league.id} />
             <input name="label" placeholder="2026/2027" required className={inputClass} style={inputStyle} />
-            <input name="startDate" type="date" className={inputClass} style={inputStyle} />
+            <input name="startDate" type="date" required className={inputClass} style={inputStyle} />
             <button type="submit" className={buttonClass} style={buttonStyle}>Opret sæson</button>
           </form>
         </section>

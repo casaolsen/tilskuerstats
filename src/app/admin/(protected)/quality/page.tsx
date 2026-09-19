@@ -58,7 +58,7 @@ export default async function DataQualityPage() {
     prisma.season.findMany({
       where: { seasonTeams: { none: {} } },
       include: { league: { include: { country: true } } },
-      orderBy: { startDate: "desc" },
+      orderBy: { startDate: { sort: "desc", nulls: "last" } },
     }),
     prisma.match.groupBy({ by: ["seasonId"], where: { attendance: null }, _count: { _all: true } }),
   ]);
