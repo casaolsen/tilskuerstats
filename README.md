@@ -219,6 +219,65 @@ række, samme faldgrube som `--reset` løser for DK-scraperen ovenfor. De er
 under alle omstændigheder den eneste kilde til rigtige SE/NO-tal indtil de
 får deres egne automatiske scrapere.
 
+## Insight-agent (AI)
+
+En AI-agent (Claude) gennemgår nye Superliga-kampe, undersøger dem med en
+række regne-værktøjer og skriver **udkast** til korte insights - fx et
+usædvanligt højt tilskuertal, en klubrekord eller et markant fald i forhold
+til sidste sæson. Intet vises på sitet, før du har godkendt det under
+`/admin/insights`. Godkendte insights vises øverst på `/dk`.
+
+### Opsætning (én gang)
+
+1. Opret en API-nøgle på [platform.claude.com](https://platform.claude.com)
+   (Settings → API keys) og sæt et lille månedligt forbrugsloft under Billing.
+2. I Vercel: **Project → Settings → Environment Variables** → tilføj
+   `ANTHROPIC_API_KEY` = nøglen. (`CRON_SECRET` findes allerede fra scraperen.)
+3. **Redeploy** (Deployments → ⋯ → Redeploy), så den nye variabel og koden
+   kommer med.
+4. Opdatér databaseskemaet ved at besøge (samme URL som altid - rører ingen data):
+   `https://<dit-projekt>.vercel.app/api/setup?key=<din SETUP_SECRET>`
+
+### Daglig brug
+
+- Agenten kører **automatisk mandag kl. 23:00 UTC**, en time efter scraperen
+  (se `vercel.json`).
+- Vil du køre den med det samme: gå til `/admin/insights` og tryk
+  **Kør agenten nu** (tager typisk 1-3 minutter). Eller besøg
+  `https://<dit-projekt>.vercel.app/api/cron/insights?key=<din CRON_SECRET>`.
+- Under `/admin/insights` kan du rette teksten og så **Godkende** eller
+  **Afvise**. Skriv gerne en note, når du afviser - agenten læser dine noter
+  næste gang og lærer din smag.
+- Klik **Beviser** på et udkast for at se præcis hvilke værktøjskald og tal,
+  påstanden bygger på. Under **Seneste kørsler** kan du se alt, hvad agenten
+  undersøgte, og hvor mange tokens det kostede.
+
+Kun kampe fra de seneste 21 dage regnes som "nye" (så agenten ikke skriver
+om hele historikken første gang), og kun Superligaen er med, fordi SE/NO
+stadig er demo-data.
+
+### Sådan virker den (til læring)
+
+Koden ligger i `src/insights/`:
+
+| Fil | Rolle |
+|---|---|
+| `tools.ts` | Værktøjerne + deres JSON-schemas. De **regner**: rang, snit, rekorder, udvikling, sammenligning med sidste sæson |
+| `agent.ts` | Systemprompt og selve tool-use-loopet (skrevet i hånden, så hvert trin er synligt) |
+| `verify.ts` | Tjekker at **hvert tal** i et udkast findes i et værktøjsresultat |
+| `run.ts` | Kobler agenten til databasen (`InsightRun`, `InsightDraft`, `Match.insightCheckedAt`) |
+| `insights.test.ts` | Tester det hele med en falsk Claude-klient: `npm run test:insights` |
+
+Loopet: Claude får opgaven og værktøjslisten → svarer med `tool_use`-blokke →
+koden kører værktøjerne og sender `tool_result` tilbage → gentag, indtil
+Claude svarer uden værktøjskald (`end_turn`). Agenten kan kun skrive via
+`submit_draft`, og hvis et udkast indeholder et tal, der ikke står i nogen
+værktøjsresultater, afvises det med en fejl, som modellen selv retter. Det er
+sådan "agenten må ikke finde på tallene" håndhæves i kode frem for kun i prompten.
+
+Modellen er `claude-opus-5` og kan ændres med environment variablen
+`INSIGHTS_MODEL` (fx `claude-sonnet-5`, som er billigere).
+
 ## Roadmap
 
 1. Bygge tilsvarende automatiske scrapere for SE og NO (fbref.com og

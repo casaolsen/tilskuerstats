@@ -84,6 +84,7 @@ export const SETUP_DDL: string[] = [
     "weatherWindMs" DOUBLE PRECISION,
     "weatherPrecipMm" DOUBLE PRECISION,
     "source" TEXT,
+    "insightCheckedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL
   )`,
@@ -91,6 +92,32 @@ export const SETUP_DDL: string[] = [
   `CREATE INDEX IF NOT EXISTS "Match_homeTeamId_idx" ON "Match"("homeTeamId")`,
   `CREATE INDEX IF NOT EXISTS "Match_awayTeamId_idx" ON "Match"("awayTeamId")`,
   `CREATE INDEX IF NOT EXISTS "Match_kickoff_idx" ON "Match"("kickoff")`,
+  `CREATE TABLE IF NOT EXISTS "InsightRun" (
+    "id" TEXT PRIMARY KEY,
+    "startedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "finishedAt" TIMESTAMP(3),
+    "model" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "matchIds" JSONB NOT NULL,
+    "summary" TEXT,
+    "toolCalls" JSONB,
+    "transcript" JSONB,
+    "usage" JSONB
+  )`,
+  `CREATE TABLE IF NOT EXISTS "InsightDraft" (
+    "id" TEXT PRIMARY KEY,
+    "runId" TEXT NOT NULL REFERENCES "InsightRun"("id"),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "status" TEXT NOT NULL DEFAULT 'pending',
+    "kind" TEXT NOT NULL,
+    "headline" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "matchIds" JSONB NOT NULL,
+    "evidence" JSONB NOT NULL,
+    "reviewedAt" TIMESTAMP(3),
+    "reviewNote" TEXT
+  )`,
+  `CREATE INDEX IF NOT EXISTS "InsightDraft_status_idx" ON "InsightDraft"("status")`,
 
   // Additive upgrade path for databases that already had these tables from
   // an earlier version of this file (no-op on a fresh CREATE TABLE above).
@@ -103,4 +130,5 @@ export const SETUP_DDL: string[] = [
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
   `ALTER TABLE "Match" ADD COLUMN IF NOT EXISTS "note" TEXT`,
+  `ALTER TABLE "Match" ADD COLUMN IF NOT EXISTS "insightCheckedAt" TIMESTAMP(3)`,
 ];
