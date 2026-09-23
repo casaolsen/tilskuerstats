@@ -5,6 +5,7 @@ import { AttendanceBarChart } from "@/components/AttendanceBarChart";
 import { SeasonSelector } from "@/components/SeasonSelector";
 import { TrendIndicator } from "@/components/TrendIndicator";
 import { NoteBadge } from "@/components/NoteBadge";
+import { prisma } from "@/lib/db";
 
 const VALID_CODES = ["dk", "se", "no"];
 
@@ -26,6 +27,12 @@ export default async function CountryPage({
   const data = await getLeagueByCountryCode(country, season);
   if (!data) notFound();
 
+  // Insights fra AI-agenten (kun Superligaen, kun dem du har godkendt i /admin/insights)
+  const insights =
+    country === "dk"
+      ? await prisma.insightDraft.findMany({ where: { status: "approved" }, orderBy: { reviewedAt: "desc" }, take: 3 })
+      : [];
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -34,6 +41,21 @@ export default async function CountryPage({
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">{data.league.name}</h1>
       </div>
+
+      {insights.length > 0 && (
+        <section className="grid gap-3 sm:grid-cols-3">
+          {insights.map((i) => (
+            <article
+              key={i.id}
+              className="rounded-lg border p-4"
+              style={{ borderColor: "var(--border)", background: "var(--surface-1)" }}
+            >
+              <h2 className="text-sm font-semibold">{i.headline}</h2>
+              <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>{i.body}</p>
+            </article>
+          ))}
+        </section>
+      )}
 
       <SeasonSelector basePath={`/${country}`} seasons={data.seasons} selected={data.selectedSeasonLabel} />
 

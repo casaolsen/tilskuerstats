@@ -121,6 +121,8 @@ model Match {
   weatherPrecipMm  Float?
 
   source    String? // URL the data was scraped/entered from
+  // Set when the insight agent has looked at this match (see src/insights/).
+  insightCheckedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -128,4 +130,39 @@ model Match {
   @@index([homeTeamId])
   @@index([awayTeamId])
   @@index([kickoff])
+}
+
+// One run of the insight agent (src/insights/). Stores the full message
+// transcript so you can see in /admin/insights why the agent did what it did.
+model InsightRun {
+  id         String         @id @default(cuid())
+  startedAt  DateTime       @default(now())
+  finishedAt DateTime?
+  model      String
+  status     String // running | done | max_turns | refusal | error | nothing_new
+  matchIds   Json // matches that were new when the run started
+  summary    String? // the agent's closing message
+  toolCalls  Json? // [{turn, name, input, isError, output}]
+  transcript Json?
+  usage      Json?
+  drafts     InsightDraft[]
+}
+
+// An insight written by the agent. Nothing is shown publicly until an admin
+// approves it.
+model InsightDraft {
+  id         String     @id @default(cuid())
+  runId      String
+  run        InsightRun @relation(fields: [runId], references: [id])
+  createdAt  DateTime   @default(now())
+  status     String     @default("pending") // pending | approved | rejected
+  kind       String // record | outlier | trend | milestone | other
+  headline   String
+  body       String
+  matchIds   Json
+  evidence   Json // [{claim, tool_use_id, tool, input, result}]
+  reviewedAt DateTime?
+  reviewNote String?
+
+  @@index([status])
 }
