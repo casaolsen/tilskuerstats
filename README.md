@@ -167,7 +167,17 @@ tættere på kampstart for hurtigere opdateringer.
 rundenumre ikke nødvendigvis matcher superstats.dk's rigtige rækkefølge —
 en almindelig scrape ville derfor kunne efterlade gamle demo-kampe ved siden
 af de nye rigtige, i stedet for at erstatte dem. Kør derfor **én gang per
-sæson**, manuelt (aldrig via cron-ruten, som aldrig sletter noget):
+sæson** med reset. Cron-ruten (kun den, aldrig den planlagte cron-udløsning
+selv — `vercel.json`'s `path` har ingen query-string) forstår `&reset=1` og
+`&season=`, så det simpleste er at besøge disse URL'er i browseren (samme
+princip som `/api/setup?key=...&seed=1`):
+
+```
+https://<dit-projekt>.vercel.app/api/cron/scrape-dk?key=<CRON_SECRET>&season=2024/2025&reset=1
+https://<dit-projekt>.vercel.app/api/cron/scrape-dk?key=<CRON_SECRET>&season=2025/2026&reset=1
+```
+
+Har du i stedet Node.js lokalt og kan nå databasen direkte:
 
 ```bash
 npm run scrape:dk-superliga -- --season=2024/2025 --reset
