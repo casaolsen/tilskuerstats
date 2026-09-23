@@ -187,6 +187,20 @@ npm run scrape:dk-superliga -- --season=2025/2026 --reset
 `--reset` sletter sæsonens eksisterende kampe først. Herefter er alle
 fremtidige cron-kørsler rene opdateringer (nye/ændrede kampe), ikke reset.
 
+**En helt ny sæson** (fx 2026/2027, hvor der ikke er nogen demo-data at rydde
+op efter) skal først have en `Season`-række — opret den under
+`/admin/seasons` for Superliga med label præcis som scraperen forventer
+(`"2026/2027"`, matcher `prisma/seed-data.ts`) og en startdato. Herefter er
+et almindeligt (ikke-reset) kald nok:
+
+```
+https://<dit-projekt>.vercel.app/api/cron/scrape-dk?key=<CRON_SECRET>&season=2026/2027
+```
+
+Kør den igen for at hente nye kampe/tilskuertal efterhånden som sæsonen
+skrider frem, indtil den ugentlige cron selv tager over (når 2026/2027 er
+den nyeste sæson i `prisma/seed-data.ts`, hvilket den er fra denne commit).
+
 Uafhængigt af scraperen findes der allerede reelt indsamlede CSV'er for DK,
 SE og NO (flere sæsoner hver) i samme GitHub-repo, på en anden branch
 (`claude/superligaen-attendance-scraper-p1nnra` — separat historik, ikke en

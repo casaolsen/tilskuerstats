@@ -40,7 +40,8 @@ function seasonStartYear(seasonLabel: string): number {
 }
 
 // Canonical club identity for every abbreviation superstats.dk has used
-// across recent seasons, including 2025/26 promotions (AaB, FC Fredericia)
+// across recent seasons, including clubs promoted in after this list was
+// last touched (AaB and FC Fredericia in 2025/26; AC Horsens in 2026/27)
 // that predate this list in prisma/seed-data.ts. Keyed by the exact
 // abbreviation the site renders (e.g. in "AGF-FCM"). Used both to resolve a
 // match to an existing Team and — since a club can get promoted into the
@@ -58,6 +59,7 @@ const TEAM_INFO: Record<string, { name: string; slug: string }> = {
   VFF: { name: "Viborg FF", slug: "viborg-ff" },
   BIF: { name: "Brøndby IF", slug: "brondby-if" },
   LBK: { name: "Lyngby Boldklub", slug: "lyngby-boldklub" },
+  ACH: { name: "AC Horsens", slug: "ac-horsens" },
   FCK: { name: "FC København", slug: "fc-kobenhavn" },
   OB: { name: "OB", slug: "ob" },
   FCF: { name: "FC Fredericia", slug: "fc-fredericia" },

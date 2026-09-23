@@ -43,6 +43,7 @@ export const LEAGUES: SeedLeague[] = [
     seasons: [
       { label: "2024/2025", seasonStart: "2024-07-19", attendanceFactor: 0.93 },
       { label: "2025/2026", seasonStart: "2025-07-18", attendanceFactor: 1.0 },
+      { label: "2026/2027", seasonStart: "2026-07-24", attendanceFactor: 1.0 },
     ],
     teams: [
       { name: "FC København", shortName: "FCK", slug: "fc-kobenhavn", city: "København", venue: "Parken", capacity: 38065, avgAttendance: 17200 },
