@@ -373,8 +373,8 @@ export const TOOL_SCHEMAS: Anthropic.Beta.BetaTool[] = [
     name: "submit_draft",
     description:
       "Gem et insight-udkast til godkendelse. Hvert tal i headline og body skal stå i et af dine " +
-      "værktøjsresultater, ellers afvises udkastet med en fejl, du kan rette. evidence skal pege på de " +
-      "tool_use-id'er, som tallene kommer fra.",
+      "værktøjsresultater, ellers afvises udkastet med en fejl, du kan rette. evidence skal pege på " +
+      "\"ref\"-feltet (fx \"R3\") i de værktøjssvar, tallene kommer fra.",
     input_schema: {
       type: "object",
       properties: {
@@ -389,9 +389,9 @@ export const TOOL_SCHEMAS: Anthropic.Beta.BetaTool[] = [
             type: "object",
             properties: {
               claim: { type: "string", description: "Påstanden, beviset understøtter" },
-              tool_use_id: { type: "string", description: "id på det tool_use-kald, der viser det" },
+              ref: { type: "string", description: "\"ref\"-feltet fra værktøjssvaret, fx \"R3\"" },
             },
-            required: ["claim", "tool_use_id"],
+            required: ["claim", "ref"],
             additionalProperties: false,
           },
         },

@@ -33,6 +33,18 @@ async function runNow() {
   redirect(`/admin/insights?${params}`);
 }
 
+// Sender en kørsels kampe tilbage til agenten, så den kan køre på dem igen -
+// fx efter en fejl, eller for at se om en ændring i prompt/værktøjer hjælper.
+async function requeueRun(formData: FormData) {
+  "use server";
+  const run = await prisma.insightRun.findUniqueOrThrow({ where: { id: String(formData.get("runId")) } });
+  await prisma.match.updateMany({
+    where: { id: { in: run.matchIds as string[] } },
+    data: { insightCheckedAt: null },
+  });
+  revalidatePath("/admin/insights");
+}
+
 async function review(formData: FormData) {
   "use server";
   const id = String(formData.get("id"));
@@ -230,7 +242,15 @@ export default async function InsightsAdminPage({
                   </li>
                 ))}
               </ol>
-              <Muted>Model: {r.model}</Muted>
+              <div className="mt-2 flex items-center justify-between gap-2">
+                <Muted>Model: {r.model}</Muted>
+                <form action={requeueRun}>
+                  <input type="hidden" name="runId" value={r.id} />
+                  <button type="submit" className="text-xs underline" style={{ color: "var(--text-secondary)" }}>
+                    Giv disse kampe til agenten igen
+                  </button>
+                </form>
+              </div>
             </details>
           );
         })}

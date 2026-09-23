@@ -8,9 +8,9 @@
 // "12.456", "12,5", "1.234,5", "2024", "3"
 const NUMBER_RE = /\d+(?:[.,]\d+)*/g;
 
-// Id'er (cuid) og slugs indeholder tilfældige cifre, som ellers ville gøre
+// Id'er (cuid), slugs og refs ("R3") indeholder cifre, som ellers ville gøre
 // vilkårlige tal "godkendte".
-const IGNORED_KEYS = /(^id$|Id$|_id$|slug$)/;
+const IGNORED_KEYS = /(^id$|Id$|_id$|slug$|^ref$)/;
 
 /** Dansk talformat: punktum er tusindtalsseparator, komma er decimaltegn. */
 export function parseDanishNumber(token: string): { value: number; decimals: number } {
