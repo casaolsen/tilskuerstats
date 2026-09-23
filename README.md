@@ -118,34 +118,88 @@ Databasen seedes i dag med **demo-data** (`npm run db:seed`,
 kapaciteter, men *per-kamp* tilskuertal er syntetiske tal genereret omkring
 kendte sæson-gennemsnit (fundet via research), ikke en skrabet historisk
 facitliste. Det gør sitet fuldt funktionelt med det samme, men tallene per
-kamp må ikke citeres som faktiske.
+kamp må ikke citeres som faktiske — **undtagen for Danmark**, hvor de
+erstattes af rigtige tal fra superstats.dk efter den engangs-`--reset`-kørsel
+beskrevet under "Automatisk opdatering" nedenfor. Sverige og Norge er stadig
+ren demo-data indtil deres scrapere er bygget.
 
 ### Live datakilder (research)
 
 | Land | Liga | Kandidat-kilde | Status |
 |---|---|---|---|
-| DK | Superliga | [superstats.dk](https://superstats.dk) — tilskuertal pr. kamp/runde | Reference-scraper skrevet, **ikke verificeret** |
-| SE | Allsvenskan | fx tvfotboll.se, allsvenskantabellen.se | Ikke påbegyndt |
-| NO | Eliteserien | fotball.no (NFF, officiel) | Ikke påbegyndt |
+| DK | Superliga | [superstats.dk](https://superstats.dk) — tilskuertal pr. kamp/runde | **Verificeret og automatiseret** (se nedenfor) |
+| SE | Allsvenskan | fx fbref.com (manuel export, se nedenfor) | Data indhentet manuelt, ikke automatiseret |
+| NO | Eliteserien | fotball.no (NFF, officiel) | Data indhentet manuelt, ikke automatiseret |
 
-`src/scrapers/dk-superstats.ts` er en reference-implementering (fetch +
-cheerio) for Danmark. **Denne sandbox' netværksproxy blokerer adgang til
-superstats.dk**, så CSS-selectorne er et kvalificeret gæt, ikke bekræftet mod
-den rigtige HTML. Kør scraperen fra et almindeligt miljø for at kalibrere:
+`src/scrapers/dk-superstats.ts` henter hele sæsonens kampprogram i ét kald
+(`/program?aar=<år>&sr=1`) og parser det med cheerio — bekræftet mod den
+rigtige side (superstats.dk lukker ikke sine `<tr>`/`<td>`-tags, men cheerios
+standardparser retter det korrekt). Kør den manuelt sådan:
 
 ```bash
-npm run scrape:dk-superliga -- --dry-run --round 1
+npm run scrape:dk-superliga -- --dry-run --season=2025/2026   # kun print, ingen DB-skrivning
+npm run scrape:dk-superliga -- --season=2025/2026              # opret/opdatér i databasen
 ```
 
-Giver den 0 kampe, skal selectorne i `ROUND_PAGE_SELECTORS` justeres —
-parsing-logikken (`parseRoundPage`) er bevidst adskilt fra fetch-laget, så det
-er en hurtig rettelse. Samme mønster (`types.ts` + `<land>-<kilde>.ts`) kan
-genbruges til Sverige og Norge, som har helt andre side-strukturer.
+Giver den 0 kampe, har superstats.dk ændret sin tabelstruktur — parsing-logikken
+(`parseSeasonProgram`) er bevidst adskilt fra fetch- og DB-laget, så det er en
+hurtig rettelse ét sted. Samme mønster (`types.ts` + `<land>-<kilde>.ts`) kan
+genbruges til Sverige og Norge, som har helt andre side-strukturer (og hvis
+kilder — fbref.com, fotball.no — ikke er testet fra denne kodebases miljø).
+
+### Automatisk opdatering (DK)
+
+Et Vercel Cron Job kalder `/api/cron/scrape-dk` hver mandag kl. 22:00 UTC
+(23:00 dansk vintertid — se `vercel.json`, som ikke selv følger sommertid;
+skemaet skal justeres 1 time to gange om året hvis det skal ramme kl. 23
+dansk tid præcist hele året). Kræver at `CRON_SECRET` (en selvvalgt
+hemmelig streng, samme princip som `SETUP_SECRET`) er sat som environment
+variable i Vercel — Vercel sender den automatisk som
+`Authorization: Bearer <CRON_SECRET>` ved planlagte kald. Ruten kan også
+kaldes manuelt med `?key=<CRON_SECRET>` for at teste den.
+
+**Vercels gratis Hobby-plan tillader højst ét cron-kald i døgnet** — hvis
+sitet opgraderes til en betalt plan, kan `vercel.json`'s `schedule` sættes
+tættere på kampstart for hurtigere opdateringer.
+
+**Første kørsel per sæson:** de eksisterende `Season`-rækker for DK
+(2024/2025, 2025/2026) er allerede fyldt med demo-data hvis syntetiske
+rundenumre ikke nødvendigvis matcher superstats.dk's rigtige rækkefølge —
+en almindelig scrape ville derfor kunne efterlade gamle demo-kampe ved siden
+af de nye rigtige, i stedet for at erstatte dem. Kør derfor **én gang per
+sæson**, manuelt (aldrig via cron-ruten, som aldrig sletter noget):
+
+```bash
+npm run scrape:dk-superliga -- --season=2024/2025 --reset
+npm run scrape:dk-superliga -- --season=2025/2026 --reset
+```
+
+`--reset` sletter sæsonens eksisterende kampe først. Herefter er alle
+fremtidige cron-kørsler rene opdateringer (nye/ændrede kampe), ikke reset.
+
+Uafhængigt af scraperen findes der allerede reelt indsamlede CSV'er for DK,
+SE og NO (flere sæsoner hver) i samme GitHub-repo, på en anden branch
+(`claude/superligaen-attendance-scraper-p1nnra` — separat historik, ikke en
+forfader til denne branch). De har kolonnerne
+`dato,runde,hjemmehold,udehold,hjemmemaal,udemaal,tilskuere,stadion` —
+admin-importen finder kolonner via headernavn (rækkefølgen er ligegyldig, og
+den ekstra `stadion`-kolonne ignoreres blot), så de kan bruges direkte via
+`/admin/matches`. To ting at være opmærksom på: (1) hold matches på
+`Team.name` (case-insensitive) — findes holdet ikke i forvejen (fx AaB og FC
+Fredericia, som slet ikke er i `prisma/seed-data.ts`'s hold-liste), springes
+rækken over og navnet listes som "ukendt"; opret holdet under `/admin/teams`
+først. (2) dubletter genkendes på eksakt `kickoff`-tidspunkt, ikke runde —
+rammer den syntetiske demo-datas kickoff-tidspunkt ikke præcis den rigtige
+kamps, ender du med både demo- og rigtig-rækken i stedet for én opdateret
+række, samme faldgrube som `--reset` løser for DK-scraperen ovenfor. De er
+under alle omstændigheder den eneste kilde til rigtige SE/NO-tal indtil de
+får deres egne automatiske scrapere.
 
 ## Roadmap
 
-1. Verificere og udbygge DK-scraperen; bygge tilsvarende for SE og NO
-2. Automatisk, planlagt indhentning (fx cron) i stedet for manuel kørsel
+1. Bygge tilsvarende automatiske scrapere for SE og NO (fbref.com og
+   fotball.no — se `src/scrapers/dk-superstats.ts` for mønsteret)
+2. ~~Automatisk, planlagt indhentning (fx cron) i stedet for manuel kørsel~~ — done for DK, se ovenfor
 3. Historisk backfill (flere sæsoner tilbage)
 4. **Prognosemodel**: forudsig tilskuertal pr. kommende kamp ud fra
    historik (hold, modstander, ugedag/tidspunkt), vejrudsigt og
