@@ -118,9 +118,9 @@ function fakeClient(script: ReturnType<typeof reply>[]) {
   return { client, requests };
 }
 
-const draft = (headline: string, toolUseId = "t2") => ({
+const draft = (headline: string, ref = "R1") => ({
   kind: "record", headline, body: "AGF havde aldrig haft flere tilskuere til en hjemmekamp i databasen.",
-  match_ids: ["n2"], evidence: [{ claim: "Rang 1 af 3 hjemmekampe", tool_use_id: toolUseId }],
+  match_ids: ["n2"], evidence: [{ claim: "Rang 1 af 3 hjemmekampe", ref }],
 });
 
 test("agenten undersøger, indsender et udkast og afslutter", async () => {
@@ -128,7 +128,7 @@ test("agenten undersøger, indsender et udkast og afslutter", async () => {
   const { client } = fakeClient([
     reply("tool_use", toolUse("t1", "list_new_matches", {})),
     reply("tool_use", toolUse("t2", "compare_attendance", { match_id: "n2", scope: "home_team_all" })),
-    reply("tool_use", toolUse("t3", "submit_draft", draft("Ny AGF-rekord: 19.500 tilskuere"))),
+    reply("tool_use", toolUse("t3", "submit_draft", draft("Ny AGF-rekord: 19.500 tilskuere", "R2"))),
     reply("end_turn", { type: "text", text: "Ét udkast indsendt." }),
   ]);
   const r = await runAgent({ client, dataset: dataset(), saveDraft: async (d) => (saved.push(d), `d${saved.length}`) });
@@ -156,6 +156,28 @@ test("et opfundet tal afvises, og modellen kan rette det", async () => {
   assert.match(lastMsg.content[0].content, /21\.500/);
   assert.equal(saved.length, 1);
   assert.equal(r.status, "done");
+});
+
+test("værktøjssvar har en synlig ref, som modellen kan citere", async () => {
+  const { client, requests } = fakeClient([
+    reply("tool_use", toolUse("toolu_abc", "list_new_matches", {})),
+    reply("end_turn", { type: "text", text: "Ok." }),
+  ]);
+  await runAgent({ client, dataset: dataset(), saveDraft: async () => "x" });
+  const result = (requests[1].at(-1) as { content: { content: string }[] }).content[0].content;
+  assert.equal(JSON.parse(result).ref, "R1");
+});
+
+test("ukendt ref afvises med en liste over gyldige refs", async () => {
+  const { client, requests } = fakeClient([
+    reply("tool_use", toolUse("t1", "compare_attendance", { match_id: "n2", scope: "home_team_all" })),
+    reply("tool_use", toolUse("t2", "submit_draft", draft("Rekord", "toolu_t1"))),
+    reply("end_turn", { type: "text", text: "Ok." }),
+  ]);
+  const r = await runAgent({ client, dataset: dataset(), saveDraft: async () => "x" });
+  assert.equal(r.draftIds.length, 0);
+  const error = (requests[2].at(-1) as { content: { content: string }[] }).content[0].content;
+  assert.match(error, /Gyldige refs: R1 \(compare_attendance\)/);
 });
 
 test("evidence skal pege på et rigtigt værktøjskald", async () => {
