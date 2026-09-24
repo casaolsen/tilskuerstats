@@ -9,6 +9,7 @@
     "lint": "eslint",
     "db:seed": "tsx prisma/seed.ts",
     "scrape:dk-superliga": "tsx src/scrapers/dk-superstats.ts",
+    "scrape:no-eliteserien": "tsx src/scrapers/no-fotballno.ts",
     "test:insights": "tsx --test src/insights/insights.test.ts"
   },
   "prisma": {

@@ -96,6 +96,7 @@ export const LEAGUES: SeedLeague[] = [
     seasons: [
       { label: "2024", seasonStart: "2024-04-07", attendanceFactor: 0.92 },
       { label: "2025", seasonStart: "2025-04-06", attendanceFactor: 1.0 },
+      { label: "2026", seasonStart: "2026-03-14", attendanceFactor: 1.0 },
     ],
     teams: [
       { name: "Rosenborg BK", shortName: "RBK", slug: "rosenborg-bk", city: "Trondheim", venue: "Lerkendal Stadion", capacity: 21421, avgAttendance: 15200 },

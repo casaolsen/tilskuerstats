@@ -129,7 +129,7 @@ ren demo-data indtil deres scrapere er bygget.
 |---|---|---|---|
 | DK | Superliga | [superstats.dk](https://superstats.dk) — tilskuertal pr. kamp/runde | **Verificeret og automatiseret** (se nedenfor) |
 | SE | Allsvenskan | fx fbref.com (manuel export, se nedenfor) | Data indhentet manuelt, ikke automatiseret |
-| NO | Eliteserien | fotball.no (NFF, officiel) | Data indhentet manuelt, ikke automatiseret |
+| NO | Eliteserien | [fotball.no](https://www.fotball.no) (NFF's officielle FIKS-database) | **Verificeret og automatiseret** (se nedenfor) |
 
 `src/scrapers/dk-superstats.ts` henter hele sæsonens kampprogram i ét kald
 (`/program?aar=<år>&sr=1`) og parser det med cheerio — bekræftet mod den
@@ -141,11 +141,25 @@ npm run scrape:dk-superliga -- --dry-run --season=2025/2026   # kun print, ingen
 npm run scrape:dk-superliga -- --season=2025/2026              # opret/opdatér i databasen
 ```
 
-Giver den 0 kampe, har superstats.dk ændret sin tabelstruktur — parsing-logikken
-(`parseSeasonProgram`) er bevidst adskilt fra fetch- og DB-laget, så det er en
-hurtig rettelse ét sted. Samme mønster (`types.ts` + `<land>-<kilde>.ts`) kan
-genbruges til Sverige og Norge, som har helt andre side-strukturer (og hvis
-kilder — fbref.com, fotball.no — ikke er testet fra denne kodebases miljø).
+`src/scrapers/no-fotballno.ts` gør det samme for fotball.no, men med to
+forskelle fra DK: (1) sæsonens `fiksId` er et internt NFF-tal der ikke kan
+udledes af årstal — findes ved at søge "fotball.no Eliteserien \<år\>" og
+lægges ind i `SEASON_FIKS_IDS`; (2) tilskuertallet står **ikke** på
+sæson-oversigten, kun på hver enkelt kampside, så scraperen henter det ét
+kald ad gangen — kun for kampe der mangler det, og maks 60 pr. kørsel (se
+"Automatisk opdatering (NO)" nedenfor for hvorfor).
+
+```bash
+npm run scrape:no-eliteserien -- --dry-run --season=2026
+npm run scrape:no-eliteserien -- --season=2026
+```
+
+Giver nogen af dem 0 kampe, har kilden ændret sin tabelstruktur — parsing-logikken
+(`parseSeasonProgram` i begge filer) er bevidst adskilt fra fetch- og DB-laget,
+så det er en hurtig rettelse ét sted. Samme mønster (`types.ts` +
+`<land>-<kilde>.ts`) kan genbruges til Sverige, som har en helt anden
+side-struktur (og hvis kandidat-kilde, fbref.com, ikke er testet fra denne
+kodebases miljø).
 
 ### Automatisk opdatering (DK)
 
@@ -158,9 +172,16 @@ variable i Vercel — Vercel sender den automatisk som
 `Authorization: Bearer <CRON_SECRET>` ved planlagte kald. Ruten kan også
 kaldes manuelt med `?key=<CRON_SECRET>` for at teste den.
 
-**Vercels gratis Hobby-plan tillader højst ét cron-kald i døgnet** — hvis
-sitet opgraderes til en betalt plan, kan `vercel.json`'s `schedule` sættes
-tættere på kampstart for hurtigere opdateringer.
+**Vercels gratis Hobby-plan tillader højst ét kald i døgnet per cron-job**
+— hvis sitet opgraderes til en betalt plan, kan `vercel.json`'s `schedule`
+sættes tættere på kampstart for hurtigere opdateringer.
+
+**OBS:** `vercel.json` har nu 3 cron-jobs (NO, DK, insights). Hobby-planen
+har historisk haft et loft på **2** cron-jobs pr. projekt — tjek efter
+deploy under **Project → Settings → Cron Jobs** at alle tre rent faktisk er
+registreret. Er de ikke, kræver det enten en opgradering til Pro, eller at
+to af opgaverne slås sammen til ét kald (fx lad `/api/cron/scrape-dk` selv
+kalde NO-scraperen bagefter, så det tæller som ét cron-job for Vercel).
 
 **Første kørsel per sæson:** de eksisterende `Season`-rækker for DK
 (2024/2025, 2025/2026) er allerede fyldt med demo-data hvis syntetiske
@@ -200,6 +221,38 @@ https://<dit-projekt>.vercel.app/api/cron/scrape-dk?key=<CRON_SECRET>&season=202
 Kør den igen for at hente nye kampe/tilskuertal efterhånden som sæsonen
 skrider frem, indtil den ugentlige cron selv tager over (når 2026/2027 er
 den nyeste sæson i `prisma/seed-data.ts`, hvilket den er fra denne commit).
+
+### Automatisk opdatering (NO)
+
+Samme princip som DK: et Vercel Cron Job kalder `/api/cron/scrape-no` hver
+mandag kl. 21:00 UTC (én time før DK, så de ikke overlapper — se
+`vercel.json`), beskyttet af **det samme** `CRON_SECRET`. Manuel brug:
+
+```
+https://<dit-projekt>.vercel.app/api/cron/scrape-no?key=<CRON_SECRET>
+https://<dit-projekt>.vercel.app/api/cron/scrape-no?key=<CRON_SECRET>&season=2025
+https://<dit-projekt>.vercel.app/api/cron/scrape-no?key=<CRON_SECRET>&season=2025&reset=1
+```
+
+**Én vigtig forskel fra DK:** fotball.no viser ikke tilskuertal på
+sæson-oversigten — det kræver ét ekstra opslag per kamp. For ikke at ramme
+Vercels function-timeout henter et enkelt kald derfor kun tilskuertal for
+kampe der mangler det, med et loft på 60 kampe pr. kald. Svaret indeholder
+`remainingWithoutAttendance` — er den over 0, kald samme URL igen for at
+hente resten (en frisk sæson på 240 kampe kræver typisk ~4 kald; den
+ugentlige cron rammer aldrig loftet, da der kun er en håndfuld nye kampe pr.
+uge).
+
+**Første kørsel per sæson** følger samme mønster som DK — 2024 og 2025 har
+demo-data med forkerte rundenumre og skal bruge `--reset`/`&reset=1`, mens
+2026 (helt ny, ingen demo-data) først skal have en `Season`-række oprettet
+under `/admin/seasons` for Eliteserien (label `"2026"`, startdato
+`2026-03-14`), og derefter bare et almindeligt kald.
+
+**Nye/ukendte hold** (fx ved fremtidig op-/nedrykning `TEAM_INFO` i
+`src/scrapers/no-fotballno.ts` ikke kender endnu) oprettes automatisk uden
+stadion sat — præcis som AC Horsens-situationen for DK. Tjek `/admin/teams`
+efter et sæsonskift.
 
 Uafhængigt af scraperen findes der allerede reelt indsamlede CSV'er for DK,
 SE og NO (flere sæsoner hver) i samme GitHub-repo, på en anden branch
