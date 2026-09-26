@@ -57,13 +57,37 @@ model Venue {
   countryId String
   country   Country  @relation(fields: [countryId], references: [id])
   name      String
-  city      String
-  address   String? // for a future map embed
-  capacity  Int?
-  imageUrl  String?
-  website   String?
-  teams     Team[]   @relation("HomeVenue")
-  matches   Match[]
+  // Nullable rather than required: existing venues get one backfilled by
+  // /api/setup (see route.ts) instead of a blocking migration, matching how
+  // this project already treats every other optional-but-becomes-common field.
+  slug          String?      @unique
+  city          String
+  address       String? // for a future map embed
+  capacity      Int?
+  imageUrl      String?
+  website       String?
+  description   String? // "Om stadion" — free text shown on the venue page
+  transportInfo String? // "Sådan kommer du frem" — free text shown on the venue page
+  teams         Team[]       @relation("HomeVenue")
+  matches       Match[]
+  links         VenueLink[]
+}
+
+// Admin-managed link shown on the venue page, grouped by category:
+// official (stadium site, StadiumDB, ...), review (reviews/videos of the
+// matchday experience), or other. Free-form URL/title/description per user
+// request — no dedicated fields for specific sources like StadiumDB.
+model VenueLink {
+  id          String   @id @default(cuid())
+  venueId     String
+  venue       Venue    @relation(fields: [venueId], references: [id])
+  category    String // official | review | other
+  title       String
+  description String?
+  url         String
+  createdAt   DateTime @default(now())
+
+  @@index([venueId])
 }
 
 model Team {

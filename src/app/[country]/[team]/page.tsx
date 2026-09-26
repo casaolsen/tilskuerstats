@@ -39,10 +39,10 @@ export default async function TeamPage({
         <div className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
           {data.leagueName} ·{" "}
           {data.team.venueName ? (
-            data.team.venueWebsite ? (
-              <a href={data.team.venueWebsite} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            data.team.venueSlug ? (
+              <Link href={`/${country}/venue/${data.team.venueSlug}`} className="hover:underline">
                 {data.team.venueName}
-              </a>
+              </Link>
             ) : (
               data.team.venueName
             )

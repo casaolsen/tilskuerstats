@@ -192,6 +192,7 @@ export async function getLeagueByCountryCode(code: string, seasonParam?: string)
         name: team.name,
         shortName: team.shortName,
         venueName: team.homeVenue?.name ?? null,
+        venueSlug: team.homeVenue?.slug ?? null,
         city: team.homeVenue?.city ?? null,
         capacity,
         avgAttendance,
@@ -256,7 +257,7 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
       countryCode: team.country.code,
       countryName: team.country.name,
       venueName: team.homeVenue?.name ?? null,
-      venueWebsite: team.homeVenue?.website ?? null,
+      venueSlug: team.homeVenue?.slug ?? null,
       city: team.homeVenue?.city ?? null,
       capacity: team.homeVenue?.capacity ?? null,
     },
@@ -287,5 +288,54 @@ export async function getTeamDetail(slug: string, seasonParam?: string) {
       awayScore: m.awayScore,
       note: m.note,
     })),
+  };
+}
+
+const LINK_CATEGORIES = ["official", "review", "other"] as const;
+export type VenueLinkCategory = (typeof LINK_CATEGORIES)[number];
+
+export async function getVenueDetail(countryCode: string, slug: string) {
+  const venue = await prisma.venue.findFirst({
+    where: { slug, country: { code: countryCode.toUpperCase() } },
+    include: {
+      country: true,
+      teams: { orderBy: { name: "asc" } },
+      links: { orderBy: { createdAt: "asc" } },
+    },
+  });
+  if (!venue) return null;
+
+  const linksByCategory: Record<VenueLinkCategory, typeof venue.links> = {
+    official: [],
+    review: [],
+    other: [],
+  };
+  for (const link of venue.links) {
+    const category = LINK_CATEGORIES.includes(link.category as VenueLinkCategory)
+      ? (link.category as VenueLinkCategory)
+      : "other";
+    linksByCategory[category].push(link);
+  }
+
+  return {
+    venue: {
+      slug: venue.slug,
+      name: venue.name,
+      city: venue.city,
+      address: venue.address,
+      capacity: venue.capacity,
+      imageUrl: venue.imageUrl,
+      website: venue.website,
+      description: venue.description,
+      transportInfo: venue.transportInfo,
+      countryCode: venue.country.code,
+      countryName: venue.country.name,
+    },
+    clubs: venue.teams.map((t) => ({ slug: t.slug, name: t.name })),
+    links: {
+      official: linksByCategory.official.map((l) => ({ title: l.title, description: l.description, url: l.url })),
+      review: linksByCategory.review.map((l) => ({ title: l.title, description: l.description, url: l.url })),
+      other: linksByCategory.other.map((l) => ({ title: l.title, description: l.description, url: l.url })),
+    },
   };
 }

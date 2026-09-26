@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { buttonClass, buttonStyle, dangerButtonClass, dangerButtonStyle, inputClass, inputStyle } from "@/lib/admin-ui";
 import { ConfirmButton } from "@/components/ConfirmButton";
+import { slugify } from "@/lib/slugify";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +21,8 @@ async function updateVenue(formData: FormData) {
       capacity: capacityRaw ? Number(capacityRaw) : null,
       imageUrl: String(formData.get("imageUrl") ?? "") || null,
       website: String(formData.get("website") ?? "") || null,
+      description: String(formData.get("description") ?? "").trim() || null,
+      transportInfo: String(formData.get("transportInfo") ?? "").trim() || null,
     },
   });
   revalidatePath("/admin/venues");
@@ -30,7 +34,9 @@ async function createVenue(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
   const city = String(formData.get("city") ?? "").trim();
   if (!countryId || !name || !city) return;
-  await prisma.venue.create({ data: { countryId, name, city } });
+  await prisma.venue.create({
+    data: { countryId, name, city, slug: `${slugify(name)}-${Date.now().toString(36)}` },
+  });
   revalidatePath("/admin/venues");
 }
 
@@ -118,8 +124,33 @@ export default async function VenuesAdminPage({
               className={inputClass}
               style={inputStyle}
             />
+            <textarea
+              name="description"
+              defaultValue={v.description ?? ""}
+              placeholder="Om stadion (vises på stadionsiden)"
+              rows={2}
+              className={`${inputClass} col-span-full`}
+              style={inputStyle}
+            />
+            <textarea
+              name="transportInfo"
+              defaultValue={v.transportInfo ?? ""}
+              placeholder="Sådan kommer du frem — transportvejledning (vises på stadionsiden)"
+              rows={2}
+              className={`${inputClass} col-span-full`}
+              style={inputStyle}
+            />
             <button type="submit" className={buttonClass} style={buttonStyle}>Gem</button>
           </form>
+          {v.slug && (
+            <Link
+              href={`/${v.country.code.toLowerCase()}/venue/${v.slug}`}
+              className="text-sm whitespace-nowrap hover:underline"
+              style={{ color: "var(--text-muted)" }}
+            >
+              Se side →
+            </Link>
+          )}
           <form action={deleteVenue}>
             <input type="hidden" name="id" value={v.id} />
             {inUse ? (

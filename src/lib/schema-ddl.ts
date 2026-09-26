@@ -45,11 +45,14 @@ export const SETUP_DDL: string[] = [
     "id" TEXT PRIMARY KEY,
     "countryId" TEXT NOT NULL REFERENCES "Country"("id"),
     "name" TEXT NOT NULL,
+    "slug" TEXT UNIQUE,
     "city" TEXT NOT NULL,
     "address" TEXT,
     "capacity" INTEGER,
     "imageUrl" TEXT,
-    "website" TEXT
+    "website" TEXT,
+    "description" TEXT,
+    "transportInfo" TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS "Team" (
     "id" TEXT PRIMARY KEY,
@@ -118,6 +121,16 @@ export const SETUP_DDL: string[] = [
     "reviewNote" TEXT
   )`,
   `CREATE INDEX IF NOT EXISTS "InsightDraft_status_idx" ON "InsightDraft"("status")`,
+  `CREATE TABLE IF NOT EXISTS "VenueLink" (
+    "id" TEXT PRIMARY KEY,
+    "venueId" TEXT NOT NULL REFERENCES "Venue"("id"),
+    "category" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT,
+    "url" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  `CREATE INDEX IF NOT EXISTS "VenueLink_venueId_idx" ON "VenueLink"("venueId")`,
 
   // Additive upgrade path for databases that already had these tables from
   // an earlier version of this file (no-op on a fresh CREATE TABLE above).
@@ -127,6 +140,15 @@ export const SETUP_DDL: string[] = [
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "address" TEXT`,
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "imageUrl" TEXT`,
   `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "website" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "slug" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "description" TEXT`,
+  `ALTER TABLE "Venue" ADD COLUMN IF NOT EXISTS "transportInfo" TEXT`,
+  // A plain ADD COLUMN can't also say UNIQUE, so add it as a separate unique
+  // index — same effect as a unique constraint, and CREATE INDEX (unlike
+  // ADD CONSTRAINT) supports IF NOT EXISTS, so this is properly idempotent.
+  // On a fresh DB the CREATE TABLE above already made this index (Postgres'
+  // default name for an inline UNIQUE column), so this is a no-op there.
+  `CREATE UNIQUE INDEX IF NOT EXISTS "Venue_slug_key" ON "Venue"("slug")`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "website" TEXT`,
   `ALTER TABLE "Team" ADD COLUMN IF NOT EXISTS "logoUrl" TEXT`,
   `ALTER TABLE "Match" ADD COLUMN IF NOT EXISTS "note" TEXT`,

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { runSeed } from "@/lib/seed-logic";
 import { SETUP_DDL } from "@/lib/schema-ddl";
+import { backfillVenueSlugs } from "@/lib/backfill";
 
 // One-click bootstrap: applies schema DDL, and — only when explicitly asked
 // via ?seed=1 — seeds the original 3 demo leagues. Protected by the
@@ -38,5 +39,15 @@ export async function GET(req: NextRequest) {
     ? await runSeed(prisma)
     : "sprunget over — tilføj &seed=1 for at (gen)oprette demo-ligaerne (rører intet uden det)";
 
-  return NextResponse.json({ ok: true, schema: "oprettet (eller fandtes allerede)", seed: seedSummary });
+  // Additive-only (only fills slug IS NULL rows), so — like the DDL above —
+  // this always runs, no &seed=1 needed. Runs after seeding so a single
+  // ?seed=1 call also slugs the venues it just created, in one round-trip.
+  const venuesSlugged = await backfillVenueSlugs(prisma);
+
+  return NextResponse.json({
+    ok: true,
+    schema: "oprettet (eller fandtes allerede)",
+    venuesSlugged,
+    seed: seedSummary,
+  });
 }

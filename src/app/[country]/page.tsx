@@ -101,7 +101,16 @@ export default async function CountryPage({
                     </span>
                   </td>
                   <td className="px-3 py-2" style={{ color: "var(--text-secondary)" }}>
-                    {t.venueName} {t.city ? `· ${t.city}` : ""}
+                    {t.venueName ? (
+                      t.venueSlug ? (
+                        <Link href={`/${country}/venue/${t.venueSlug}`} className="hover:underline">
+                          {t.venueName}
+                        </Link>
+                      ) : (
+                        t.venueName
+                      )
+                    ) : null}
+                    {t.city ? ` · ${t.city}` : ""}
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums" style={{ color: "var(--text-secondary)" }}>
                     {t.capacity?.toLocaleString("da-DK") ?? "–"}
