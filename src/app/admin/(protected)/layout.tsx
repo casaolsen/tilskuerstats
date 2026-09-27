@@ -15,6 +15,8 @@ const ADMIN_LINKS = [
   { href: "/admin/teams", label: "Hold" },
   { href: "/admin/venues", label: "Stadions" },
   { href: "/admin/venue-links", label: "Stadion-links" },
+  { href: "/admin/media", label: "Mediebibliotek" },
+  { href: "/admin/venue-images", label: "Stadion-billeder" },
   { href: "/admin/seasons", label: "Sæsoner" },
   { href: "/admin/matches", label: "Kampe" },
   { href: "/admin/quality", label: "Datakvalitet" },

@@ -301,6 +301,7 @@ export async function getVenueDetail(countryCode: string, slug: string) {
       country: true,
       teams: { orderBy: { name: "asc" } },
       links: { orderBy: { createdAt: "asc" } },
+      images: { include: { mediaAsset: true }, orderBy: { order: "asc" } },
     },
   });
   if (!venue) return null;
@@ -332,6 +333,10 @@ export async function getVenueDetail(countryCode: string, slug: string) {
       countryName: venue.country.name,
     },
     clubs: venue.teams.map((t) => ({ slug: t.slug, name: t.name })),
+    gallery: venue.images.map((img) => ({
+      url: img.mediaAsset.url,
+      caption: img.caption ?? img.mediaAsset.altText,
+    })),
     links: {
       official: linksByCategory.official.map((l) => ({ title: l.title, description: l.description, url: l.url })),
       review: linksByCategory.review.map((l) => ({ title: l.title, description: l.description, url: l.url })),

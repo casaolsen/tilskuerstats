@@ -71,6 +71,7 @@ model Venue {
   teams         Team[]       @relation("HomeVenue")
   matches       Match[]
   links         VenueLink[]
+  images        VenueImage[]
 }
 
 // Admin-managed link shown on the venue page, grouped by category:
@@ -87,6 +88,56 @@ model VenueLink {
   url         String
   createdAt   DateTime @default(now())
 
+  @@index([venueId])
+}
+
+// A folder in the shared media library (see MediaAsset). Flat, not nested —
+// this site has a handful of venues/teams, not enough assets to need a tree.
+model MediaFolder {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  createdAt DateTime     @default(now())
+  assets    MediaAsset[]
+}
+
+// An uploaded file, stored in Vercel Blob (see src/lib/blob.ts). `pathname`
+// is the Blob object key, kept so it can be deleted from storage alongside
+// the row. Assets live in the library independent of where they're used —
+// VenueImage below is one such use (a venue's photo gallery); a future
+// feature (team crest, news post image, ...) can reference the same asset
+// without duplicating the upload.
+model MediaAsset {
+  id          String       @id @default(cuid())
+  folderId    String?
+  folder      MediaFolder? @relation(fields: [folderId], references: [id])
+  url         String
+  pathname    String
+  filename    String
+  altText     String?
+  sizeBytes   Int?
+  mimeType    String?
+  createdAt   DateTime     @default(now())
+  venueImages VenueImage[]
+
+  @@index([folderId])
+}
+
+// Join table: which media-library assets appear in a venue's photo gallery,
+// and in what order. Kept separate from MediaAsset so the same asset could
+// in principle be reused elsewhere, and so deleting a venue's gallery entry
+// never deletes the underlying file other venues/uses might still reference.
+model VenueImage {
+  id           String     @id @default(cuid())
+  venueId      String
+  venue        Venue      @relation(fields: [venueId], references: [id])
+  mediaAssetId String
+  mediaAsset   MediaAsset @relation(fields: [mediaAssetId], references: [id])
+  order        Int        @default(0)
+  caption      String? // overrides the asset's altText for this venue, if set
+  createdAt    DateTime   @default(now())
+
+  @@unique([venueId, mediaAssetId])
   @@index([venueId])
 }
 

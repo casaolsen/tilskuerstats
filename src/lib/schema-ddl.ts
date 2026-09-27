@@ -131,6 +131,34 @@ export const SETUP_DDL: string[] = [
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`,
   `CREATE INDEX IF NOT EXISTS "VenueLink_venueId_idx" ON "VenueLink"("venueId")`,
+  `CREATE TABLE IF NOT EXISTS "MediaFolder" (
+    "id" TEXT PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL UNIQUE,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  `CREATE TABLE IF NOT EXISTS "MediaAsset" (
+    "id" TEXT PRIMARY KEY,
+    "folderId" TEXT REFERENCES "MediaFolder"("id"),
+    "url" TEXT NOT NULL,
+    "pathname" TEXT NOT NULL,
+    "filename" TEXT NOT NULL,
+    "altText" TEXT,
+    "sizeBytes" INTEGER,
+    "mimeType" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  `CREATE INDEX IF NOT EXISTS "MediaAsset_folderId_idx" ON "MediaAsset"("folderId")`,
+  `CREATE TABLE IF NOT EXISTS "VenueImage" (
+    "id" TEXT PRIMARY KEY,
+    "venueId" TEXT NOT NULL REFERENCES "Venue"("id"),
+    "mediaAssetId" TEXT NOT NULL REFERENCES "MediaAsset"("id"),
+    "order" INTEGER NOT NULL DEFAULT 0,
+    "caption" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE ("venueId", "mediaAssetId")
+  )`,
+  `CREATE INDEX IF NOT EXISTS "VenueImage_venueId_idx" ON "VenueImage"("venueId")`,
 
   // Additive upgrade path for databases that already had these tables from
   // an earlier version of this file (no-op on a fresh CREATE TABLE above).

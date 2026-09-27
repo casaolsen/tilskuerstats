@@ -49,6 +49,9 @@ npm run dev
    GitHub, og **Import** `casaolsen/tilskuerstats`
 3. Under projektets **Storage**-fane: opret en Postgres-database (kører på
    Neon) — Vercel sætter automatisk `DATABASE_URL` som environment variable
+3b. Samme sted: opret også et **Blob**-store (bruges til billeduploads i
+    Mediebiblioteket, se "Billeder" nedenfor) — Vercel sætter automatisk
+    `BLOB_READ_WRITE_TOKEN` som environment variable
 4. Sæt to environment variables mere:
    - `SETUP_SECRET` = en selvvalgt hemmelig streng (bruges kun til at
      beskytte trin 6)
@@ -86,9 +89,17 @@ hvert kald.
 `/admin` er en kodeords-beskyttet sektion til at redigere indhold uden at
 røre ved kode:
 
-- **Lande, Ligaer, Hold, Stadions** — rediger navne, website, logo/billede-URL;
-  flere ligaer pr. land understøttes (fx både Superliga og 1. Division for
-  Danmark)
+- **Lande, Ligaer, Hold, Stadions** — rediger navne, website, logo/billede-URL,
+  stadion-beskrivelse og transportvejledning; flere ligaer pr. land
+  understøttes (fx både Superliga og 1. Division for Danmark)
+- **Stadion-links** — links vist på stadionsiden (egen hjemmeside via
+  Stadions-fanen tælles med automatisk), grupperet i officielle links,
+  anmeldelser/videoer og andet, pr. stadion
+- **Mediebibliotek** — upload billeder (gemmes i Vercel Blob, se "Billeder"
+  nedenfor), organisér i mapper, kopiér en fil-URL til brug i fx et
+  logo/billede-URL-felt
+- **Stadion-billeder** — sæt et stadions billedgalleri sammen af billeder fra
+  Mediebiblioteket, med rækkefølge og valgfri billedtekst pr. billede
 - **Sæsoner** — opret nye sæsoner, og administrér hvilke hold der spiller i
   hvilken liga-sæson ("Hold i sæson") — det er mekanismen der håndterer
   op-/nedrykning: et hold flyttes til en anden liga næste sæson uden at blive
@@ -99,8 +110,22 @@ røre ved kode:
 
 Login kræver `ADMIN_PASSWORD` sat som environment variable — étt fælles
 kodeord, ingen brugerstyring/roller (passer til én person der administrerer
-sitet). Logo/billede-felter er rene URL-felter indtil videre (indsæt et link
-til et billede et andet sted fra), ikke fil-upload.
+sitet). Logo/billede-URL-felter på Lande/Ligaer/Hold kan stadig pege på et
+billede et andet sted fra; til rigtig fil-upload, se "Billeder" nedenfor.
+
+## Billeder
+
+Billeder (stadion-fotos, evt. senere logoer) uploades til
+**Mediebibliotek** i admin og gemmes i [Vercel
+Blob](https://vercel.com/docs/storage/vercel-blob) — kræver et Blob-store
+tilknyttet projektet, se "Deploy til Vercel" trin 3b, som sætter
+`BLOB_READ_WRITE_TOKEN` automatisk. Et uploadet billede er et
+`MediaAsset`, valgfrit organiseret i en `MediaFolder`; et stadions
+billedgalleri (`VenueImage`) peger på et eller flere `MediaAsset`er med
+egen rækkefølge og billedtekst, sat sammen under **Stadion-billeder**.
+Et billede der bruges i et galleri kan ikke slettes fra Mediebiblioteket
+før det er fjernet fra galleriet først (samme beskyttelses-mønster som
+andre steder i admin, fx stadions der er i brug).
 
 ## Datamodel
 

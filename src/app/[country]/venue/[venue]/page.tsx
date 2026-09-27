@@ -21,7 +21,8 @@ export default async function VenuePage({
   const data = await getVenueDetail(country, venueSlug);
   if (!data) notFound();
 
-  const { venue, clubs, links } = data;
+  const { venue, clubs, links, gallery } = data;
+  const heroImage = venue.imageUrl ?? gallery[0]?.url ?? null;
 
   // The stadium's own website is a dedicated Venue field, but displays
   // alongside admin-added "official" links (e.g. a StadiumDB profile).
@@ -75,10 +76,10 @@ export default async function VenuePage({
         </div>
       </div>
 
-      {venue.imageUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element -- external, admin-supplied URLs; no image domains configured
+      {heroImage ? (
+        // eslint-disable-next-line @next/next/no-img-element -- external/Blob-hosted URLs, no image domains configured
         <img
-          src={venue.imageUrl}
+          src={heroImage}
           alt={venue.name}
           className="w-full rounded-lg border object-cover"
           style={{ borderColor: "var(--border)", maxHeight: 320 }}
@@ -122,6 +123,26 @@ export default async function VenuePage({
           <div className="flex flex-col gap-2 text-sm" style={{ color: "var(--text-secondary)", maxWidth: "65ch" }}>
             {venue.transportInfo.split(/\n+/).map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {gallery.length > 0 && (
+        <section>
+          <h2 className="mb-3 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
+            Billeder
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((img, i) => (
+              // eslint-disable-next-line @next/next/no-img-element -- Vercel Blob URLs, no image domains configured
+              <img
+                key={i}
+                src={img.url}
+                alt={img.caption ?? venue.name}
+                className="h-40 w-full rounded-lg border object-cover"
+                style={{ borderColor: "var(--border)" }}
+              />
             ))}
           </div>
         </section>
